@@ -1,8 +1,9 @@
-
+package prog24parse;
 
 public class Data {
     //column names:   productId, name,numInStock,provider,pricePerUnit
-    public static String records = 	"231A,Light Bulb,123,Wilco,1.75:"+
+    public static String records = 	"" +
+            "231A,Light Bulb,123,Wilco,1.75:"+
             "113D,Hairbrush,19,Aamco,3.75:"+
             "521W,Shampoo,24,Acme,6.95:"+
             "440Q,Dishwashing Detergent,20,Wilco,1.75:"+
