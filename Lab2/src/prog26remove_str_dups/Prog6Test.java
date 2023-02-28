@@ -1,8 +1,11 @@
 package prog26remove_str_dups;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class Prog6Test extends TestCase {
+
+    @Test
     public void testRemoveDups() {
         String[] testData = {"horse", "boy", "horse", "boy", "boy"};
         String[] result = Prog6.removeDups(testData);

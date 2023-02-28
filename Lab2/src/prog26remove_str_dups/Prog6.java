@@ -6,9 +6,9 @@ public class Prog6 {
         int noDuplicated = 0;
 
 
-        for(int index = 0; index<input.length; index++){
-            for(int secondIndex = index + 1);
-        }
+//        for(int index = 0; index<input.length; index++){
+//            for(int secondIndex = index + 1);
+//        }
         for(String item : input){
             if(contains(item, input)) noDuplicated++;
         }
