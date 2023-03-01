@@ -6,14 +6,10 @@ public class Customer {
 	private String socSecurityNum;
 	private Address billingAddress;
 	private Address shippingAddress;
-	public Customer(String fName, String lName, String ssn) {
-		firstName = fName;
-		lastName = lName;
-		socSecurityNum = ssn;
-	}
-	
-	public String toString() {
-		return "[" + firstName + ", " + lastName + ", " + "ssn: " + socSecurityNum + "]";
+	public Customer(String customerFirstName, String customerLastName, String customerSSN) {
+		this.firstName = customerFirstName;
+		this.lastName = customerLastName;
+		this.socSecurityNum = customerSSN;
 	}
 
 	public String getFirstName() {
@@ -25,7 +21,7 @@ public class Customer {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -33,7 +29,7 @@ public class Customer {
 	}
 
 	public String getSocSecurityNum() {
-		return socSecurityNum;
+		return this.socSecurityNum;
 	}
 
 	public void setSocSecurityNum(String socSecurityNum) {
@@ -41,7 +37,7 @@ public class Customer {
 	}
 
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	public void setBillingAddress(Address billingAddress) {
@@ -49,11 +45,15 @@ public class Customer {
 	}
 
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	public void setShippingAddress(Address shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
 
+	@Override
+	public String toString() {
+		return "[" + this.firstName + ", " + this.lastName + ", " + "ssn: " + this.socSecurityNum + "]";
+	}
 }
