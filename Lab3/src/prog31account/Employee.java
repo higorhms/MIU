@@ -1,4 +1,4 @@
-package prog31;
+package prog31account;
 
 import java.util.Date;
 import java.util.GregorianCalendar;

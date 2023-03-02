@@ -1,6 +1,8 @@
-import prog31.Account;
-import prog31.AccountType;
-import prog31.Employee;
+package prog31account;
+
+import prog31account.Account;
+import prog31account.AccountType;
+import prog31account.Employee;
 
 public class Main {
     public static void main(String[] args) {

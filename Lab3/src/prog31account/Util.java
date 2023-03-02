@@ -1,4 +1,4 @@
-package prog31;
+package prog31account;
 
 import java.text.DateFormat;
 import java.util.Date;
