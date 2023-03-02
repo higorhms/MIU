@@ -4,11 +4,17 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class MyStringList {
-    public int size = 0;
-    private String[] strArray = new String[50];
+    private final int INITIAL_LENGTH = 2;
+    private String[] strArray;
+    private int size;
+
+    public MyStringList() {
+        strArray = new String[INITIAL_LENGTH];
+        size = 0;
+    }
 
     public void add(String s){
-        if(this.size >= 50) this.resize();
+        if(this.size >= strArray.length) this.resize();
         this.strArray[size] = s;
         size++;
     }
@@ -57,6 +63,20 @@ public class MyStringList {
        return false;
     }
 
+    public void insert(String s, int pos){
+        if(this.size >= this.strArray.length) this.resize();
+
+        for(int index = this.size; index >= 0;  index--) {
+            if(index == pos){
+                this.strArray[index] = s;
+                size++;
+                break;
+            }
+
+            this.strArray[index] = this.strArray[index - 1];
+        }
+    }
+
     public int size(){
         return this.size;
     }
@@ -70,10 +90,11 @@ public class MyStringList {
     }
 
     private void resize(){
+        System.out.println("Resizing...");
         String[] aux = new String[this.strArray.length * 2];
 
-         System.arraycopy(this.strArray, 0, aux, 0, this.strArray.length);
+        System.arraycopy(this.strArray, 0, aux, 0, this.strArray.length);
 
-         this.strArray = aux;
+        this.strArray = aux;
     }
 }
