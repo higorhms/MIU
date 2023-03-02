@@ -1,32 +1,41 @@
 package prog31;
 
-class Account {
-    public final static String CHECKING = "checking";
-    public final static String SAVINGS = "savings";
-    public final static String RETIREMENT = "retirement";
+public class Account {
     private final static double DEFAULT_BALANCE = 0.0;
-    private double balance;  private String acctType;
+    private double balance;
+    private AccountType acctType;
     private Employee employee;
 
-    Account(Employee emp, String acctType, double balance){
-        employee = emp;
-        this.acctType =acctType;
+    public Account(Employee emp, AccountType acctType, double balance){
+        this.employee = emp;
+        this.acctType = acctType;
         this.balance = balance;
     }
-    Account(Employee emp, String acctType){
-        this(emp,acctType,DEFAULT_BALANCE);
+    public Account(Employee emp, AccountType acctType){
+        this(emp, acctType, DEFAULT_BALANCE);
     }
 
     public String toString() {
         return "type = " + acctType + ", balance = " + balance;
-    } }
+    }
 
     public void makeDeposit(double deposit) {
-        //implemen
+        if(deposit > 0){
+            this.balance += deposit;
+        }
     }
 
     public boolean makeWithdrawal(double amount) {
-            //implement  }
+        if(this.balance - amount < 0) return false;
+        this.balance -= amount;
         return true;
+    }
+
+    public AccountType getAcctType(){
+        return this.acctType;
+    }
+
+    public double getBalance(){
+        return this.balance;
     }
 }

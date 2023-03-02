@@ -5,8 +5,8 @@ import java.util.GregorianCalendar;
 
 public class Employee {
     private final String name;
-    private final String nickName;
-    private final double salary;
+    private String nickName;
+    private double salary;
     private final Date hireDay;
     private final String format = "name = %s, salary = %.2f, hireDay = %s";
 
@@ -24,11 +24,11 @@ public class Employee {
     }
 
     public String getNickName() {
-        return nickName;
+        return this.nickName;
     }
 
     public void setNickName(String aNickName) {
-        nickName = aNickName;
+        this.nickName = aNickName;
     }
 
     public double getSalary() {
@@ -42,7 +42,7 @@ public class Employee {
 
     public void raiseSalary(double byPercent) {
         double raise = salary * byPercent / 100;
-        salary += raise;
+        this.salary += raise;
     }
 
     public String toString() {
