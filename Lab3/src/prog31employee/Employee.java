@@ -13,10 +13,7 @@ public class Employee {
 
         public Employee(String name, int yearOfHire, int monthOfHire, int dayOfHire) {
             this.name = name;
-            //Replace these lines with LocalDate references
-            // GregorianCalendar cal =
-            // new GregorianCalendar(yearOfHire,monthOfHire-1,dayOfHire);
-            // hireDate = cal.getTime();
+            this.hireDate = LocalDate.of(yearOfHire, monthOfHire, dayOfHire);
             }
 
             public String getName(){

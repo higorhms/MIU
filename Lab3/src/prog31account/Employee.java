@@ -35,9 +35,8 @@ public class Employee {
         return salary;
     }
 
-    // needs to be improved
     public Date getHireDay() {
-        return hireDay;
+        return (Date) hireDay.clone();
     }
 
     public void raiseSalary(double byPercent) {
