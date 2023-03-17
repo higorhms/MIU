@@ -1,6 +1,5 @@
 package prog33stringlist;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class MyStringList {
@@ -20,6 +19,25 @@ public class MyStringList {
     }
 
     public void remove(String s){
+        if(this.size == 1){
+            this.strArray = new String[0];
+        }else{
+            boolean removed = false;
+            String[] aux = new String[this.size - 1];
+
+            //finish this shit
+            for(int index = 0; index < aux.length; index++){
+                if(!this.strArray[index].equalsIgnoreCase(s) && !removed){
+                    aux[index] = this.strArray[index];
+                    size--;
+                };
+            }
+
+            this.strArray = aux;
+        }
+    }
+
+    public void removeAll(String s){
         if(this.size == 1){
             this.strArray = new String[0];
             return;
@@ -96,5 +114,18 @@ public class MyStringList {
         System.arraycopy(this.strArray, 0, aux, 0, this.strArray.length);
 
         this.strArray = aux;
+    }
+
+    public void sort(){
+        String[] arr = this.strArray;
+        for(int index = 0; index < this.size; index++){
+            for(int secondIndex = index; secondIndex < this.size; secondIndex++){
+                if(arr[index].compareTo(arr[secondIndex]) > 0){
+                    String aux = arr[index];
+                    arr[index] = arr[secondIndex];
+                    arr[secondIndex] = aux;
+                }
+            }
+        }
     }
 }

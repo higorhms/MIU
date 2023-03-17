@@ -4,6 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         MyStringList l = new MyStringList();
+        MyStringList b = new MyStringList();
+        l.add("Bob");
         l.add("Bob");
         l.add("Steve");
         l.add("Susan");
@@ -17,5 +19,11 @@ public class Main {
         System.out.println("The list of size "+l.size()+" after inserting Richard into pos 3 is "+l);
         l.insert("Tonya",0);
         System.out.println("The list of size "+l.size()+" after inserting Tonya into pos 0 is "+l);
+
+        l.sort();
+        System.out.println(l);
+
+        b.add("Bob");
+        System.out.println(b);
     }
 }
