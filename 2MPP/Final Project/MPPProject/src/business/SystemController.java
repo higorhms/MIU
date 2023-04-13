@@ -26,15 +26,7 @@ public static Auth currentAuth = null;
 		}
 		currentAuth = map.get(id).getAuthorization();
 	}
-	@Override
-	public List<String> allMemberIds() {
-		IDataAccess da = new DataAccessFacade();
-		HashMap<String,LibraryMember> mems = da.readMemberMap();
-		if (mems==null) return null;
-		List<String> retval = new ArrayList<>();
-		retval.addAll(mems.keySet());
-		return retval;
-	}
+
 	@Override
 	public List<String> allBookIds() {
 		IDataAccess da = new DataAccessFacade();
@@ -49,71 +41,33 @@ public static Auth currentAuth = null;
 		IDataAccess da = new DataAccessFacade();
 		da.saveNewMember(member);
 	}
-	@Override
-	public void addCheckoutRecordEntry(String memberId, String isbn) throws LibrarySystemException {
-		IDataAccess da = new DataAccessFacade();
-		
-		HashMap<String,LibraryMember> mems = da.readMemberMap();
-		if (mems==null) {
-			throw new LibrarySystemException("System has no members!, Add a member first");
-		}
-		LibraryMember member=mems.get(memberId);
-		if(member==null) {
-			throw new LibrarySystemException(memberId + " member not found in the system");
-		}		
-		HashMap<String,Book> bookmap = da.readBooksMap();
-		if(bookmap==null) {
-			throw new LibrarySystemException("System has no books!, Add a book first");
-		}
-		Book book=bookmap.get(isbn);
-		if (book==null) {
-			throw new LibrarySystemException(isbn + " book not found in the system");
-		}
 
-		BookCopy bookcopy=book.getNextAvailableCopy();
-		if(bookcopy==null) {
-			throw new LibrarySystemException(isbn + " book is not available currently");
-		}
-		
-		CheckoutRecord checkoutRecord=member.getCheckoutRecord();
-		checkoutRecord.new CheckoutRecordEntry(bookcopy);
-
-		da.saveMemberMap(mems);
-		da.saveBookMap(bookmap);
-	}
 	@Override
-	public void addCopyOfBook(String isbn) throws LibrarySystemException {
+	public void addCopyOfBook(String isbn) throws SystemException {
 		IDataAccess da = new DataAccessFacade();
-		HashMap<String,Book> bookmap = da.readBooksMap();
-		if(bookmap==null) {
-			throw new LibrarySystemException("System has no books!, Add a book first");
+		HashMap<String,Book> bookMap = da.readBooksMap();
+		if(bookMap==null) {
+			throw new SystemException("System has no books!, Add a book first");
 		}
-		Book book=bookmap.get(isbn);
+		Book book = bookMap.get(isbn);
 		if (book==null) {
-			throw new LibrarySystemException(isbn + " book not found in the system");
+			throw new SystemException(isbn + " book not found in the system");
 		}
 		book.addCopy();
-		da.saveBookMap(bookmap);
+		da.saveBookMap(bookMap);
 	}
 	@Override
 	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors) {
 		IDataAccess da = new DataAccessFacade();
-		da.saveNewBook(new Book(isbn,title,maxCheckoutLength,authors));
+		da.saveNewBook(new Book(isbn,title,maxCheckoutLength));
 	}
 
 	@Override
 	public void addAuthor(Author author) {
 		IDataAccess da = new DataAccessFacade();
 		da.saveNewAuthor(author);
-		
 	}
 	
-	@Override
-	public String printCheckoutRecord(String memberId) {
-		LibraryMember member=getMember(memberId);
-		return member.getCheckoutRecord().toString();
-	}
-
 	@Override
 	public Book getBook(String isbn) {
 		IDataAccess da = new DataAccessFacade();
@@ -129,7 +83,6 @@ public static Auth currentAuth = null;
 		return mems.get(memberId);
 	}
 
-	
 	@Override
 	public List<Author> getAllAuthors() {
 		IDataAccess da = new DataAccessFacade();
@@ -152,40 +105,17 @@ public static Auth currentAuth = null;
 		if (books==null) return null;
 		return new ArrayList<>(books.values());
 	}
-	@Override
-	public void UpdateLibraryMember(String memberId, String fname, String lname, String tel, String street, String city,
-			String state, String zip) throws LibrarySystemException {
-		IDataAccess da = new DataAccessFacade();
-		HashMap<String,LibraryMember> mems = da.readMemberMap();
-		if (mems==null) {
-			throw new LibrarySystemException("System has no members!, Add a member first");
-		}
-		LibraryMember member=mems.get(memberId);
-		if(member==null) {
-			throw new LibrarySystemException(memberId + " member not found in the system");
-		}		
-		Address address=new Address(street, city, state, zip);
-		member.setAddress(address);
-		member.setFirstName(fname);
-		member.setLastName(lname);
-		member.setTelephone(tel);
-		
-		da.saveMemberMap(mems);
-	}
-	
+
 	public List<CheckoutRecordNew> getCheckoutRecords() {
 		IDataAccess da = new DataAccessFacade();
 		HashMap<String,CheckoutRecordNew> checkoutMap = da.readCheckoutMap();
 		if (checkoutMap==null) return null;
 		
 		return new ArrayList<>(checkoutMap.values());
-		
 	}
 
 	public void addCheckoutRecord(CheckoutRecordNew checkoutRecord) {
 		IDataAccess da = new DataAccessFacade();
 		da.addCheckoutRecord(checkoutRecord);
-		
 	}
-
 }

@@ -60,7 +60,6 @@ public class CreateBookCopy extends JFrame implements LibWindow {
 		
 		 this.setTitle("Create Book Copy");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//this.setLayout(null);
 			this.setSize(420,220);
 			this.setVisible(true);
 			this.add(panelCreateCopyField);
@@ -96,13 +95,11 @@ public class CreateBookCopy extends JFrame implements LibWindow {
 	
 	@Override
 	public boolean isInitialized() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void isInitialized(boolean val) {
-		// TODO Auto-generated method stub
 		
 	}
 

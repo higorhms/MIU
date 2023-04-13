@@ -103,8 +103,6 @@ public class CheckoutBook extends JFrame implements LibWindow{
 		 sp.setBounds(20,200,360,150);
 		 panelCheckoutFields.add(sp);
 		    
-		//load checkOutRecord
-		 
 		 try {
 			 List<CheckoutRecordNew> dataa = ci.getCheckoutRecords();
 			 
@@ -117,7 +115,6 @@ public class CheckoutBook extends JFrame implements LibWindow{
 				}
 				
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 	
@@ -161,7 +158,6 @@ public class CheckoutBook extends JFrame implements LibWindow{
 				return;
 			}
 			
-			 //load book copies
 		    BookCopy[] copies = ci.getBook(txtISBN.getText().trim()).getCopies();
 		    for(BookCopy bc: copies) {
 		    	cmbCopies.addItem(bc);
@@ -208,7 +204,6 @@ public class CheckoutBook extends JFrame implements LibWindow{
 				ci.addCheckoutRecord(checkOutRec);
 				
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 			
 			JOptionPane.showMessageDialog(this,"Save successful");
@@ -232,13 +227,11 @@ public class CheckoutBook extends JFrame implements LibWindow{
 	
 	@Override
 	public boolean isInitialized() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void isInitialized(boolean val) {
-		// TODO Auto-generated method stub
 		
 	}
 	

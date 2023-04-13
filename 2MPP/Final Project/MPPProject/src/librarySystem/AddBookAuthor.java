@@ -22,9 +22,7 @@ public class AddBookAuthor extends JFrame implements LibWindow{
 
 	public static final AddBookAuthor INSTANCE = new AddBookAuthor();
     IController ci = new SystemController();
-	private boolean isInitialized = false;
-	
-	
+
 	private JTextField txtAuthorID, txtFirstName, txtLastName, 
 	txtTelephone, txtStreet, txtCity, txtState, txtZip, txtCredentials, txtShortBio;
 	
@@ -38,7 +36,6 @@ JPanel pnlAuthorFields = new JPanel();
 		
 		pnlAuthorFields.setLayout(null);
 		
-		//left
 		JLabel lblAuthorID = new JLabel("Author ID:");
 		lblAuthorID.setBounds(20,20,100,20);
 		
@@ -69,9 +66,6 @@ JPanel pnlAuthorFields = new JPanel();
 		txtCredentials = new JTextField(10);
 		txtCredentials.setBounds(100,140,100,20);
 		
-		
-		//right
-		
 		JLabel lblStreet = new JLabel("Street:");
 		lblStreet.setBounds(230,20,100,20);
 		
@@ -101,39 +95,36 @@ JPanel pnlAuthorFields = new JPanel();
 		
 		txtShortBio = new JTextField(10);
 		txtShortBio.setBounds(290,140,100,20);
-		
-		
-		//left
-				pnlAuthorFields.add(lblAuthorID);
-				pnlAuthorFields.add(txtAuthorID);
+
+		pnlAuthorFields.add(lblAuthorID);
+		pnlAuthorFields.add(txtAuthorID);
 				
-				pnlAuthorFields.add(lblFirstName);
-				pnlAuthorFields.add(txtFirstName);
+		pnlAuthorFields.add(lblFirstName);
+		pnlAuthorFields.add(txtFirstName);
 				
-				pnlAuthorFields.add(lblLastName);
-				pnlAuthorFields.add(txtLastName);
+		pnlAuthorFields.add(lblLastName);
+		pnlAuthorFields.add(txtLastName);
 				
-				pnlAuthorFields.add(lblTelephone);
-				pnlAuthorFields.add(txtTelephone);
+		pnlAuthorFields.add(lblTelephone);
+		pnlAuthorFields.add(txtTelephone);
 				
-				pnlAuthorFields.add(lblCredentials);
-				pnlAuthorFields.add(txtCredentials);
+		pnlAuthorFields.add(lblCredentials);
+		pnlAuthorFields.add(txtCredentials);
 				
-				//right
-				pnlAuthorFields.add(lblStreet);
-				pnlAuthorFields.add(txtStreet);
+		pnlAuthorFields.add(lblStreet);
+		pnlAuthorFields.add(txtStreet);
 				
-				pnlAuthorFields.add(lblCity);
-				pnlAuthorFields.add(txtCity);
+		pnlAuthorFields.add(lblCity);
+		pnlAuthorFields.add(txtCity);
 				
-				pnlAuthorFields.add(lblState);
-				pnlAuthorFields.add(txtState);
+		pnlAuthorFields.add(lblState);
+		pnlAuthorFields.add(txtState);
 				
-				pnlAuthorFields.add(lblZip);
-				pnlAuthorFields.add(txtZip);
-				
-				pnlAuthorFields.add(lblShortBio);
-				pnlAuthorFields.add(txtShortBio);
+		pnlAuthorFields.add(lblZip);
+		pnlAuthorFields.add(txtZip);
+
+		pnlAuthorFields.add(lblShortBio);
+		pnlAuthorFields.add(txtShortBio);
 				
 		JPanel pnlButtonSave = new JPanel();
 		
@@ -148,7 +139,6 @@ JPanel pnlAuthorFields = new JPanel();
 		pnlButtonSave.setBackground(Color.green);
 		pnlAuthorFields.add(pnlButtonSave, BorderLayout.CENTER);
 		
-		
 		pnlButtonSave.setBounds(20, 170, 360, 35);
 		
 		 DefaultTableModel model = new DefaultTableModel();
@@ -156,53 +146,32 @@ JPanel pnlAuthorFields = new JPanel();
 	        model.addColumn("Full Name");
 	        model.addColumn("City");
 	        
-	        
-	        jt = new JTable(model);
-	        
-	        
-		 JScrollPane sp=new JScrollPane(jt);  
+
+			jt = new JTable(model);
+		 JScrollPane sp=new JScrollPane(jt);
 		 sp.setBounds(20,220,360,150);
 		 pnlAuthorFields.add(sp);
 		
-		 
-		 // loading authors
-		 
 		 List<Author> dataa = ci.getAllAuthors();
 		 
-
-		 	
 		 try {
 			 for(Author a :dataa) {
 					model.addRow(new Object[]{a.getAuthorId(),a.getFirstName() + " " + a.getLastName(), a.getAddress().getCity()});
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		 
-		
-			
-		 
+
 	    this.setTitle("Library Author");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//this.setLayout(null);
 		this.setSize(450,450);
 		this.setVisible(true);
 		this.add(pnlAuthorFields);
-		
-		
-		
 		this.setTitle("Add Book Author");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		this.setSize(420,420);
 		this.setVisible(true);
-		
-		
 	}
 
-	
-	// button listeners
-	
 	private void addBackButtonListener(JButton butn) {
 		butn.addActionListener(evt -> {
 			LibrarySystem.hideAllWindows();
@@ -226,7 +195,7 @@ JPanel pnlAuthorFields = new JPanel();
 				
 				
 				Address addrs = new Address(txtStreet.getText(), txtCity.getText(), txtState.getText(), txtZip.getText());
-				Author author = new Author(txtAuthorID.getText().trim(), txtFirstName.getText().trim(), txtLastName.getText().trim(), txtTelephone.getText(), addrs, txtShortBio.getText());
+				Author author = new Author(txtAuthorID.getText().trim(), txtFirstName.getText().trim(), txtLastName.getText().trim(), txtTelephone.getText(), addrs);
 				
 				ci.addAuthor(author);
 				
@@ -260,14 +229,10 @@ JPanel pnlAuthorFields = new JPanel();
 	
 	@Override
 	public boolean isInitialized() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void isInitialized(boolean val) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

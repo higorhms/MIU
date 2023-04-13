@@ -26,9 +26,7 @@ final public class CheckoutRecord implements Serializable {
     }
 
     final class CheckoutRecordEntry implements Serializable {
-
         private static final long serialVersionUID = -2572766210399733458L;
-
         private LocalDate checkoutDate;
         private LocalDate dueDate;
         private BookCopy bookCopy;

@@ -84,7 +84,6 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 		lowerPanel.add(backButton);
 		
 		JButton saveMember = new JButton("Save Member");
-		//addMemberButtonListener(saveMember);
 		lowerPanel.add(saveMember);
 	}
 	

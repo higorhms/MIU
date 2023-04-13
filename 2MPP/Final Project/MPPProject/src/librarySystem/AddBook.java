@@ -9,28 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddBook extends JFrame implements LibWindow {
-
     public static final AddBook INSTANCE = new AddBook();
     IController ci = new SystemController();
-    private boolean isInitialized = false;
-
-    private AddBook() {
-    }
-
     JTextField txtISBN, txtTitle, txtCheckoutLength, txtCopyNumber;
     JComboBox<Author> cmbAuthors;
     List<Author> authors = new ArrayList<>();
     DefaultListModel<Author> listModel = new DefaultListModel<Author>();
-
     JList<Author> lstAuthors;
-
-
     List<BookCopy> lstBookCopies = new ArrayList<>();
     DefaultListModel<String> modelBookCopies = new DefaultListModel<String>();
-
     JList<String> bookCopies;
-
     JTable jt;
+
+    private AddBook() {
+    }
 
     @Override
     public void init() {
@@ -58,9 +50,9 @@ public class AddBook extends JFrame implements LibWindow {
 
 
         JLabel lblAuthors = new JLabel("Book Authors");
-        lblAuthors.setBounds(20, 110, 100, 20); //x,y,w,h
+        lblAuthors.setBounds(20, 110, 100, 20);
 
-        lstAuthors = new JList<Author>();
+        lstAuthors = new JList<>();
 
         lstAuthors.setModel(listModel);
         lstAuthors.setBounds(130, 110, 150, 80);
@@ -80,7 +72,7 @@ public class AddBook extends JFrame implements LibWindow {
         addOkButtonListener(btnOk);
 
         JLabel lblBookCopy = new JLabel("Book Copies");
-        lblBookCopy.setBounds(20, 230, 100, 20); //x,y,w,h
+        lblBookCopy.setBounds(20, 230, 100, 20);
 
         bookCopies = new JList<String>();
         bookCopies.setModel(modelBookCopies);
@@ -111,7 +103,6 @@ public class AddBook extends JFrame implements LibWindow {
         model.addColumn("Book Title");
         model.addColumn("Availability");
 
-
         jt = new JTable(model);
 
         jt.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -122,9 +113,9 @@ public class AddBook extends JFrame implements LibWindow {
         sp.setBounds(310, 20, 375, 340);
         panelbookFields.add(sp);
 
-        List<Book> dataa = ci.getAllBooks();
+        List<Book> data = ci.getAllBooks();
 
-        for (Book lm : dataa) {
+        for (Book lm : data) {
             String isbn = lm.getIsbn();
             String title = lm.getTitle();
 
@@ -157,7 +148,6 @@ public class AddBook extends JFrame implements LibWindow {
 
         panelbookFields.add(pnlButtonSave, BorderLayout.CENTER);
 
-
         this.setTitle("Add Library Book");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(720, 460);
@@ -182,8 +172,8 @@ public class AddBook extends JFrame implements LibWindow {
         });
     }
 
-    private void addOkButtonListener(JButton butn) {
-        butn.addActionListener(evt -> {
+    private void addOkButtonListener(JButton button) {
+        button.addActionListener(evt -> {
 
             authors.add((Author) cmbAuthors.getSelectedItem());
             listModel.addElement((Author) cmbAuthors.getSelectedItem());

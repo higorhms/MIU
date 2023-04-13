@@ -25,7 +25,6 @@ public class DataAccessFacade implements IDataAccess {
 			+ "\\src\\dataaccess\\storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	
-	//implement: other save operations
 	@Override
 	public void saveNewMember(LibraryMember member) {
 		HashMap<String, LibraryMember> mems = readMemberMap();
@@ -36,9 +35,6 @@ public class DataAccessFacade implements IDataAccess {
 		saveToStorage(StorageType.MEMBERS, mems);	
 	}
 	
-	
-	
-	// i added here
 	@Override
 	public void saveNewAuthor(Author author) {
 		HashMap<String, Author> authors = readAuthorMap();
@@ -51,7 +47,6 @@ public class DataAccessFacade implements IDataAccess {
 	
 	@Override
 	public void saveNewBook(Book book) {
-		// TODO Auto-generated method stub
 		HashMap<String,Book> books = readBooksMap();
 		if(books==null)
 			books = new HashMap<String, Book>();
@@ -61,8 +56,6 @@ public class DataAccessFacade implements IDataAccess {
 	}
 	@SuppressWarnings("unchecked")
 	public  HashMap<String,Book> readBooksMap() {
-		//Returns a Map with name/value pairs being
-		//   isbn -> Book
 		return (HashMap<String,Book>) readFromStorage(StorageType.BOOKS);
 	}
 	
@@ -75,25 +68,18 @@ public class DataAccessFacade implements IDataAccess {
 	
 	@SuppressWarnings("unchecked")
 	public HashMap<String, LibraryMember> readMemberMap() {
-		//Returns a Map with name/value pairs being
-		//   memberId -> LibraryMember
 		return (HashMap<String, LibraryMember>) readFromStorage(
 				StorageType.MEMBERS);
 	}
 	
-	// i added here
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Author> readAuthorMap() {
-		//Returns a Map with name/value pairs being
-		//   memberId -> LibraryMember
 		return (HashMap<String, Author>) readFromStorage(
 				StorageType.AUTHORS);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public HashMap<String, User> readUserMap() {
-		//Returns a Map with name/value pairs being
-		//   userId -> User
 		return (HashMap<String, User>)readFromStorage(StorageType.USERS);
 	}
 	@Override
@@ -108,8 +94,7 @@ public class DataAccessFacade implements IDataAccess {
 	public void saveMemberMap(HashMap<String, LibraryMember> mems) {
 		saveToStorage(StorageType.MEMBERS, mems);
 	}	
-	/////load methods - these place test data into the storage area
-	///// - used just once at startup 
+
 	@Override
 	public void init() {
 		saveToStorage(StorageType.BOOKS, null);
@@ -142,7 +127,6 @@ public class DataAccessFacade implements IDataAccess {
 		saveToStorage(StorageType.CHECKOUTRECORDS, cRecords);
 	}
 	
-	// I added here
 	static void loadAuthorMap(List<Author> authorList) {
 		HashMap<String, Author> authors = new HashMap<String, Author>();
 		
@@ -219,7 +203,6 @@ public class DataAccessFacade implements IDataAccess {
 
 
 
-	//i added bellow method
 	@Override
 	public void addCheckoutRecord(CheckoutRecordNew checkoutRecord) {
 		
@@ -234,14 +217,4 @@ public class DataAccessFacade implements IDataAccess {
 		
 		
 	}
-	
-//	@SuppressWarnings("unchecked")
-//	public HashMap<String, CheckoutRecordNew> readCheckoutMap() {
-//		//Returns a Map with name/value pairs being
-//		//   userId -> User
-//		return (HashMap<String, CheckoutRecordNew>)readFromStorage(StorageType.CHECKOUTRECORDS);
-//	}
-	
-	
-	
 }

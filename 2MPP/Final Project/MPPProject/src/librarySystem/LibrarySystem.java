@@ -26,7 +26,7 @@ public class LibrarySystem extends JFrame implements LibWindow {
 	JPanel mainPanel;
 	JMenuBar menuBar;
     JMenu options;
-    JMenuItem login, logOut, allBookIds, addLibraryMember, addNewMember, addBook, addBookCopy, addBookAuthor, checkOutBook; 
+    JMenuItem login, logOut, allBookIds, addLibraryMember, addBook, addBookCopy, addBookAuthor, checkOutBook;
     String pathToImage;
     private boolean isInitialized = false;
     
@@ -59,7 +59,6 @@ public class LibrarySystem extends JFrame implements LibWindow {
     	insertSplashImage();
 		
 		createMenus(null);
-		//pack();
 		setSize(660,500);
 		isInitialized = true;
     }
@@ -125,7 +124,6 @@ public class LibrarySystem extends JFrame implements LibWindow {
  		  		  
 		  options.add(addBookAuthor);
 	 	  options.add(addLibraryMember);
-	 	  //options.add(checkOutBook);
  	 	  
  	   }else if(authenticationMode==authenticationMode.BOTH) {
  		  options.add(logOut);
@@ -219,7 +217,6 @@ public class LibrarySystem extends JFrame implements LibWindow {
 			System.out.println(sb.toString());
 			AllBookIdsWindow.INSTANCE.setData(sb.toString());
 			AllBookIdsWindow.INSTANCE.pack();
-			//AllBookIdsWindow.INSTANCE.setSize(660,500);
 			Util.centerFrameOnDesktop(AllBookIdsWindow.INSTANCE);
 			AllBookIdsWindow.INSTANCE.setVisible(true);
 			

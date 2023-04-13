@@ -38,7 +38,6 @@ public class AddMember extends JFrame implements LibWindow{
 		
 		pnlMemberFields.setLayout(null);
 		
-		//left
 		JLabel lblMemberID = new JLabel("Member ID:");
 		lblMemberID.setBounds(20,20,100,20);
 		
@@ -62,9 +61,6 @@ public class AddMember extends JFrame implements LibWindow{
 		
 		txtTelephone = new JTextField(10);
 		txtTelephone.setBounds(100,110,100,20);
-		
-		
-		//right
 		
 		JLabel lblStreet = new JLabel("Street:");
 		lblStreet.setBounds(230,20,100,20);
@@ -90,8 +86,6 @@ public class AddMember extends JFrame implements LibWindow{
 		txtZip = new JTextField(10);
 		txtZip.setBounds(280,110,100,20);
 		
-		
-		//left
 		pnlMemberFields.add(lblMemberID);
 		pnlMemberFields.add(txtMemberID);
 		
@@ -103,8 +97,7 @@ public class AddMember extends JFrame implements LibWindow{
 		
 		pnlMemberFields.add(lblTelephone);
 		pnlMemberFields.add(txtTelephone);
-		
-		//right
+
 		pnlMemberFields.add(lblStreet);
 		pnlMemberFields.add(txtStreet);
 		
@@ -132,36 +125,27 @@ public class AddMember extends JFrame implements LibWindow{
 		pnlButtonSave.setBackground(Color.green);
 		pnlMemberFields.add(pnlButtonSave, BorderLayout.CENTER);
 		
-		
 		pnlButtonSave.setBounds(20, 150, 360, 35);
-		
-
 		
 		 DefaultTableModel model = new DefaultTableModel();
 	        model.addColumn("Member ID");
 	        model.addColumn("Full Name");
 	        model.addColumn("City");
-	        
-	        
-	     jt = new JTable(model);
-	        
+	    jt = new JTable(model);
 	        
 		 JScrollPane sp=new JScrollPane(jt);  
 		 sp.setBounds(20,200,360,150);
 		 pnlMemberFields.add(sp);
 	    
-	   //load members
 	    List<LibraryMember> dataa = ci.getAllMembers();
 		
 		
 		for(LibraryMember lm :dataa) {
 			model.addRow(new Object[]{lm.getMemberId(),lm.getFirstName() + " " + lm.getLastName(), lm.getAddress().getCity()});
 		}
-		
 	    
-	    this.setTitle("Add/Edit Library Member");
+	  this.setTitle("Add/Edit Library Member");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//this.setLayout(null);
 		this.setSize(420,420);
 		this.setVisible(true);
 		this.add(pnlMemberFields);
@@ -193,10 +177,6 @@ public class AddMember extends JFrame implements LibWindow{
 				ci.addLibraryMember(member);
 				
 				DefaultTableModel model = (DefaultTableModel) jt.getModel();
-				
-//				for(LibraryMember lm :dataa) {
-//					
-//				}
 				
 				model.addRow(new Object[]{member.getMemberId(),member.getFirstName() + " " + member.getLastName(), member.getAddress().getCity()});
 				

@@ -9,16 +9,14 @@ import java.util.Optional;
 final public class Book implements Serializable {
     private static final long serialVersionUID = 6110690276685962829L;
     private BookCopy[] copies;
-    private List<Author> authors;
     private String isbn;
     private String title;
     private int maxCheckoutLength;
 
-    public Book(String isbn, String title, int maxCheckoutLength, List<Author> authors) {
+    public Book(String isbn, String title, int maxCheckoutLength) {
         this.isbn = isbn;
         this.title = title;
         this.maxCheckoutLength = maxCheckoutLength;
-        this.authors = Collections.unmodifiableList(authors);
         copies = new BookCopy[]{new BookCopy(this, 1, true)};
     }
 
@@ -63,13 +61,6 @@ final public class Book implements Serializable {
 
     public String getIsbn() {
         return isbn;
-    }
-
-    public BookCopy getNextAvailableCopy() {
-        Optional<BookCopy> optional
-                = Arrays.stream(copies)
-                .filter(x -> x.isAvailable()).findFirst();
-        return optional.isPresent() ? optional.get() : null;
     }
 
     public int getMaxCheckoutLength() {

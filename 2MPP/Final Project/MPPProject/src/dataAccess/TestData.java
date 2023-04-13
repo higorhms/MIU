@@ -37,7 +37,6 @@ public class TestData {
 		System.out.println(da.readBooksMap());
 		System.out.println(da.readUserMap());
 	}
-	///create books
 	public void bookData() {
 		allBooks.get(0).addCopy();
 		allBooks.get(0).addCopy();
@@ -54,7 +53,6 @@ public class TestData {
 		DataAccessFacade.loadUserMap(allUsers);
 	}
 	
-	//create library members
 	public void libraryMemberData() {
 		LibraryMember libraryMember = new LibraryMember("1001", "Andy", "Rogers", "641-223-2211", addresses.get(4));
 		members.add(libraryMember);
@@ -70,7 +68,6 @@ public class TestData {
 		DataAccessFacade.loadMemberMap(members);	
 	}
 	
-	///////////// DATA //////////////
 	List<LibraryMember> members = new ArrayList<LibraryMember>();
 	@SuppressWarnings("serial")
 	
@@ -89,21 +86,21 @@ public class TestData {
 	@SuppressWarnings("serial")
 	public List<Author> allAuthors = new ArrayList<Author>() {
 		{
-			add(new Author("A101", "Joe", "Thomas", "641-445-2123", addresses.get(0), "A happy man is he."));
-			add(new Author("A102", "Sandra", "Thomas", "641-445-2123", addresses.get(0), "A happy wife is she."));
-			add(new Author("A103", "Nirmal", "Pugh", "641-919-3223", addresses.get(1), "Thinker of thoughts."));
-			add(new Author("A104", "Andrew", "Cleveland", "976-445-2232", addresses.get(2), "Author of childrens' books."));
-			add(new Author("A105", "Sarah", "Connor", "123-422-2663", addresses.get(3), "Known for her clever style."));
+			add(new Author("A101", "Joe", "Thomas", "641-445-2123", addresses.get(0)));
+			add(new Author("A102", "Sandra", "Thomas", "641-445-2123", addresses.get(0)));
+			add(new Author("A103", "Nirmal", "Pugh", "641-919-3223", addresses.get(1)));
+			add(new Author("A104", "Andrew", "Cleveland", "976-445-2232", addresses.get(2)));
+			add(new Author("A105", "Sarah", "Connor", "123-422-2663", addresses.get(3)));
 		}
 	};
 	
 	@SuppressWarnings("serial")
 	List<Book> allBooks = new ArrayList<Book>() {
 		{
-			add(new Book("23-11451", "The Big Fish", 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
-			add(new Book("28-12331", "Antartica", 7, Arrays.asList(allAuthors.get(2))));
-			add(new Book("99-22223", "Thinking Java", 21, Arrays.asList(allAuthors.get(3))));
-			add(new Book("48-56882", "Jimmy's First Day of School", 7, Arrays.asList(allAuthors.get(4))));		
+			add(new Book("23-11451", "The Big Fish", 21));
+			add(new Book("28-12331", "Antartica", 7));
+			add(new Book("99-22223", "Thinking Java", 21));
+			add(new Book("48-56882", "Jimmy's First Day of School", 7));
 		}
 	};
 	

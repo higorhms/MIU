@@ -7,7 +7,7 @@ public interface IController {
 	public List<String> allBookIds();
 	public void addLibraryMember(LibraryMember member);
 	public void addCheckoutRecord(CheckoutRecordNew rec);
-	public void addCopyOfBook(String isbn) throws LibrarySystemException;
+	public void addCopyOfBook(String isbn) throws SystemException;
 	public List<CheckoutRecordNew> getCheckoutRecords();
 	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors);
 	public void addAuthor(Author author);
