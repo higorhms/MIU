@@ -25,6 +25,7 @@ public class SystemController implements ControllerInterface {
     public void login(String id, String password) throws LoginException {
         DataAccess da = DataAccessFacade.getInstance();
         HashMap<String, User> map = da.readUserMap();
+        System.out.println(map);
         if (!map.containsKey(id)) {
             throw new LoginException("ID " + id + " not found");
         }
@@ -34,6 +35,7 @@ public class SystemController implements ControllerInterface {
         }
         currentAuth = map.get(id).getAuthorization();
         LibrarySystem.INSTANCE.updateMenu();
+        LibrarySystem.BackToMain();
     }
 
     @Override

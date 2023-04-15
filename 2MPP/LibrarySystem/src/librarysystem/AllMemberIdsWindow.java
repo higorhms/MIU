@@ -25,6 +25,11 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 	private JPanel middlePanel;
 	private JPanel lowerPanel;
 	private TextArea textArea;
+
+	private JButton backButton = new JButton("<-");
+	private JLabel AllIDsLabel = new JLabel("All Member IDs");
+
+
 	
 	private AllMemberIdsWindow() {}
 	
@@ -43,7 +48,6 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 	
 	public void defineTopPanel() {
 		topPanel = new JPanel();
-		JLabel AllIDsLabel = new JLabel("All Member IDs");
 		Util.adjustLabelFont(AllIDsLabel, Util.DARK_BLUE, true);
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		topPanel.add(AllIDsLabel);
@@ -62,7 +66,6 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 		lowerPanel = new JPanel();
 		FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
 		lowerPanel.setLayout(fl);
-		JButton backButton = new JButton("<== Back to Main");
 		addBackButtonListener(backButton);
 		lowerPanel.add(backButton);
 	}
@@ -79,16 +82,13 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 
 	@Override
 	public boolean isInitialized() {
-		
 		return isInitialized;
 	}
 
 	@Override
 	public void isInitialized(boolean val) {
 		isInitialized = val;
-		
 	}
-	
 }
 
 

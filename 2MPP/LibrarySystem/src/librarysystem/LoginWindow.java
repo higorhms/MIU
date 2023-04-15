@@ -25,17 +25,12 @@ public class LoginWindow extends JFrame implements LibWindow {
     private JTextField password;
     private JLabel label;
     private JButton loginButton;
-
     public boolean isInitialized() {
         return isInitialized;
     }
-
     public void isInitialized(boolean val) {
         isInitialized = val;
     }
-
-    private JTextField messageBar = new JTextField();
-
     private LoginWindow() {
     }
 
@@ -78,8 +73,8 @@ public class LoginWindow extends JFrame implements LibWindow {
     private void defineLowerHalf() {
         lowerHalf = new JPanel();
         lowerHalf.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("<= Back to Main");
-        addBackButtonListener(backButton);
+        JButton backButton = new JButton("<-");
+        backButton.addActionListener(e -> LibrarySystem.BackToMain());
         lowerHalf.add(backButton);
     }
 
@@ -147,18 +142,10 @@ public class LoginWindow extends JFrame implements LibWindow {
         rightTextPanel.add(bottomText, BorderLayout.CENTER);
     }
 
-    private void addBackButtonListener(JButton butn) {
-        butn.addActionListener(evt -> {
-            LibrarySystem.hideAllWindows();
-            LibrarySystem.INSTANCE.setVisible(true);
-        });
-    }
-
     private void addLoginButtonListener(JButton button) {
 		button.addActionListener(evt -> {
-            ControllerInterface systemController = SystemController.getInstance();
             try {
-                systemController.login(username.getText(), password.getText());
+                SystemController.getInstance().login(username.getText(), password.getText());
                 JOptionPane.showMessageDialog(this, "Success");
             } catch (LoginException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());

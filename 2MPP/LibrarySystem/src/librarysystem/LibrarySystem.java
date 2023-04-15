@@ -83,9 +83,9 @@ public class LibrarySystem extends JFrame implements LibWindow {
         allBookIds.addActionListener(new AllBookIdsListener());
         allMemberIds.addActionListener(new AllMemberIdsListener());
         addMember.addActionListener(new AddMemberListener());
-        addBookCopy.addActionListener(new addListener());
-        logout.addActionListener(new LogoutListener());
-        checkoutBook.addActionListener(new CheckoutListener());
+        addBookCopy.addActionListener(new AddBookCopyListener());
+        logout.addActionListener(e -> logout());
+        checkoutBook.addActionListener(new CheckoutBookListener());
     }
 
     private void addMenu() {
@@ -129,6 +129,13 @@ public class LibrarySystem extends JFrame implements LibWindow {
         }
     }
 
+    private void logout(){
+        SystemController.currentAuth = null;
+        JOptionPane.showMessageDialog(menuBar, "Successfully logout");
+        updateMenu();
+        LibrarySystem.BackToMain();
+    }
+
     class LoginListener implements ActionListener {
 
         @Override
@@ -137,15 +144,6 @@ public class LibrarySystem extends JFrame implements LibWindow {
             LoginWindow.INSTANCE.init();
             Util.centerFrameOnDesktop(LoginWindow.INSTANCE);
             LoginWindow.INSTANCE.setVisible(true);
-        }
-    }
-
-    class LogoutListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            updateMenu();
-            SystemController.currentAuth = null;
-            JOptionPane.showMessageDialog(menuBar, "Successfully logout");
         }
     }
 
@@ -196,12 +194,13 @@ public class LibrarySystem extends JFrame implements LibWindow {
         public void actionPerformed(ActionEvent e) {
             LibrarySystem.hideAllWindows();
             AddMemberWindow.INSTANCE.init();
+            AddMemberWindow.INSTANCE.pack();
             Util.centerFrameOnDesktop(AllBookIdsWindow.INSTANCE);
             AddMemberWindow.INSTANCE.setVisible(true);
         }
     }
 
-    class addListener implements ActionListener {
+    class AddBookCopyListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             LibrarySystem.hideAllWindows();
@@ -211,7 +210,7 @@ public class LibrarySystem extends JFrame implements LibWindow {
         }
     }
 
-    class CheckoutListener implements ActionListener {
+    class CheckoutBookListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             LibrarySystem.hideAllWindows();
@@ -219,6 +218,11 @@ public class LibrarySystem extends JFrame implements LibWindow {
             Util.centerFrameOnDesktop(AddBookCopyWindow.INSTANCE);
             CheckoutBookWindow.INSTANCE.setVisible(true);
         }
+    }
+
+    public static void BackToMain(){
+        LibrarySystem.hideAllWindows();
+        LibrarySystem.INSTANCE.setVisible(true);
     }
 
     @Override
@@ -229,6 +233,5 @@ public class LibrarySystem extends JFrame implements LibWindow {
     @Override
     public void isInitialized(boolean val) {
         isInitialized = val;
-
     }
 }
