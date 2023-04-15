@@ -1,18 +1,15 @@
 package business;
 
-import dataaccess.DataAccessFacade;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class CheckoutRecordEntry implements Serializable {
     private LocalDate checkoutDate = LocalDate.now();
     private LocalDate dueDate;
-    private BookCopy bookCopy;
-    private static String bookISBN;
-    private CheckoutRecord record;
+    private String bookISBN;
     private String memberID;
-
+    private BookCopy bookCopy;
+    private CheckoutRecord record;
 
     public CheckoutRecordEntry(String bookISBN, String memberID) {
         super();
@@ -20,28 +17,13 @@ public class CheckoutRecordEntry implements Serializable {
         this.memberID = memberID;
     }
 
-    public CheckoutRecordEntry(LocalDate today, LocalDate dueDate2, BookCopy copy, CheckoutRecord record2) {
-        // TODO Auto-generated constructor stub
-    }
-
-    public LocalDate getCheckoutDueDate() {
-        DataAccessFacade books = DataAccessFacade.getInstance();
-        Book book = books.readBooksMap().get(bookISBN);
-        this.dueDate = checkoutDate.plusDays(book.getMaxCheckoutLength());
-        return checkoutDate.plusDays(book.getMaxCheckoutLength());
-
-    }
-
     public String getBookTitle() {
-        DataAccessFacade books = DataAccessFacade.getInstance();
-        Book book = books.readBooksMap().get(bookISBN);
-        return book.getTitle();
+        return bookCopy.getBook().getTitle();
     }
 
     public CheckoutRecord getRecord() {
         return record;
     }
-
 
     public LocalDate getCheckoutDate() {
         return checkoutDate;
@@ -55,7 +37,7 @@ public class CheckoutRecordEntry implements Serializable {
         return memberID;
     }
 
-    public static String getISBN() {
+    public String getISBN() {
         return bookISBN;
     }
 

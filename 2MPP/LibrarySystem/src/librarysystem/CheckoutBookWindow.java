@@ -16,12 +16,13 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     private JTextField memberIdField = new JTextField();
     private JTextField bookISBNFIeld = new JTextField();
     private JLabel memberIdLabel = new JLabel("Member Id");
-    private JButton showRecordButton = new JButton("show records");
-    private JButton checkAvailabilityButton = new JButton("Check availability");
+    private JButton showRecordButton = new JButton("Show Records");
+    private JButton checkAvailabilityButton = new JButton("Check Availability");
     private JButton checkoutButton = new JButton("Checkout");
-    JButton resetButton = new JButton("Reset");
-    JLabel bookAvailabilityLabel = new JLabel("");
-    JLabel bookIdLabel = new JLabel("");
+    private JButton resetButton = new JButton("Reset");
+    private JLabel bookAvailabilityLabel = new JLabel("");
+    private JLabel bookIdLabel = new JLabel("");
+    private JLabel bookISBNLabel = new JLabel("Book ISBN number");
 
     public CheckoutBookWindow() {
         setForeground(Color.CYAN);
@@ -33,43 +34,36 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
         contentPane.setLayout(null);
 
         memberIdLabel.setBounds(27, 24, 87, 40);
-        contentPane.add(memberIdLabel);
-
         bookIdLabel.setBounds(268, 34, 188, 14);
-        contentPane.add(bookIdLabel);
-
-        memberIdField.addFocusListener(new MemberIdFieldListener());
-
         memberIdField.setBounds(134, 34, 124, 20);
-        contentPane.add(memberIdField);
-        memberIdField.setColumns(10);
-
-        JLabel lblBookISBN = new JLabel("Book ISBN number");
-        lblBookISBN.setBounds(27, 75, 108, 20);
-        contentPane.add(lblBookISBN);
-
+        bookISBNLabel.setBounds(27, 75, 108, 20);
         bookISBNFIeld.setBounds(134, 75, 124, 20);
-        contentPane.add(bookISBNFIeld);
+        bookAvailabilityLabel.setBounds(268, 75, 188, 14);
+        checkAvailabilityButton.setBounds(268, 151, 135, 23);
+        resetButton.setBounds(134, 151, 89, 23);
+        checkoutButton.setBounds(206, 185, 124, 23);
+        showRecordButton.setBounds(206, 216, 124, 23);
+
+        memberIdField.setColumns(10);
         bookISBNFIeld.setColumns(10);
 
-        bookAvailabilityLabel.setBounds(268, 75, 188, 14);
-        contentPane.add(bookAvailabilityLabel);
-
-        bookISBNFIeld.addFocusListener(new ISBFieldListener());
-
-        checkAvailabilityButton.setBounds(268, 151, 135, 23);
-        contentPane.add(checkAvailabilityButton);
-
+        //listeners
+        memberIdField.addFocusListener(new MemberIdFieldListener());
         resetButton.addActionListener(e -> resetFields());
-        resetButton.setBounds(134, 151, 89, 23);
-        contentPane.add(resetButton);
+        bookISBNFIeld.addFocusListener(new ISBFieldListener());
         checkoutButton.addActionListener(e -> checkoutBook());
-        checkoutButton.setBounds(206, 185, 124, 23);
-        contentPane.add(checkoutButton);
-
         showRecordButton.addActionListener(e -> showCheckoutRecordTable());
-        showRecordButton.setBounds(206, 216, 124, 23);
+
+        contentPane.add(checkAvailabilityButton);
+        contentPane.add(checkoutButton);
         contentPane.add(showRecordButton);
+        contentPane.add(resetButton);
+        contentPane.add(bookAvailabilityLabel);
+        contentPane.add(bookISBNFIeld);
+        contentPane.add(bookISBNLabel);
+        contentPane.add(memberIdField);
+        contentPane.add(bookIdLabel);
+        contentPane.add(memberIdLabel);
     }
 
     private void checkoutBook() {
@@ -109,15 +103,13 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     class ISBFieldListener implements FocusListener {
         @Override
         public void focusGained(FocusEvent e) {
-            // TODO Auto-generated method stub
             bookISBNFIeld.setText("");
             bookAvailabilityLabel.setText("");
         }
 
         @Override
         public void focusLost(FocusEvent e) {
-            ControllerInterface controller = SystemController.getInstance();
-            Book foundedBook = controller.getBook(bookISBNFIeld.getText());
+            Book foundedBook = SystemController.getInstance().getBook(bookISBNFIeld.getText());
             if (foundedBook != null) {
                 if (!foundedBook.isAvailable()) {
                     bookAvailabilityLabel.setText("This Book is not available");

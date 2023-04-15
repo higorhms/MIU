@@ -21,10 +21,10 @@ public class SystemController implements ControllerInterface {
         return instance;
     }
 
+    @Override
     public void login(String id, String password) throws LoginException {
         DataAccess da = DataAccessFacade.getInstance();
         HashMap<String, User> map = da.readUserMap();
-        System.out.println(map);
         if (!map.containsKey(id)) {
             throw new LoginException("ID " + id + " not found");
         }
@@ -78,7 +78,9 @@ public class SystemController implements ControllerInterface {
 
     @Override
     public void checkoutBook(String memberId, String isbn) {
-        Book book = getBook(isbn);
+        DataAccessFacade dataAccessFacade = DataAccessFacade.getInstance();
+        HashMap<String, Book> booksMap = dataAccessFacade.readBooksMap();
+        Book book = booksMap.get(isbn);
         BookCopy bookCopy = book.getNextAvailableCopy();
         bookCopy.changeAvailability();
         CheckoutRecord.entries.add(new CheckoutRecordEntry(isbn, memberId));

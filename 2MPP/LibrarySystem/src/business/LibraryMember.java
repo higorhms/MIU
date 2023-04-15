@@ -3,7 +3,9 @@ package business;
 import java.io.Serializable;
 
 final public class LibraryMember extends Person implements Serializable {
+    
     private String memberId;
+
     private CheckoutRecord record;
 
     public CheckoutRecord getRecord() {

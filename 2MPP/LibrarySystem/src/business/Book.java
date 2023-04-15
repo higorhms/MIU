@@ -8,11 +8,11 @@ import java.util.Optional;
 
 final public class Book implements Serializable {
     private static final long serialVersionUID = 6110690276685962829L;
-    private BookCopy[] copies;
-    private List<Author> authors;
     private String isbn;
     private String title;
     private int maxCheckoutLength;
+    private BookCopy[] copies;
+    private List<Author> authors;
 
     public Book(String isbn, String title, int maxCheckoutLength, List<Author> authors) {
         this.isbn = isbn;
