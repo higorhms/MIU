@@ -10,6 +10,7 @@ public class Order {
     public Order(int number){
         this.orderNum = number;
         this.lines = new ArrayList<OrderLine>();
+        // need to create one orderLine getting its information through the constructor and add to the list
     }
 
     @Override
