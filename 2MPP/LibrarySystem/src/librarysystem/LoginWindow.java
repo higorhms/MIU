@@ -1,10 +1,8 @@
 package librarysystem;
 
-import business.ControllerInterface;
 import business.LoginException;
 import business.SystemController;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.*;
 
@@ -74,7 +72,7 @@ public class LoginWindow extends JFrame implements LibWindow {
         lowerHalf = new JPanel();
         lowerHalf.setLayout(new FlowLayout(FlowLayout.LEFT));
         JButton backButton = new JButton("<-");
-        backButton.addActionListener(e -> LibrarySystem.BackToMain());
+        backButton.addActionListener(e -> LibrarySystem.backToMain());
         lowerHalf.add(backButton);
     }
 

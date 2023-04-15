@@ -13,6 +13,7 @@ import java.util.List;
 public class SystemController implements ControllerInterface {
     public static ControllerInterface instance;
     public static Auth currentAuth = null;
+
     private SystemController() {
     }
 
@@ -35,31 +36,27 @@ public class SystemController implements ControllerInterface {
         }
         currentAuth = map.get(id).getAuthorization();
         LibrarySystem.INSTANCE.updateMenu();
-        LibrarySystem.BackToMain();
+        LibrarySystem.backToMain();
     }
 
     @Override
     public List<String> allMemberIds() {
-        DataAccess da = DataAccessFacade.getInstance();
-        List<String> retval = new ArrayList<>();
-        retval.addAll(da.readMemberMap().keySet());
-        return retval;
+        List<String> response = new ArrayList<>();
+        response.addAll(DataAccessFacade.getInstance().readMemberMap().keySet());
+        return response;
     }
 
     @Override
     public List<String> allBookIds() {
-        DataAccess da = DataAccessFacade.getInstance();
-        List<String> retval = new ArrayList<>();
-        retval.addAll(da.readBooksMap().keySet());
-        return retval;
+        List<String> response = new ArrayList<>();
+        response.addAll(DataAccessFacade.getInstance().readBooksMap().keySet());
+        return response;
     }
 
     @Override
-    public void addNewMember(String id, String firstName, String lastName, String telNumber, Address add) {
-        CheckoutRecord record = new CheckoutRecord();
-        LibraryMember member = new LibraryMember(id, firstName, lastName, telNumber, add, record);
+    public void addNewMember(String id, String firstName, String lastName, String phoneNumber, String street, String city, String state, String zip) {
         DataAccessFacade da = DataAccessFacade.getInstance();
-        da.saveNewMember(member);
+        da.saveNewMember(id, firstName, lastName, phoneNumber, street, city, state, zip);
     }
 
     @Override

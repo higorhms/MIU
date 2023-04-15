@@ -9,14 +9,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 
-public class CheckoutRecordTableWindow extends JFrame {
+public class CheckoutRecordTableWindow extends JFrame implements LibWindow {
+    public static final CheckoutRecordTableWindow INSTANCE = new CheckoutRecordTableWindow();
+    private boolean isInitialized = false;
     private JPanel contentPane = new JPanel();
     private String[] headers = new String[]{"ISBN", "Title", "Checkout Date", "Due date", "Member Id"};
     private JTable table;
-    JLabel lblNewLabel = new JLabel("CHECKOUTS");
-    JScrollPane scrollPane = new JScrollPane();
+    private JLabel lblNewLabel = new JLabel("CHECKOUTS");
+    private JScrollPane scrollPane = new JScrollPane();
 
-    public CheckoutRecordTableWindow() {
+    private CheckoutRecordTableWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -35,6 +37,22 @@ public class CheckoutRecordTableWindow extends JFrame {
 
         startHeaders();
         startTable();
+        init();
+    }
+
+    @Override
+    public void init() {
+        isInitialized = true;
+    }
+
+    @Override
+    public boolean isInitialized() {
+        return isInitialized;
+    }
+
+    @Override
+    public void isInitialized(boolean val) {
+        isInitialized = val;
     }
 
     private void startHeaders() {
@@ -63,18 +81,5 @@ public class CheckoutRecordTableWindow extends JFrame {
             }
 
         }
-    }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    CheckoutRecordTableWindow frame = new CheckoutRecordTableWindow();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 }

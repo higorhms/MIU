@@ -34,7 +34,8 @@ public class LibrarySystem extends JFrame implements LibWindow {
             AllMemberIdsWindow.INSTANCE,
             AllBookIdsWindow.INSTANCE,
             AddMemberWindow.INSTANCE,
-            CheckoutBookWindow.INSTANCE
+            CheckoutBookWindow.INSTANCE,
+            AddBookCopyWindow.INSTANCE
     };
 
     public static void hideAllWindows() {
@@ -82,10 +83,10 @@ public class LibrarySystem extends JFrame implements LibWindow {
         login.addActionListener(new LoginListener());
         allBookIds.addActionListener(new AllBookIdsListener());
         allMemberIds.addActionListener(new AllMemberIdsListener());
-        addMember.addActionListener(new AddMemberListener());
-        addBookCopy.addActionListener(new AddBookCopyListener());
         logout.addActionListener(e -> logout());
-        checkoutBook.addActionListener(new CheckoutBookListener());
+        addMember.addActionListener(e -> addMember());
+        checkoutBook.addActionListener(e -> checkoutBook());
+        addBookCopy.addActionListener(e -> addBookCopy());
     }
 
     private void addMenu() {
@@ -129,15 +130,8 @@ public class LibrarySystem extends JFrame implements LibWindow {
         }
     }
 
-    private void logout(){
-        SystemController.currentAuth = null;
-        JOptionPane.showMessageDialog(menuBar, "Successfully logout");
-        updateMenu();
-        LibrarySystem.BackToMain();
-    }
 
     class LoginListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             LibrarySystem.hideAllWindows();
@@ -181,7 +175,6 @@ public class LibrarySystem extends JFrame implements LibWindow {
             for (String s : ids) {
                 sb.append(s + "\n");
             }
-            System.out.println(sb.toString());
             AllMemberIdsWindow.INSTANCE.setData(sb.toString());
             AllMemberIdsWindow.INSTANCE.pack();
             Util.centerFrameOnDesktop(AllMemberIdsWindow.INSTANCE);
@@ -189,40 +182,38 @@ public class LibrarySystem extends JFrame implements LibWindow {
         }
     }
 
-    class AddMemberListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            LibrarySystem.hideAllWindows();
-            AddMemberWindow.INSTANCE.init();
-            AddMemberWindow.INSTANCE.pack();
-            Util.centerFrameOnDesktop(AllBookIdsWindow.INSTANCE);
-            AddMemberWindow.INSTANCE.setVisible(true);
-        }
+    private void addMember() {
+        LibrarySystem.hideAllWindows();
+        AddMemberWindow.INSTANCE.init();
+        AddMemberWindow.INSTANCE.pack();
+        Util.centerFrameOnDesktop(AllBookIdsWindow.INSTANCE);
+        AddMemberWindow.INSTANCE.setVisible(true);
     }
 
-    class AddBookCopyListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            LibrarySystem.hideAllWindows();
-            AddBookCopyWindow.INSTANCE.init();
-            Util.centerFrameOnDesktop(AddBookCopyWindow.INSTANCE);
-            AddBookCopyWindow.INSTANCE.setVisible(true);
-        }
+    private void addBookCopy() {
+        LibrarySystem.hideAllWindows();
+        AddBookCopyWindow.INSTANCE.init();
+        Util.centerFrameOnDesktop(AddBookCopyWindow.INSTANCE);
+        AddBookCopyWindow.INSTANCE.setVisible(true);
     }
 
-    class CheckoutBookListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            LibrarySystem.hideAllWindows();
-            CheckoutBookWindow.INSTANCE.init();
-            Util.centerFrameOnDesktop(AddBookCopyWindow.INSTANCE);
-            CheckoutBookWindow.INSTANCE.setVisible(true);
-        }
+    private void checkoutBook() {
+        LibrarySystem.hideAllWindows();
+        CheckoutBookWindow.INSTANCE.init();
+        Util.centerFrameOnDesktop(AddBookCopyWindow.INSTANCE);
+        CheckoutBookWindow.INSTANCE.setVisible(true);
     }
 
-    public static void BackToMain(){
+    public static void backToMain() {
         LibrarySystem.hideAllWindows();
         LibrarySystem.INSTANCE.setVisible(true);
+    }
+
+    private void logout() {
+        SystemController.currentAuth = null;
+        JOptionPane.showMessageDialog(menuBar, "Successfully logout");
+        updateMenu();
+        LibrarySystem.backToMain();
     }
 
     @Override

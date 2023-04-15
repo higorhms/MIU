@@ -12,7 +12,15 @@ public interface DataAccess {
 
     public HashMap<String, LibraryMember> readMemberMap();
 
-    public void saveNewMember(LibraryMember member);
+    public void saveNewMember( String id,
+                               String firstName,
+                               String lastName,
+                               String phoneNumber,
+                               String street,
+                               String city,
+                               String state,
+                               String zip
+    );
 
     public Book searchBook(String isbn);
 

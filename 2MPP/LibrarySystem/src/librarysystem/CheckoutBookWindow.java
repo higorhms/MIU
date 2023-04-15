@@ -1,7 +1,6 @@
 package librarysystem;
 
 import business.Book;
-import business.ControllerInterface;
 import business.SystemController;
 
 import javax.swing.*;
@@ -14,7 +13,7 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     public static final CheckoutBookWindow INSTANCE = new CheckoutBookWindow();
     private JPanel contentPane = new JPanel();
     private JTextField memberIdField = new JTextField();
-    private JTextField bookISBNFIeld = new JTextField();
+    private JTextField isbnBookField = new JTextField();
     private JLabel memberIdLabel = new JLabel("Member Id");
     private JButton showRecordButton = new JButton("Show Records");
     private JButton checkAvailabilityButton = new JButton("Check Availability");
@@ -37,7 +36,7 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
         bookIdLabel.setBounds(268, 34, 188, 14);
         memberIdField.setBounds(134, 34, 124, 20);
         bookISBNLabel.setBounds(27, 75, 108, 20);
-        bookISBNFIeld.setBounds(134, 75, 124, 20);
+        isbnBookField.setBounds(134, 75, 124, 20);
         bookAvailabilityLabel.setBounds(268, 75, 188, 14);
         checkAvailabilityButton.setBounds(268, 151, 135, 23);
         resetButton.setBounds(134, 151, 89, 23);
@@ -45,12 +44,12 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
         showRecordButton.setBounds(206, 216, 124, 23);
 
         memberIdField.setColumns(10);
-        bookISBNFIeld.setColumns(10);
+        isbnBookField.setColumns(10);
 
         //listeners
         memberIdField.addFocusListener(new MemberIdFieldListener());
         resetButton.addActionListener(e -> resetFields());
-        bookISBNFIeld.addFocusListener(new ISBFieldListener());
+        isbnBookField.addFocusListener(new ISBFieldListener());
         checkoutButton.addActionListener(e -> checkoutBook());
         showRecordButton.addActionListener(e -> showCheckoutRecordTable());
 
@@ -59,7 +58,7 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
         contentPane.add(showRecordButton);
         contentPane.add(resetButton);
         contentPane.add(bookAvailabilityLabel);
-        contentPane.add(bookISBNFIeld);
+        contentPane.add(isbnBookField);
         contentPane.add(bookISBNLabel);
         contentPane.add(memberIdField);
         contentPane.add(bookIdLabel);
@@ -67,12 +66,12 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     }
 
     private void checkoutBook() {
-        SystemController.getInstance().checkoutBook(memberIdField.getText(), bookISBNFIeld.getText());
+        SystemController.getInstance().checkoutBook(memberIdField.getText(), isbnBookField.getText());
         JOptionPane.showMessageDialog(checkoutButton, "Record created!");
     }
 
     private void showCheckoutRecordTable() {
-        CheckoutRecordTableWindow window = new CheckoutRecordTableWindow();
+        CheckoutRecordTableWindow window = CheckoutRecordTableWindow.INSTANCE;
         window.setVisible(true);
     }
 
@@ -94,7 +93,7 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     }
 
     private void resetFields() {
-        bookISBNFIeld.setText("");
+        isbnBookField.setText("");
         bookAvailabilityLabel.setText("");
         memberIdField.setText("");
         bookIdLabel.setText("");
@@ -103,20 +102,17 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     class ISBFieldListener implements FocusListener {
         @Override
         public void focusGained(FocusEvent e) {
-            bookISBNFIeld.setText("");
+            isbnBookField.setText("");
             bookAvailabilityLabel.setText("");
         }
 
         @Override
         public void focusLost(FocusEvent e) {
-            Book foundedBook = SystemController.getInstance().getBook(bookISBNFIeld.getText());
+            Book foundedBook = SystemController.getInstance().getBook(isbnBookField.getText());
             if (foundedBook != null) {
-                if (!foundedBook.isAvailable()) {
+                if (!foundedBook.isAvailable())
                     bookAvailabilityLabel.setText("This Book is not available");
-                } else {
-                    bookAvailabilityLabel.setText("This Book is available");
-                }
-            } else bookAvailabilityLabel.setText("The Book isn't found");
+            } else bookAvailabilityLabel.setText("Book not found");
         }
     }
 
@@ -129,9 +125,8 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
 
         @Override
         public void focusLost(FocusEvent e) {
-            if (SystemController.getInstance().isAValidMember(memberIdField.getText()))
-                bookIdLabel.setText("The Id is found");
-            else bookIdLabel.setText("The Id isn't found");
+            if (!SystemController.getInstance().isAValidMember(memberIdField.getText()))
+                bookIdLabel.setText("Member ID not found");
         }
     }
 }

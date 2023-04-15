@@ -1,12 +1,9 @@
 package librarysystem;
 
-import business.Address;
 import business.SystemController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddMemberWindow extends JFrame implements LibWindow {
     public static final AddMemberWindow INSTANCE = new AddMemberWindow();
@@ -67,10 +64,10 @@ public class AddMemberWindow extends JFrame implements LibWindow {
 
     private void defineBottom() {
         bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        backButton.addActionListener(e -> LibrarySystem.BackToMain());
+        backButton.addActionListener(e -> LibrarySystem.backToMain());
         bottomPanel.add(backButton);
         bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        submitButton.addActionListener( e -> Submit());
+        submitButton.addActionListener(e -> Submit());
         bottomPanel.add(submitButton);
     }
 
@@ -126,29 +123,25 @@ public class AddMemberWindow extends JFrame implements LibWindow {
         return false;
     }
 
-   private void Submit(){
-       if (hasEmptyFields()) {
-           JOptionPane.showMessageDialog(submitButton, "You have to fill all the fields");
-       } else {
-           Address address = new Address(
-                   streetField.getText(),
-                   cityField.getText(),
-                   stateField.getText(),
-                   zipCodeField.getText()
-           );
+    private void Submit() {
+        if (hasEmptyFields()) {
+            JOptionPane.showMessageDialog(submitButton, "You have to fill all the fields");
+        } else {
+            SystemController.getInstance().addNewMember(
+                    memberIdField.getText(),
+                    firstNameField.getText(),
+                    lastNameField.getText(),
+                    phoneNumberField.getText(),
+                    streetField.getText(),
+                    cityField.getText(),
+                    stateField.getText(),
+                    zipCodeField.getText()
+            );
 
-           SystemController.getInstance().addNewMember(
-                   memberIdField.getText(),
-                   firstNameField.getText(),
-                   lastNameField.getText(),
-                   phoneNumberField.getText(),
-                   address
-           );
-
-           JOptionPane.showMessageDialog(submitButton, "Member created");
-           resetFields();
-       }
-   }
+            JOptionPane.showMessageDialog(submitButton, "Member created");
+            resetFields();
+        }
+    }
 
     public void resetFields() {
         memberIdField.setText("");

@@ -1,135 +1,95 @@
 package librarysystem;
 
 import business.Book;
-import business.ControllerInterface;
 import business.SystemController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AddBookCopyWindow extends JFrame {
+public class AddBookCopyWindow extends JFrame implements LibWindow{
     public static final AddBookCopyWindow INSTANCE = new AddBookCopyWindow();
     private boolean isInitialized = false;
-    private JPanel mainPanel;
-    private JPanel upperHalf;
-    private JPanel middleHalf;
-    private JPanel lowerHalf;
-    private JPanel topPanel;
-    private JPanel middlePanel;
-    private JPanel lowerPanel;
-    private JPanel leftTextPanel;
-    private JTextField  isbnText;
-    private JLabel isbn;
-    private JButton addButton;
+    private JPanel mainPanel = new JPanel();
+    private JPanel upperHalf = new JPanel();
+    private JPanel middleHalf = new JPanel();
+    private JPanel lowerHalf = new JPanel();
+    private JPanel middlePanel = new JPanel();
+    private JPanel isbnTextPanel = new JPanel();
+    private JTextField isbnField = new JTextField(10);
+    private JLabel isbnLabel = new JLabel("ISBN");
+    private JButton submitButton = new JButton("Add");
 
-    public void isInitialized(boolean val) {
-        isInitialized = val;
+    private AddBookCopyWindow() {
+        isInitialized(true);
     }
-    private JTextField messageBar = new JTextField();
-    private AddBookCopyWindow () {}
 
     public void init() {
-        mainPanel = new JPanel();
-        defineUpperHalf();
-        defineMiddleHalf();
-        defineLowerHalf();
-        BorderLayout bl = new BorderLayout();
-        bl.setVgap(30);
-        mainPanel.setLayout(bl);
+        setTitle("Add Book Copy");
+
+        defineTop();
+        defineMiddle();
+        defineBottom();
+
+        mainPanel.setLayout(new BorderLayout());
 
         mainPanel.add(upperHalf, BorderLayout.NORTH);
         mainPanel.add(middleHalf, BorderLayout.CENTER);
         mainPanel.add(lowerHalf, BorderLayout.SOUTH);
+
         getContentPane().add(mainPanel);
-        isInitialized(true);
         pack();
     }
-    private void defineUpperHalf() {
 
-        upperHalf = new JPanel();
-        upperHalf.setLayout(new BorderLayout());
-        defineTopPanel();
-        defineMiddlePanel();
-        defineLowerPanel();
-        upperHalf.add(topPanel, BorderLayout.NORTH);
-        upperHalf.add(middlePanel, BorderLayout.CENTER);
-        upperHalf.add(lowerPanel, BorderLayout.SOUTH);
+    @Override
+    public boolean isInitialized() {
+        return isInitialized;
     }
 
-    private void defineMiddleHalf() {
-        middleHalf = new JPanel();
+    @Override
+    public void isInitialized(boolean val) {
+        isInitialized = val;
+    }
+
+    private void defineTop() {
+        upperHalf.setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        topPanel.add(isbnLabel);
+        bottomPanel.add(isbnField);
+        isbnTextPanel.setLayout(new BorderLayout());
+        isbnTextPanel.add(topPanel, BorderLayout.CENTER);
+        isbnTextPanel.add(bottomPanel, BorderLayout.SOUTH);
+        middlePanel.add(isbnTextPanel);
+
+        submitButton.addActionListener(e -> submit());
+        bottomPanel.add(submitButton);
+        upperHalf.add(topPanel, BorderLayout.NORTH);
+        upperHalf.add(middlePanel, BorderLayout.CENTER);
+        upperHalf.add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private void defineMiddle(){
         middleHalf.setLayout(new BorderLayout());
         JSeparator s = new JSeparator();
         s.setOrientation(SwingConstants.HORIZONTAL);
         middleHalf.add(s, BorderLayout.SOUTH);
     }
 
-    private void defineLowerHalf() {
-        lowerHalf = new JPanel();
+    private void defineBottom() {
         lowerHalf.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("<= Back to Main");
-        addBackButtonListener(backButton);
+        JButton backButton = new JButton("<-");
+        backButton.addActionListener(e -> LibrarySystem.backToMain());
         lowerHalf.add(backButton);
     }
 
-    private void defineTopPanel() {
-        topPanel = new JPanel();
-        JPanel intPanel = new JPanel(new BorderLayout());
-        intPanel.add(Box.createRigidArea(new Dimension(0,20)), BorderLayout.NORTH);
-        JLabel isbnLabel = new JLabel("Add Book Copy");
-        Util.adjustLabelFont(isbnLabel, Color.BLUE.darker(), true);
-        intPanel.add(isbnLabel, BorderLayout.CENTER);
-        topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(intPanel);
-    }
-
-    private void defineMiddlePanel() {
-        middlePanel=new JPanel();
-        middlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        defineLeftTextPanel();
-        middlePanel.add(leftTextPanel);
-    }
-
-    private void defineLowerPanel() {
-        lowerPanel = new JPanel();
-        addButton = new JButton("add");
-        addButtonListener(addButton);
-        lowerPanel.add(addButton);
-    }
-
-    private void defineLeftTextPanel() {
-        JPanel topText = new JPanel();
-        JPanel bottomText = new JPanel();
-        topText.setLayout(new FlowLayout(FlowLayout.LEFT,5,0));
-        bottomText.setLayout(new FlowLayout(FlowLayout.LEFT,5,0));
-
-        isbnText = new JTextField(10);
-        isbn = new JLabel("isbn");
-        isbn.setFont(Util.makeSmallFont(isbn.getFont()));
-        topText.add(isbn);
-        bottomText.add(isbnText);
-
-        leftTextPanel = new JPanel();
-        leftTextPanel.setLayout(new BorderLayout());
-        leftTextPanel.add(topText,BorderLayout.NORTH);
-        leftTextPanel.add(bottomText,BorderLayout.CENTER);
-    }
-
-    private void addBackButtonListener(JButton butn) {
-        butn.addActionListener(evt -> {
-            LibrarySystem.hideAllWindows();
-            LibrarySystem.INSTANCE.setVisible(true);
-        });
-    }
-
-    private void addButtonListener(JButton butn) {
-        butn.addActionListener(evt -> {
-            ControllerInterface ci = SystemController.getInstance();
-            Book book = ci.addNewBookCopy(isbnText.getText());
-            if (book != null){
-                JOptionPane.showMessageDialog(butn, "The copy added successfully");
-            }else
-                JOptionPane.showMessageDialog(butn, "The book not found");
-        });
+    private void submit() {
+        Book book = SystemController.getInstance().addNewBookCopy(isbnField.getText());
+        if (book != null) {
+            JOptionPane.showMessageDialog(submitButton, "Success");
+        } else
+            JOptionPane.showMessageDialog(submitButton, "Fail");
     }
 }
