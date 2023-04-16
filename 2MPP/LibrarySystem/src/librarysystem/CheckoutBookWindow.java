@@ -66,8 +66,12 @@ public class CheckoutBookWindow extends JFrame implements LibWindow {
     }
 
     private void checkoutBook() {
-        SystemController.getInstance().checkoutBook(memberIdField.getText(), isbnBookField.getText());
-        JOptionPane.showMessageDialog(checkoutButton, "Record created!");
+        try{
+            SystemController.getInstance().checkoutBook(memberIdField.getText(), isbnBookField.getText());
+            JOptionPane.showMessageDialog(checkoutButton, "Record created!");
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(checkoutButton, e.getMessage());
+        }
     }
 
     private void showCheckoutRecordTable() {
