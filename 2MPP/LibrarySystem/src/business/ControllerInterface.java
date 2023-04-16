@@ -15,7 +15,7 @@ public interface ControllerInterface {
 	 String state,
 	 String zip);
 	public Book addNewBookCopy(String isbn);
-	public void checkoutBook(String memberId, String isbn);
+	public void checkoutBook(String memberId, String isbn) throws LibrarySystemException;
 	public Book getBook(String isbn);
 	public boolean isAValidMember(String id);
 }

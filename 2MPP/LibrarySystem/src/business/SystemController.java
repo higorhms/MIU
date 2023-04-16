@@ -76,9 +76,12 @@ public class SystemController implements ControllerInterface {
     }
 
     @Override
-    public void checkoutBook(String memberId, String isbn) {
+    public void checkoutBook(String memberId, String isbn) throws LibrarySystemException {
         DataAccessFacade dataAccessFacade = DataAccessFacade.getInstance();
         HashMap<String, Book> booksMap = dataAccessFacade.readBooksMap();
+        HashMap<String, LibraryMember> membersMap = dataAccessFacade.readMemberMap();
+        if(!membersMap.containsKey(memberId))
+            throw new LibrarySystemException("Library member does not exist");
         Book book = booksMap.get(isbn);
         BookCopy bookCopy = book.getNextAvailableCopy();
         bookCopy.changeAvailability();
