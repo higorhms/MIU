@@ -1,0 +1,13 @@
+The equals() method was overriden incorrectly, using an instance of Employee as parameter:
+
+Old: 	
+  public boolean equals(Employee e) {
+		return e.name.equals(name) && e.salary == salary;
+	}
+
+I Fixed overriding the equals method correctly:
+  @Override
+	public boolean equals(Object incoming) {
+		Employee e = (Employee) incoming;
+		return e.name.equals(name) && e.salary == salary;
+	}

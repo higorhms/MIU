@@ -1,0 +1,9 @@
+ArrayList implements:
+1. List
+2. Iterable
+3. Serializable
+4. RandomAccess
+5. Cloneable
+6. Collection
+
+ArrayList is a subclass of AbstractList

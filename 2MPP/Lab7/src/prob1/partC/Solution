@@ -1,0 +1,7 @@
+The equals method was override correctly but the method hashcode was not override:
+
+I Fixed adding the hashcode method:
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
+	}
