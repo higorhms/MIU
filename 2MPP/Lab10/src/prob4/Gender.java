@@ -1,4 +1,4 @@
-package lesson10.labs.prob4;
+package prob4;
 
 public enum Gender {
 	M, F

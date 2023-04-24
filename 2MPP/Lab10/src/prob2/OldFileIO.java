@@ -1,4 +1,4 @@
-package lesson10.labs.prob2;
+package prob2;
 
 import java.io.*;
 import java.io.File;
@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
-
-
 
 public class OldFileIO {
 	private static final Logger LOG = Logger.getLogger(OldFileIO.class.getName());
@@ -37,7 +35,6 @@ public class OldFileIO {
 	public static void main(String[] args) {
 		OldFileIO old = new OldFileIO();
 	    old.writeText(FILE_LOCATION, TO_PRINT);
-		
 	}
 
 }

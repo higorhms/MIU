@@ -1,4 +1,4 @@
-package lesson10.labs.prob5;
+package prob5;
 
 public class Employee {
 	String firstName, lastName;

@@ -1,4 +1,4 @@
-package lesson10.labs.prob5;
+package prob5;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,9 +23,6 @@ public class Main {
 				    .map(e -> fullName(e))
 				    .sorted()
 				    .collect(Collectors.joining(", ")));
-				               
-		             
-
 	}
 	
 	private static String fullName(Employee e) {

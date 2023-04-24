@@ -1,4 +1,4 @@
-package lesson10.labs.prob3;
+package prob3;
 
 import java.util.function.Function;
 

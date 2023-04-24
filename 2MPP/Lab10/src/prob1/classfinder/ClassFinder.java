@@ -1,4 +1,4 @@
-package lesson10.labs.prob1.classfinder;
+package prob1.classfinder;
 
 import java.io.File;
 import java.net.URL;

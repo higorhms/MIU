@@ -1,7 +1,8 @@
-package lesson10.labs.prob4;
+package prob4;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GuestListJava8 {
 	 
@@ -27,9 +28,20 @@ public class GuestListJava8 {
 					"Illegal guest %s has attempted entry to the event", g.getName()));
 		else return true;
 	}
-	
+
 	public void printListOfExpectedFemaleGuests(List<Guest> invited) {
-		//implement
+		System.out.println(
+				invited.stream().filter((Guest g) -> {
+							try {
+								return checkLegal(g);
+							} catch(IllegalGuestException e) {
+								throw new RuntimeException(e);
+							}}).filter(g -> (g.getGender()==Gender.F))
+						.filter(g -> g.isPlanningToCome())
+						.map(g -> g.getName())
+						.sorted().collect(Collectors.joining(", "))
+		);
+
 	}
 	
 	
