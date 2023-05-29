@@ -1,7 +1,8 @@
 package prob3;
 
 
-public class Employee extends Person {
+
+public class Employee extends Person implements Comparable {
 	int id;
 	int salary;
 	
@@ -39,7 +40,12 @@ public class Employee extends Person {
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
-	
-	
+
+
+	@Override
+	public int compareTo(Object o) {
+		o = (Employee) o;
+		return this.id - ((Employee) o).id;
+	}
 }
 

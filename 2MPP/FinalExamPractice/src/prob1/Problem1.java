@@ -12,7 +12,13 @@ public class Problem1 {
 	//Hint: use concat
 	public static List<String> elementsInBoth(List<String> list1, List<String> list2) {
 		return Stream.concat(list1.stream(), list2.stream())
-				.filter(e -> (Collections.frequency(list1, e) + Collections.frequency(list2, e)) == 2)
+				.filter(e -> (list1.stream().filter(l1 -> e == l1).count() + list2.stream().filter(l2 -> e == l2).count() == 2))
+				.distinct()
+				.toList();
+	}
+
+	public static List<String> elementsInEither(List<String> list1, List<String> list2) {
+		return Stream.concat(list1.stream(), list2.stream())
 				.distinct()
 				.toList();
 	}
@@ -23,14 +29,18 @@ public class Problem1 {
 	}
 
 	public static List<String> elementsInJustOne(List<String> list1, List<String> list2) {
-		return Stream.concat(list1.stream(), list2.stream()).distinct().toList();
+		return Stream.concat(list1.stream(), list2.stream())
+				.filter(e -> (list1.stream().filter(l1 -> e == l1).count() + list2.stream().filter(l2 -> e == l2).count() == 1))
+				.toList();
 	}
+
 	
 	//test methods
 	public static void main(String[] args) {
 		testFirstMethod();
 		testSecondMethod();
 		testElementsInBothMethod();
+		testElementsInEitherMethod();
 	}
 	private static void testFirstMethod() {
 		List<String> list1 = Arrays.asList(new String[]{"friend", "tree", "bike", "bat"});
@@ -51,6 +61,12 @@ public class Problem1 {
 	private static void testElementsInBothMethod() {
 		List<String> list1 = Arrays.asList(new String[]{"friend", "tree", "bike", "bat"});
 		List<String> list2 = Arrays.asList(new String[]{"tree", "strong", "bike", "weak"});
-		System.out.println("Strings occurring in both of the two lists: " + elementsInBoth(list1, list2));
+		System.out.println("Strings occurring in BOTH of the two lists: " + elementsInBoth(list1, list2));
+	}
+
+	private static void testElementsInEitherMethod() {
+		List<String> list1 = Arrays.asList(new String[]{"friend", "tree", "bike", "bat"});
+		List<String> list2 = Arrays.asList(new String[]{"tree", "strong", "bike", "weak"});
+		System.out.println("Strings occurring in EITHER of the two lists: " + elementsInEither(list1, list2));
 	}
 }

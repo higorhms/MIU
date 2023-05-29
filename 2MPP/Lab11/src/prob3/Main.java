@@ -2,8 +2,9 @@ package prob3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.function.BiPredicate;
+import java.util.function.*;
 
 
 public class Main {
@@ -81,5 +82,96 @@ public class Main {
         test3();
         System.out.println();
         test4();
+
+
+
+
+        // QUIZ - 04/25/2023 ANSWERS
+
+        // Question 1
+        Function<String, String> lambda = (String s1) -> s1.toUpperCase();
+        Function<String, String> methodReference = String::toUpperCase;
+        Function<String, String> function = new Function<String, String>() {
+            @Override
+            public String apply(String s) {
+                return s.toUpperCase();
+            }
+        };
+
+        // Question 2
+        Consumer<Employee> setNameLambda = (Employee e) -> e.setName("default");
+//        Consumer<Employee> setNameMethodReference = Employee::setName; // NOT POSSIBLE
+        Consumer<Employee> annonymousSetDefaultName = new Consumer<Employee>() {
+            @Override
+            public void accept(Employee employee) {
+                employee.setName("default");
+            }
+        };
+
+        // Question 3
+        BiConsumer<Employee, String> setStringName = (Employee e, String name) -> e.setName(name);
+        BiConsumer<Employee, String> setStringNameMReference = Employee::setName;
+        BiConsumer<Employee, String> setStringNameAClass = new BiConsumer<Employee, String>() {
+            @Override
+            public void accept(Employee employee, String s) {
+                employee.setName(s);
+            }
+        };
+
+
+        // Question 4
+        BiFunction<Integer, Integer, Double> lamdaMathPow = (Integer i1, Integer i2) -> Math.pow(i1, i2);
+        BiFunction<Integer, Integer, Double> methodReferenceMathPow = Math::pow;
+        BiFunction<Integer, Integer, Double> annonymous = new BiFunction<Integer, Integer, Double>() {
+            @Override
+            public Double apply(Integer integer, Integer integer2) {
+                return Math.pow(integer, integer2);
+            }
+        };
+
+        // Question 5 FIRST POSSIBILITY
+        Comparator<String> comparator1 = (String s1, String s2) -> s1.compareTo(s2); // FIRST POSSIBILITY
+        Comparator<String> stringComparator = String::compareTo;
+        Comparator<String> annonymousComparator = new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        };
+
+        // Question 5 SECOND POSSIBILITY
+        BiFunction<String, String, Integer> comparator2 = (String s1, String s2) -> s1.compareTo(s2); // SECOND POSSIBILITY
+        BiFunction<String, String, Integer> methodReferenceComparator2 = String::compareTo;
+        BiFunction<String, String, Integer> annonymousComparator2 = new BiFunction<String, String, Integer>() {
+            @Override
+            public Integer apply(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        };
+
+
+        // Question 6 FIRST POSSIBILITY
+        EmployeeComparator comp = new EmployeeComparator();
+        Comparator<Employee> employeeComparator = (Employee e1, Employee e2) -> comp.compare(e1, e2);
+        Comparator<Employee> employeeComparatorMethodReference = comp::compare;
+        Comparator<Employee> annonymouys = new Comparator<Employee>() {
+            @Override
+            public int compare(Employee o1, Employee o2) {
+                return comp.compare(o1, o2);
+            }
+        };
+
+
+        // Question 6 SECOND POSSIBILITY
+        EmployeeComparator comp1 = new EmployeeComparator();
+        BiFunction<Employee, Employee, Integer> employeeComparator1 = (Employee e1, Employee e2) -> comp1.compare(e1, e2);
+        BiFunction<Employee, Employee, Integer> employeeComparatorMethodReference1 = comp1::compare;
+        BiFunction<Employee, Employee, Integer> annonymouys1 = new BiFunction<>() {
+            @Override
+            public Integer apply(Employee employee, Employee employee2) {
+                return comp1.compare(employee, employee2);
+
+            }
+        };
     }
 }
