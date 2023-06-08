@@ -2,3 +2,4 @@
 out
 .angular
 node_modules
+.vscode
