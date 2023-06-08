@@ -1,0 +1,9 @@
+<div>
+  <strong>Title:</strong> {{ game.title }} <br />
+  <strong>Price:</strong> {{ game.price | currency }} <br />
+  <strong>Rate:</strong> {{ game.rate }} <br />
+  <strong>Minimum Age:</strong> {{ game.minAge }} <br />
+  <strong>Minimum amount of Players:</strong> {{ game.minPlayers }} <br />
+  <strong>Year:</strong> {{ game.year }} <br />
+  <button (click)="deleteGame()" routerLink="/">Delete game</button>
+</div>

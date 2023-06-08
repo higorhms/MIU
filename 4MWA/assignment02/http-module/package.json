@@ -1,0 +1,15 @@
+{
+  "name": "assignment-http-module",
+  "version": "1.0.0",
+  "description": "assignment http module version",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "higor",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "16.1.0"
+  }
+}

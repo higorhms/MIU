@@ -1,0 +1,15 @@
+{
+  "name": "school-api",
+  "version": "1.0.0",
+  "description": "an api to return a list of students and their gpa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "higor",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "16.1.3",
+    "express": "4.18.2"
+  }
+}

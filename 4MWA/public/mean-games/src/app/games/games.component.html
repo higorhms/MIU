@@ -1,0 +1,15 @@
+<div>
+  <ul>
+    <li *ngFor="let game of games">
+      <a routerLink="/game/{{ game._id }}">
+        Title: {{ game.title }} <br />
+        Price: {{ game.price | currency }} <br />
+      </a>
+      <br/>
+    </li>
+  </ul>
+  <div>
+    <button (click)="previousPage()">Previous</button>
+    <button (click)="nextPage()">Next</button>
+  </div>
+</div>
