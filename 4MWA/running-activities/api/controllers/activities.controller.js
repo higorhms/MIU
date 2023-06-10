@@ -1,28 +1,22 @@
 const constants = require("../constants");
 const {
   validateObjectId,
-  badRequestResponse,
   successResponse,
   createError,
-  errorResponse
+  errorResponse,
+  validatePaginationParams
 } = require("./utils/controller.utils");
 const activitiesRepository = require("../data/repository/activities.repository");
 
 const findAll = function (req, res) {
-  const offset = req.query.offset || constants.DEFAULT_OFFSET;
-  const count = req.query.count || constants.DEFAULT_COUNT;
-
-  if (isNaN(offset) || isNaN(count)) { return badRequestResponse(res, process.env.INVALID_PAGINATION_MESSAGE) };
-  if (count > constants.DEFAULT_COUNT) { return badRequestResponse(res, process.env.INVALID_COUNT_MESSAGE) };
-
-  activitiesRepository.findAll(offset, count)
+  validatePaginationParams(req.query.offset, req.query.count)
+    .then((page, count) => activitiesRepository.findAll(page, count))
     .then((activities) => successResponse(res, activities))
     .catch((error) => errorResponse(res, error))
 }
 
 const findOne = (req, res) => {
-  const activityId = req.params.activityId;
-  validateObjectId(activityId)
+  validateObjectId(req.params.activityId)
     .then((activityId => activitiesRepository.findById(activityId)))
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => successResponse(res, activity))
@@ -37,9 +31,7 @@ const insertOne = function (req, res) {
 }
 
 const deleteOne = function (req, res) {
-  const activityId = req.params.activityId;
-
-  validateObjectId(activityId)
+  validateObjectId(req.params.activityId)
     .then((activityId) => activitiesRepository.findById(activityId))
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => activitiesRepository.deleteOne(activity._id))
@@ -76,9 +68,9 @@ const fullUpdate = function (req, res) {
 
 const _validateSchema = function (activity) {
   return new Promise((resolve, reject) => {
-    activitiesRepository.validate(activity).then(()=>{
+    activitiesRepository.validate(activity).then(() => {
       resolve(activity);
-    }).catch((error)=>{
+    }).catch((error) => {
       error.status = constants.BAD_REQUEST_STATUS;
       reject(error);
     })

@@ -4,5 +4,7 @@ module.exports = {
   BAD_REQUEST_STATUS: parseInt(process.env.BAD_REQUEST_STATUS),
   NOT_FOUND_STATUS: parseInt(process.env.NOT_FOUND_STATUS),
   INTERNAL_SERVER_ERROR_STATUS: parseInt(process.env.INTERNAL_SERVER_ERROR_STATUS),
+  UNAUTHORIZED_STATUS: parseInt(process.env.UNAUTHORIZED_STATUS),
   SUCCESS_STATUS: parseInt(process.env.SUCCESS_STATUS),
+  ENCRYPTION_SALT: parseInt(process.env.ENCRYPTION_SALT),
 };
