@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { createError } = require("../../controllers/utils/controller.utils");
 const constants = require("../../constants");
 
 const User = mongoose.model(process.env.USER_MODEL);

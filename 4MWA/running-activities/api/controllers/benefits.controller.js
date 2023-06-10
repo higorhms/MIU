@@ -6,15 +6,17 @@ const {
   notfoundResponse,
   successResponse,
   badRequestResponse,
-  internalServerError
+  internalServerError,
+  errorResponse
 } = require("./utils/controller.utils");
+const { _checkIfActivityExist } = require("./activities.controller").util;
+const activitiesRepository = require("../data/repository/activities.repository");
+const benefitsRepository = require("../data/repository/benefits.repository");
+const constants = require("../constants");
+const { rejects } = require("assert");
 
 const Activity = mongoose.model(process.env.ACTIVITY_MODEL);
 const Benefit = mongoose.model(process.env.BENEFIT_MODEL);
-
-const findAllWithCallback = callbackify(function (activityId) {
-  return Activity.findById(activityId).select(process.env.BENEFITS_COLLECTION).exec();
-})
 
 const partialUpdateWithCallback = callbackify(function (activityId, updatedActivity) {
   return Activity.findOneAndUpdate({ _id: activityId }, updatedActivity, { new: true })
@@ -25,97 +27,56 @@ const validateWithCallback = callbackify(function (benefit) {
 })
 
 const findAll = function (req, res) {
-  try {
-    const activityId = req.params.activityId;
-    validateObjectId(activityId);
-
-    findAllWithCallback(activityId, function (error, activity) {
-      if (error) return internalServerError(res, error);
-      if (!activity) return notfoundResponse(res, process.env.ACTIVITY_NOT_FOUND_MESSAGE);
-
-      return successResponse(res, activity.benefits);
-    })
-  } catch (error) {
-    return res.status(error.status).json({ message: error.message })
-  }
+  const activityId = req.params.activityId;
+  validateObjectId(activityId)
+    .then((activityId) => activitiesRepository.findById(activityId))
+    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => successResponse(res, activity.benefits))
+    .catch((error) => errorResponse(res, error))
 }
 
 const findOne = function (req, res) {
-  try {
-    const activityId = req.params.activityId;
-    const benefitId = req.params.benefitId;
+  const activityId = req.params.activityId;
+  const benefitId = req.params.benefitId;
 
-    validateObjectId(activityId);
-    validateObjectId(benefitId);
-
-    findAllWithCallback(activityId, function (error, activity) {
-      if (error) return internalServerError(res, error);
-      if (!activity) return notfoundResponse(res, process.env.ACTIVITY_NOT_FOUND_MESSAGE);
-
-      const benefit = activity.benefits.id(benefitId);
-
-      if (!benefit) return notfoundResponse(res, process.env.BENEFIT_NOT_FOUND_MESSAGE);
-
-      return successResponse(res, benefit);
-    })
-  } catch (error) {
-    return res.status(error.status).json({ message: error.message });
-  }
+  validateObjectId(activityId)
+    .then(() => validateObjectId(benefitId))
+    .then(() => activitiesRepository.findById(activityId))
+    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => _checkIfBenefitExist(activity, benefitId))
+    .then((benefit) => successResponse(res, benefit))
+    .catch((error) => errorResponse(res, error))
 }
 
 const insertOne = function (req, res) {
-  try {
-    const activityId = req.params.activityId;
-    const newBenefit = req.body;
+  const activityId = req.params.activityId;
+  const newBenefit = _fillBenefit(req.body);
 
-    validateObjectId(activityId);
-
-    findAllWithCallback(activityId, function (error, activity) {
-      if (error) return internalServerError(res, error);
-      if (!activity) return notfoundResponse(res, process.env.ACTIVITY_NOT_FOUND_MESSAGE);
-
-      validateWithCallback(newBenefit, function (validateError) {
-        if (validateError) return badRequestResponse(res, validateError);
-
-        activity.benefits.push(newBenefit);
-
-        partialUpdateWithCallback(activityId, activity, function (err, activity) {
-          if (error) return internalServerError(res, err);
-
-          return successResponse(res, activity);
-        })
-      })
-    })
-  } catch (error) {
-    return res.status(error.status).json({ message: error.message });
-  }
+  validateObjectId(activityId)
+    .then(() => _validateSchema(newBenefit))
+    .then(() => activitiesRepository.findById(activityId))
+    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => _addBenefitToActivity(activity, newBenefit))
+    .then((activity) => activity.save())
+    .then((activity) => successResponse(res, activity))
+    .catch((error) => errorResponse(res, error))
 }
-
+/**
+ * NOT WORKING
+ */
 const deleteOne = function (req, res) {
-  try {
-    const activityId = req.params.activityId;
-    const benefitId = req.params.benefitId;
+  const activityId = req.params.activityId;
+  const benefitId = req.params.benefitId;
 
-    validateObjectId(activityId);
-    validateObjectId(benefitId);
-
-    findAllWithCallback(activityId, function (error, activity) {
-      if (error) return internalServerError(res, error);
-      if (!activity) return notfoundResponse(res, process.env.ACTIVITY_NOT_FOUND_MESSAGE);
-
-      const benefit = activity.benefits.id(benefitId);
-
-      if (!benefit) return notfoundResponse(res, process.env.BENEFIT_NOT_FOUND_MESSAGE);
-
-      partialUpdateWithCallback(activityId, { $pull: { benefits: { _id: benefitId } } }, function (err, acknowledgeObject) {
-        if (error) return internalServerError(res, err);
-
-        return successResponse(res, acknowledgeObject);
-      })
-    })
-  } catch (error) {
-    return res.status(error.status).json({ message: error.message });
-  }
+  validateObjectId(activityId)
+    .then(() => validateObjectId(benefitId))
+    .then(() => activitiesRepository.findById(activityId))
+    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => _checkIfBenefitExist(activity, benefitId))
+    .then((benefit, activity) => _removeBenefitFromActivity(activity, benefit._id.toString()))
+    .then((activity) => activity.save())
+    .then((activity) => successResponse(res, activity))
+    .catch((error) => errorResponse(res, error))
 }
 
 const partialUpdate = function (req, res) {
@@ -182,6 +143,55 @@ const fullUpdate = function (req, res) {
   } catch (error) {
     return res.status(error.status).json({ message: error.message });
   }
+}
+
+/**
+ * NOT WORKING
+ */
+const _checkIfBenefitExist = function (activity, benefitId) {
+  return new Promise((resolve, reject) => {
+    const benefit = activity.benefits.id(benefitId);
+    if (!benefit) reject(
+      createError(constants.NOT_FOUND_STATUS, process.env.BENEFIT_NOT_FOUND_MESSAGE)
+    );
+    console.log(activity)
+    resolve(benefit, activity);
+  })
+}
+
+const _fillBenefit = function (data) {
+  const filledBenefit = {};
+  if (data.name) filledBenefit.name = data.name;
+  if (data.description) filledBenefit.description = data.description;
+  return filledBenefit;
+}
+
+const _validateSchema = function (benefitSchema) {
+  return new Promise((resolve, reject) => {
+    benefitsRepository.validate(benefitSchema)
+      .then(() => resolve(benefitSchema))
+      .catch((error) => {
+        error.status = constants.BAD_REQUEST_STATUS;
+        reject(error);
+      })
+  })
+}
+
+const _addBenefitToActivity = function (activity, newBenefit) {
+  return new Promise((resolve, reject) => {
+    activity.benefits.push(newBenefit);
+    resolve(activity);
+  })
+}
+
+const _removeBenefitFromActivity = function (activity, benefitId) {
+  return new Promise((resolve, reject) => {
+    const index = activity.benefits.findIndex(benefit =>      benefit._id.toString() === benefitId);
+    delete activity.benefits[index];
+    resolve(activity)
+  }).reject(error => {
+    rejects(error);
+  })
 }
 
 module.exports = {

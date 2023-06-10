@@ -104,4 +104,7 @@ module.exports = {
   deleteOne,
   partialUpdate,
   fullUpdate,
+  util: {
+    _checkIfActivityExist
+  }
 }
