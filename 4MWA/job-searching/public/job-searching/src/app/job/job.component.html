@@ -1,0 +1,12 @@
+<div>
+  Title: {{job.title}} <br />
+  Description: {{job.description}} <br />
+  Experience: {{job.experience}} <br />
+  Skills: <br />
+  <ol>
+    <li *ngFor="let skill of job.skills"> {{skill}} </li>
+  </ol>
+  <br />
+  <button routerLink="/job/{{job._id}}/edit">Edit</button>
+  <button (click)="deleteJob()">Delete</button>
+</div>

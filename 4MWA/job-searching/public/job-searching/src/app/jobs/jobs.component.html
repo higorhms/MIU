@@ -1,0 +1,20 @@
+<div>
+  <ul>
+    <li *ngFor="let job of jobs">
+      <a routerLink="/job/{{job._id}}">
+        Title: {{job.title}} <br />
+      </a>
+      
+        Description: {{job.description}} <br />
+        Experience: {{job.experience}} <br />
+        Post Date: {{job.postDate | date:'fullDate'}} <br />
+        Skills: <br />
+        <ol>
+          <li *ngFor="let skill of job.skills"> {{skill}} </li>
+        </ol>
+        <br />
+    </li>
+  </ul>
+  <button (click)="previousPage()">Previous</button>
+  <button (click)="nextPage()">Next</button>
+</div>

@@ -1,0 +1,17 @@
+<div>
+  <form (ngSubmit)="submitForm()">
+    <label>
+      Title: <input type="text" name="title" size="100" id="title" [(ngModel)]="form.title">
+    </label>
+    <br />
+    <label>
+      description: <input type="text" size="100" name="description" id="description" [(ngModel)]="form.description">
+    </label>
+    <br />
+    <label>
+      experience: <input type="text" name="experience" size="100" id="experience" [(ngModel)]="form.experience">
+    </label>
+    <br />
+    <button type="submit">Submit</button>
+  </form>
+</div>

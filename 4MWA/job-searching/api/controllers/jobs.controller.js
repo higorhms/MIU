@@ -14,8 +14,8 @@ const _validatePaginationParams = function (offset, count) {
 }
 
 const findAll = function (req, res) {
-  const offset = req.params.offset;
-  const count = req.params.count;
+  const offset = req.query.offset;
+  const count = req.query.count;
   const lat = parseFloat(req.query.lat);
   const lng = parseFloat(req.query.lng);
   let skills = req.query.skills;
@@ -81,6 +81,16 @@ const updateOne = function (req, res) {
     .catch((error) => errorResponse(res, error))
 }
 
+const findOne = function(req, res){
+  const jobId = req.params.jobId;
+
+  jobsRepository.validateObjectId(jobId)
+    .then(() => jobsRepository.findOneById(jobId))
+    .then((job) => _checkIfJobExist(job))
+    .then((job) => successResponse(res, job))
+    .catch((error) => errorResponse(res, error))
+}
+
 const _checkIfJobExist = function (job) {
   return new Promise((resolve, reject) => {
     if (!job) reject(createError(404, "job not found"));
@@ -122,5 +132,6 @@ module.exports = {
   findAll,
   insertOne,
   updateOne,
-  deleteOne
+  deleteOne,
+  findOne
 }

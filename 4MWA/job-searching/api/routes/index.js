@@ -8,6 +8,7 @@ routes.route("/jobs")
   .post(jobsController.insertOne)
 
 routes.route("/jobs/:jobId")
+  .get(jobsController.findOne)
   .patch(jobsController.updateOne)
   .delete(jobsController.deleteOne)
 

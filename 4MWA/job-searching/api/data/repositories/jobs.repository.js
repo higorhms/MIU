@@ -4,6 +4,7 @@ const { createError } = require("../../controllers/utils/controller.utils");
 const Job = mongoose.model("Job");
 
 const findAll = function(offset, count, query) {
+  console.log(offset, count)
   return Job.find(query).skip(offset).limit(count).exec();
 }
 
