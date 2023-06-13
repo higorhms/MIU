@@ -1,11 +1,5 @@
 const constants = require("../constants");
-const {
-  validateObjectId,
-  successResponse,
-  createError,
-  errorResponse,
-  validatePaginationParams
-} = require("./utils/controller.utils");
+const { validateObjectId, successResponse, createError, errorResponse, validatePaginationParams } = require("./utils/controller.utils");
 const activitiesRepository = require("../data/repository/activities.repository");
 
 const findAll = function (req, res) {

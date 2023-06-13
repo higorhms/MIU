@@ -5,8 +5,9 @@ const { successResponse, errorResponse, createError } = require("./utils/control
 const constants = require("../constants");
 
 const insertOne = function (req, res) {
-  _fillUser(req.body)
-    .then((userToBeCreated) => usersRepository.validate(userToBeCreated))
+  const userToBeCreated = _fillUser(req.body);
+
+  usersRepository.validate(userToBeCreated)
     .then((userToBeCreated) => _checkIfUserAlreadyExist(userToBeCreated))
     .then((userToBeCreated) => _encryptPassword(userToBeCreated))
     .then((userToBeCreated) => usersRepository.insertOne(userToBeCreated))
@@ -71,10 +72,7 @@ const _fillUser = function (data) {
   if (data.name) newUser.name = data.name;
   if (data.username) newUser.username = data.username;
   if (data.password) newUser.password = data.password;
-
-  return new Promise((resolve, reject) => {
-    resolve(newUser);
-  })
+  return newUser;
 }
 
 const _validateRequestCredentials = function (data) {
