@@ -1,0 +1,13 @@
+<div>
+  <h1>Activities:</h1>
+
+  <ul>
+    <li *ngFor="let activity of activities">
+      <a routerLink="/activity/{{activity._id}}">
+        Name: {{activity.name}} <br/>
+        Description: {{activity.description}} <br/>
+        <br/>
+      </a>
+    </li>
+  </ul>
+</div>

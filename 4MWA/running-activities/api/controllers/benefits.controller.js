@@ -6,8 +6,8 @@ const {
   notfoundResponse,
   successResponse,
   badRequestResponse,
-  internalServerError,
-  errorResponse
+  errorResponse,
+  createError
 } = require("./utils/controller.utils");
 const { _checkIfActivityExist } = require("./activities.controller").util;
 const activitiesRepository = require("../data/repository/activities.repository");
@@ -61,9 +61,7 @@ const insertOne = function (req, res) {
     .then((activity) => successResponse(res, activity))
     .catch((error) => errorResponse(res, error))
 }
-/**
- * NOT WORKING
- */
+
 const deleteOne = function (req, res) {
   const activityId = req.params.activityId;
   const benefitId = req.params.benefitId;
@@ -73,8 +71,8 @@ const deleteOne = function (req, res) {
     .then(() => activitiesRepository.findById(activityId))
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
-    .then((benefit, activity) => _removeBenefitFromActivity(activity, benefit._id.toString()))
-    .then((activity) => activity.save())
+    .then((activity) => _removeBenefitFromActivity(activity, benefitId))
+    .then((activity) => activity.save()) 
     .then((activity) => successResponse(res, activity))
     .catch((error) => errorResponse(res, error))
 }
@@ -145,17 +143,13 @@ const fullUpdate = function (req, res) {
   }
 }
 
-/**
- * NOT WORKING
- */
 const _checkIfBenefitExist = function (activity, benefitId) {
   return new Promise((resolve, reject) => {
     const benefit = activity.benefits.id(benefitId);
     if (!benefit) reject(
       createError(constants.NOT_FOUND_STATUS, process.env.BENEFIT_NOT_FOUND_MESSAGE)
     );
-    console.log(activity)
-    resolve(benefit, activity);
+    resolve(activity);
   })
 }
 
@@ -186,11 +180,8 @@ const _addBenefitToActivity = function (activity, newBenefit) {
 
 const _removeBenefitFromActivity = function (activity, benefitId) {
   return new Promise((resolve, reject) => {
-    const index = activity.benefits.findIndex(benefit =>      benefit._id.toString() === benefitId);
-    delete activity.benefits[index];
+    activity.benefits = activity.benefits.filter(benefit => benefit._id.toString() !== benefitId);
     resolve(activity)
-  }).reject(error => {
-    rejects(error);
   })
 }
 
