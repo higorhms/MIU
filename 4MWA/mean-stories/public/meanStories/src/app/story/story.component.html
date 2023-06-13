@@ -1,0 +1,22 @@
+<div>
+  <h1>Story Details</h1>
+  <button routerLink="/stories">Go Back to stories</button>
+  <br/>
+  <br/>
+  Title: {{story.title}} <br/>
+  Container: <br/>
+  Name: {{story.container.name}} <br/>
+  Short Name: {{story.container.short_name}} <br/>
+
+  Topic: <br/>
+  Name: {{story.topic.name}} <br/>
+  Short Name: {{story.topic.short_name}} <br/>
+
+  Media: {{story.media}} <br/>
+  Number Of Comments: {{story.comments}} <br/>
+  Description: {{story.description}} <br/>
+  User name: {{story.user.name}} <br/>
+  <h4>Status: {{story.status}}</h4> <br/>
+</div>
+
+<button (click)="switchPopularity()">Switch Popularity</button>

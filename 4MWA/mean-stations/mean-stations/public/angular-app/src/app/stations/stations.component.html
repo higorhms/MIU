@@ -1,0 +1,12 @@
+<div>
+    The list of Stations are:<br/>
+    <ul>
+        <div *ngFor="let station of stations">
+            <input type="checkbox" (click)="toogleStationToDeleteList(station._id)"/>
+            <a routerLink="{{station._id}}"> {{station.st}}</a>
+        </div>
+    </ul>
+    <button (click)="onDelete()">Delete Selected</button> <br/>
+    <button [disabled]="page == 1" (click)="previousPage()">Previous</button>
+    <button [disabled]="stations.length != 5" (click)="nextPage()">Next</button>
+</div>

@@ -1,0 +1,11 @@
+<H1>Station: {{station.st}}<br/></H1>
+<br/>
+
+Time: {{station.ts | date}} <span *ngIf="displayTime">{{station.ts | date:"HH:MM:SS"}} </span> <label><input type="checkbox" (click)="toogleDisplayTime()"/>Display time</label><br/>
+Latitude: {{station.position.coordinates[1]}} 
+Longitude: {{station.position.coordinates[0]}} <br/>
+Air Temperature: {{station.airTemperature}}<br/>
+Dew Point: {{station.dewPoint}}<br/>
+Pressure: {{station.pressure}}<br/>
+Wind Direction: {{station.wind.direction}} <br/>
+Wind Speed: {{station.wind.speed}} <br/>

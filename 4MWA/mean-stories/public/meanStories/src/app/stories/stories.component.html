@@ -1,0 +1,16 @@
+<div>
+  <h1>List of stories</h1>
+  <ul>
+    <li *ngFor="let story of stories">
+     <a routerLink="/stories/{{story._id}}">Title:  {{story.title}} <br/> </a>
+     Container:  <br/>
+      Name: {{story.container.name}} <br/>
+      Short Name: {{story.container.short_name}} <br/>
+      <br/>
+     Topic:  <br/>
+        Name: {{story.topic.name}} <br/>
+        Short Name: {{story.topic.short_name}} <br/>
+     <br/>
+    </li>
+  </ul>
+</div>
