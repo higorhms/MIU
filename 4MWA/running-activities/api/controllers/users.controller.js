@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const util = require("util");
 
 const { successResponse, errorResponse, createError } = require("./utils/controller.utils");
 const constants = require("../constants");
@@ -17,24 +19,27 @@ const insertOne = function (req, res) {
     .catch((error) => errorResponse(res, error))
 }
 
-/*
-Change to return the true autentication
-*/
 const signIn = function (req, res) {
   _validateRequestCredentials(req.body)
     .then((credentials) => User.findOne({ username: credentials.username }).exec())
     .then((user) => _checkIfUserExist(user))
-    .then((user) => _checkIfPasswordMatches(user.password, req.body.password))
-    .then((passwordMatches) => successResponse(res, { message: passwordMatches }))
+    .then((user) => _checkPassword(user, req.body.password))
+    .then((user) => _generateToken(user.name))
+    .then((token) => successResponse(res, { token }))
     .catch((error) => errorResponse(res, error))
 }
 
-const _checkIfPasswordMatches = function (databasePassword, requestPassword) {
+const _generateToken = function (userName) {
+  const sign = util.promisify(jwt.sign);
+  return sign({ name: userName }, process.env.ENCODING_SECRET, { expiresIn: constants.EXPIRATION_TIME });
+}
+
+const _checkPassword = function (databaseUser, requestPassword) {
   return new Promise((resolve, reject) => {
-    bcrypt.compare(requestPassword, databasePassword)
+    bcrypt.compare(requestPassword, databaseUser.password)
       .then((passwordMatches) => {
         if (!passwordMatches) reject(createError(constants.UNAUTHORIZED_STATUS, process.env.UNAUTHORIZED_MESSAGE));
-        resolve(passwordMatches);
+        resolve(databaseUser);
       })
       .catch((error) => reject(error));
   })

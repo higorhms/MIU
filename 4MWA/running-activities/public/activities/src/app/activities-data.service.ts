@@ -45,8 +45,13 @@ export class ActivitiesDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getActivities(): Observable<Acitivty[]> {
-    return this.httpClient.get<Acitivty[]>(this._baseUrl);
+  getActivities(offset: number = 1, count: number = 3): Observable<Acitivty[]> {
+    return this.httpClient.get<Acitivty[]>(this._baseUrl, {
+      params: {
+        offset,
+        count
+      }
+    });
   }
 
   getActivity(activityId: string): Observable<Acitivty> {

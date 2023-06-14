@@ -1,17 +1,15 @@
-<div>
-  <div class="container">
-    <div class="list">
-      <a class="list-item" *ngFor="let activity of activities" routerLink="/activity/{{activity._id}}">
-        <div class="name-container">
-          <h1>{{activity.name}}</h1>
-        </div>
-        <p class="description">{{activity.description}}</p>
-      </a>
-    </div>
-
+<div class="container">
+  <div class="list">
+    <a class="list-item" *ngFor="let activity of activities" routerLink="/activity/{{activity._id}}">
+      <div class="name-container">
+        <h1>{{activity.name}}</h1>
+      </div>
+      <p class="description">{{activity.description}}</p>
+    </a>
   </div>
-  <div>
-    <button>Previous</button>
-    <button>Next</button>
+
+  <div class="button-container">
+    <button *ngIf="page != 1" (click)="previousPage()">Previous</button>
+    <button *ngIf="activities.length == 3" (click)="nextPage()">Next</button>
   </div>
 </div>

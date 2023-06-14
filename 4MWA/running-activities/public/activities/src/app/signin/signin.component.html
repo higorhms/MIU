@@ -5,9 +5,9 @@
     </div>
 
     <form>
-      <input placeholder="username" name="username" />
-      <input placeholder="password" name="password" type="password" />
-      <button class="submit-button" type="submit">Sign in</button>
+      <input placeholder="username" name="username" [(ngModel)]="form.username" />
+      <input placeholder="password" name="password" type="password" [(ngModel)]="form.password" />
+      <button class="submit-button" type="submit" (click)="signIn()">Sign in</button>
     </form>
 
     <div class="create-account">

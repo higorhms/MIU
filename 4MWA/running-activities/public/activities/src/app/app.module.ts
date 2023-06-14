@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { HomeComponent } from './home/home.component';
 import { ActivityComponent } from './activity/activity.component';
 import { ActivitiesComponent } from './activities/activities.component';
-import { FooterComponent } from './footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,15 @@ import { SignupComponent } from './signup/signup.component';
     HomeComponent,
     ActivityComponent,
     ActivitiesComponent,
-    FooterComponent,
     SigninComponent,
     SignupComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([{
       path: "",
       component: HomeComponent
@@ -48,7 +52,10 @@ import { SignupComponent } from './signup/signup.component';
     }
   ])
   ],
-  providers: [],
+  providers: [
+    provideAnimations(),
+    provideToastr(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

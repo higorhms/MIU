@@ -7,4 +7,6 @@ module.exports = {
   UNAUTHORIZED_STATUS: parseInt(process.env.UNAUTHORIZED_STATUS),
   SUCCESS_STATUS: parseInt(process.env.SUCCESS_STATUS),
   ENCRYPTION_SALT: parseInt(process.env.ENCRYPTION_SALT),
+  FORBIDDEN_STATUS: parseInt(process.env.FORBIDDEN_STATUS),
+  EXPIRATION_TIME: parseInt(process.env.EXPIRATION_TIME)
 };

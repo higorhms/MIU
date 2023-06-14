@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 class User {
   #name!: string;
@@ -12,7 +14,13 @@ class User {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private baseUrl = 'http://localhost:3000/users/';
+  private baseUrl = 'http://localhost:3000/api/users/';
+
+  constructor(
+    private _httpClient: HttpClient,
+    private _toastrService: ToastrService,
+    private _router: Router
+  ) { }
 
   get isSignedIn(): User | null {
     const user = localStorage.getItem("auth")
@@ -20,15 +28,24 @@ export class AuthenticationService {
     return JSON.parse(user)
   }
 
-  constructor(private httpClient: HttpClient) { }
-
   signIn(username: string, password: string) {
     const url = this.baseUrl + 'signin';
-    const user = this.httpClient.post<User>(url, {
+    this._httpClient.post<User>(url, {
       username,
       password
+    }).subscribe({
+      next: (user) => {
+        localStorage.setItem("auth", JSON.stringify(user));
+        this._toastrService.success("Success", "Logged in")
+        this._router.navigate(["/"]);
+      },
+      error: (error) => {
+        this._toastrService.error(error.error.message)
+      }
     })
-    localStorage.setItem("auth", JSON.stringify(user));
-    return user;
+  }
+
+  signOut() {
+    localStorage.removeItem("auth");
   }
 }

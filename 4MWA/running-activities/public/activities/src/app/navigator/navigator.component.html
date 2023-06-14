@@ -2,11 +2,11 @@
   <div class="menu">
     <a class="item" routerLink="/">Home</a>
     <a class="item" routerLink="/activities">Activities</a>
-    <a class="item" routerLink="/signup">Sign up</a>
-    <a class="item" routerLink="/signin">Sign in</a>
-    <a class="item" routerLink="/profile">Profile</a>
+    <a *ngIf="!isSignedIn" class="item" routerLink="/signup">Sign up</a>
+    <a *ngIf="!isSignedIn" class="item" routerLink="/signin">Sign in</a>
+    <a *ngIf="isSignedIn" class="item" routerLink="/profile">Profile</a>
   </div>
-  <div class="profile-container">
-    <span class="item">Hello "name"!</span>
+  <div class="right-container">
+    <a *ngIf="isSignedIn" class="item" routerLink="/signin" (click)="signOut()">Sign out</a>
   </div>
 </div>

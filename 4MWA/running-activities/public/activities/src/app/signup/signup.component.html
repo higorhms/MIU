@@ -5,10 +5,11 @@
     </div>
 
     <form>
-      <input placeholder="username" name="username" />
-      <input placeholder="password" name="password" type="password" />
-      <input placeholder="repeat password" name="repeatpassword" type="repeatpassword" />
-      <button class="submit-button" type="submit">Sign Up</button>
+      <input placeholder="name" name="name" [(ngModel)]="form.name" />
+      <input placeholder="username" name="username" [(ngModel)]="form.username" />
+      <input placeholder="password" name="password" type="password" [(ngModel)]="form.password"/>
+      <input placeholder="repeat password" name="repeatpassword" type="password" [(ngModel)]="form.repeatPassword"/>
+      <button class="submit-button" type="submit" (click)="signUp()">Sign Up</button>
     </form>
 
     <div class="create-account">

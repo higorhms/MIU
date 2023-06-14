@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Acitivty, ActivitiesDataService } from '../activities-data.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-activity',
@@ -10,16 +11,20 @@ import { Acitivty, ActivitiesDataService } from '../activities-data.service';
 })
 export class ActivityComponent implements OnInit {
 
-  public activity: Acitivty = {} as Acitivty;
+  public activity: Acitivty = new Acitivty();
 
   constructor(
     private _route: ActivatedRoute,
-    private activitiesDataService: ActivitiesDataService
+    private activitiesDataService: ActivitiesDataService,
+    private _authenticationService: AuthenticationService
   ) { }
+
+  get isSignedIn() { return this._authenticationService.isSignedIn }
+
 
 
   deleteActivity() {
-    this.activitiesDataService.deleteActivity(this.activity._id).subscribe((response) => {console.log(response)});
+    this.activitiesDataService.deleteActivity(this.activity._id).subscribe((response) => { console.log(response) });
   }
 
   ngOnInit(): void {
