@@ -9,6 +9,8 @@ import { ActivityComponent } from './activity/activity.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     ActivityComponent,
     ActivitiesComponent,
-    FooterComponent
+    FooterComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,14 @@ import { HttpClientModule } from '@angular/common/http';
       path: "activity/:activityId",
       component: ActivityComponent
     },
+    {
+      path: "signin",
+      component: SigninComponent
+    },
+    {
+      path: "signup",
+      component: SignupComponent
+    }
   ])
   ],
   providers: [],

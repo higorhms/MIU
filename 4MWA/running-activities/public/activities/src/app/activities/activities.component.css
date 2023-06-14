@@ -23,6 +23,10 @@
   text-decoration: none;
 }
 
+.list-item:hover {
+  box-shadow: 0px 0px 8px 0px #1ba94c;
+}
+
 .description {
   padding: 10px;
   height: 100%;
