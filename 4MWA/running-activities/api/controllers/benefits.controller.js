@@ -1,14 +1,16 @@
+const mongoose = require("mongoose");
 const { validateObjectId, successResponse, errorResponse, createError } = require("./utils/controller.utils");
 const { _checkIfActivityExist } = require("./activities.controller").util;
-const activitiesRepository = require("../data/repository/activities.repository");
-const benefitsRepository = require("../data/repository/benefits.repository");
 const constants = require("../constants");
+
+const Activity = mongoose.model(process.env.ACTIVITY_MODEL);
+const Benefit = mongoose.model(process.env.BENEFIT_MODEL);
 
 const findAll = function (req, res) {
   const activityId = req.params.activityId;
 
   validateObjectId(activityId)
-    .then((activityId) => activitiesRepository.findById(activityId))
+    .then((activityId) => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => successResponse(res, activity.benefits))
     .catch((error) => errorResponse(res, error))
@@ -20,7 +22,7 @@ const findOne = function (req, res) {
 
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
-    .then(() => activitiesRepository.findById(activityId))
+    .then(() => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => successResponse(res, activity.benefits.id(benefitId)))
@@ -33,7 +35,7 @@ const insertOne = function (req, res) {
 
   validateObjectId(activityId)
     .then(() => _validateSchema(newBenefit))
-    .then(() => activitiesRepository.findById(activityId))
+    .then(() => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => _addBenefitToActivity(activity, newBenefit))
     .then((activity) => activity.save())
@@ -47,7 +49,7 @@ const deleteOne = function (req, res) {
 
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
-    .then(() => activitiesRepository.findById(activityId))
+    .then(() => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => _removeBenefitFromActivity(activity, benefitId))
@@ -63,7 +65,7 @@ const partialUpdate = function (req, res) {
 
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
-    .then(() => activitiesRepository.findById(activityId))
+    .then(() => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => _updateFields(activity, benefitId, newBenefit))
@@ -80,7 +82,7 @@ const fullUpdate = function (req, res) {
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
     .then(() => _validateSchema(newBenefit))
-    .then(() => activitiesRepository.findById(activityId))
+    .then(() => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => _updateFields(activity, benefitId, newBenefit))
@@ -107,7 +109,7 @@ const _fillBenefit = function (data) {
 
 const _validateSchema = function (benefitSchema) {
   return new Promise((resolve, reject) => {
-    benefitsRepository.validate(benefitSchema)
+    Benefit.validate(benefitSchema)
       .then(() => resolve(benefitSchema))
       .catch((error) => {
         error.status = constants.BAD_REQUEST_STATUS;

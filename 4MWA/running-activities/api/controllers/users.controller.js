@@ -1,16 +1,18 @@
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const usersRepository = require("../data/repository/users.repository");
 const { successResponse, errorResponse, createError } = require("./utils/controller.utils");
 const constants = require("../constants");
+
+const User = mongoose.model(process.env.USER_MODEL);
 
 const insertOne = function (req, res) {
   const userToBeCreated = _fillUser(req.body);
 
-  usersRepository.validate(userToBeCreated)
+  _validateSchema(userToBeCreated)
     .then((userToBeCreated) => _checkIfUserAlreadyExist(userToBeCreated))
     .then((userToBeCreated) => _encryptPassword(userToBeCreated))
-    .then((userToBeCreated) => usersRepository.insertOne(userToBeCreated))
+    .then((userToBeCreated) => User.create(userToBeCreated))
     .then((user) => successResponse(res, user))
     .catch((error) => errorResponse(res, error))
 }
@@ -20,7 +22,7 @@ Change to return the true autentication
 */
 const signIn = function (req, res) {
   _validateRequestCredentials(req.body)
-    .then((credentials) => usersRepository.findByUsername(credentials.username))
+    .then((credentials) => User.findOne({ username: credentials.username }).exec())
     .then((user) => _checkIfUserExist(user))
     .then((user) => _checkIfPasswordMatches(user.password, req.body.password))
     .then((passwordMatches) => successResponse(res, { message: passwordMatches }))
@@ -47,7 +49,7 @@ const _checkIfUserExist = function (user) {
 
 const _checkIfUserAlreadyExist = function (userToBeCreated) {
   return new Promise((resolve, reject) => {
-    usersRepository.findByUsername(userToBeCreated.username)
+    User.findOne({ username: userToBeCreated.username }).exec()
       .then((foundUser) => {
         if (foundUser) reject(createError(constants.BAD_REQUEST_STATUS, process.env.USER_ALREADY_EXIST_MESSAGE));
         resolve(userToBeCreated);
@@ -82,6 +84,18 @@ const _validateRequestCredentials = function (data) {
     resolve({ username: data.username, password: data.password });
   })
 }
+
+const _validateSchema = function (user) {
+  return new Promise((resolve, reject) => {
+    User.validate(user)
+      .then(() => resolve(user))
+      .catch((error) => {
+        error.status = constants.BAD_REQUEST_STATUS;
+        reject(error)
+      })
+  })
+}
+
 
 module.exports = {
   insertOne,

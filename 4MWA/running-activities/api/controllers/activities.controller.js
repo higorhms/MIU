@@ -1,17 +1,19 @@
+const mongoose = require("mongoose");
 const constants = require("../constants");
 const { validateObjectId, successResponse, createError, errorResponse, validatePaginationParams } = require("./utils/controller.utils");
-const activitiesRepository = require("../data/repository/activities.repository");
+
+const Activity = mongoose.model(process.env.ACTIVITY_MODEL);
 
 const findAll = function (req, res) {
   validatePaginationParams(req.query.offset, req.query.count)
-    .then((page, count) => activitiesRepository.findAll(page, count))
+    .then(({ page, count }) => Activity.find().skip(page).limit(count).exec())
     .then((activities) => successResponse(res, activities))
     .catch((error) => errorResponse(res, error))
 }
 
 const findOne = (req, res) => {
   validateObjectId(req.params.activityId)
-    .then((activityId => activitiesRepository.findById(activityId)))
+    .then((activityId => Activity.findById(activityId).exec()))
     .then((activity) => _checkIfActivityExist(activity))
     .then((activity) => successResponse(res, activity))
     .catch((error) => errorResponse(res, error))
@@ -19,16 +21,16 @@ const findOne = (req, res) => {
 
 const insertOne = function (req, res) {
   _fillActivity(req.body)
-    .then((activity) => activitiesRepository.insertOne(activity))
+    .then((activity) => Activity.create(activity))
     .then((activity) => successResponse(res, activity))
     .catch((error) => errorResponse(res, error))
 }
 
 const deleteOne = function (req, res) {
   validateObjectId(req.params.activityId)
-    .then((activityId) => activitiesRepository.findById(activityId))
+    .then((activityId) => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
-    .then((activity) => activitiesRepository.deleteOne(activity._id))
+    .then((activity) => Activity.deleteOne({ _id: activity._id }).exec())
     .then((acknowledgeObject) => successResponse(res, acknowledgeObject))
     .catch((error) => errorResponse(res, error))
 }
@@ -38,10 +40,10 @@ const partialUpdate = function (req, res) {
   const update = req.body;
 
   validateObjectId(activityId)
-    .then((activityId) => activitiesRepository.findById(activityId))
+    .then((activityId) => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then(() => _fillActivity(update))
-    .then((activity) => activitiesRepository.partialUpdate(activityId, activity))
+    .then((activity) => Activity.findOneAndUpdate({ _id: activityId }, activity, { new: true }))
     .then((updatedActivity) => successResponse(res, updatedActivity))
     .catch((error) => errorResponse(res, error))
 }
@@ -51,18 +53,18 @@ const fullUpdate = function (req, res) {
   const update = req.body;
 
   validateObjectId(activityId)
-    .then((activityId) => activitiesRepository.findById(activityId))
+    .then((activityId) => Activity.findById(activityId).exec())
     .then((activity) => _checkIfActivityExist(activity))
     .then(() => _fillActivity(update))
     .then((activityToUpdate) => _validateSchema(activityToUpdate))
-    .then((activityToUpdate) => activitiesRepository.fullUpdate(activityId, activityToUpdate))
+    .then((activityToUpdate) => Activity.findOneAndReplace({ _id: activityId }, activityToUpdate, { new: true }))
     .then((updatedActivity) => successResponse(res, updatedActivity))
     .catch((error) => errorResponse(res, error))
 }
 
 const _validateSchema = function (activity) {
   return new Promise((resolve, reject) => {
-    activitiesRepository.validate(activity).then(() => {
+    Activity.validate(activity).then(() => {
       resolve(activity);
     }).catch((error) => {
       error.status = constants.BAD_REQUEST_STATUS;

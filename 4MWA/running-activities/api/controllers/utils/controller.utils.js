@@ -23,7 +23,7 @@ const validatePaginationParams = function (offset, count) {
     }
 
     const page = (offset - 1) * count;
-    resolve(page, count);
+    resolve({ page, count });
   })
 }
 

@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
 require("./models/index");
-const callbackify = require("util").callbackify;
-
-const mongooseDisconnectWithCallback = callbackify(function () {
-  return mongoose.disconnect();
-})
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING + process.env.MONGODB_DATABASE_NAME);
 
@@ -21,8 +16,9 @@ mongoose.connection.on("error", function (error) {
 })
 
 process.on('SIGINT', function () {
-  mongooseDisconnectWithCallback(function () {
-    console.log(process.env.SIGINT_MESSAGE)
-    process.exit(0);
-  })
+  mongoose.disconnect()
+    .then(() => (function () {
+      console.log(process.env.SIGINT_MESSAGE)
+      process.exit(0);
+    }))
 })
