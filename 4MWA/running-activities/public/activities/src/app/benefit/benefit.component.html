@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>{{benefit.name}}</h1>
+  <h2>{{benefit.description}} </h2>
+
+  <div class="button-container">
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/edit">Edit</button>
+    <button class="delete-button" *ngIf="isSignedIn" routerLink="/" (click)="delete()">Delete</button>
+  </div>
+</div>

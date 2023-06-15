@@ -1,14 +1,19 @@
-<div>
-  <strong>Name:</strong> {{activity.name}} <br />
-  <strong>Description:</strong> {{activity.description}} <br />
-  <strong>Duration:</strong> {{activity.duration}} <br />
-  <strong>Benefits:</strong> <br />
-  <ul>
-    <li *ngFor="let benefit of activity.benefits">
-      <strong>Name:</strong> {{benefit.name}} <br />
-      <strong>Description:</strong> {{benefit.description}} <br />
+<div class="container">
+  <h1>{{activity.name}}</h1>
+  <span>{{activity.duration}}</span>
+  <h2>{{activity.description}} </h2>
+  <strong>Benefits:</strong>
+  <div class="list">
+    <a class="list-item" *ngFor="let benefit of activity.benefits"
+      routerLink="/activity/{{activity._id}}/benefit/{{benefit._id}}">
+      <span class="benefit-name">{{benefit.name}}</span>
       <br />
-    </li>
-  </ul>
-  <button *ngIf="isSignedIn" routerLink="/" (click)="deleteActivity()">Delete this activity</button>
+      <span class="benefit-description">{{benefit.description}}</span>
+    </a>
+  </div>
+  <div class="button-container">
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/edit">Add Benefit</button>
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/edit">Edit</button>
+    <button class="delete-button" *ngIf="isSignedIn" routerLink="/" (click)="deleteActivity()">Delete</button>
+  </div>
 </div>

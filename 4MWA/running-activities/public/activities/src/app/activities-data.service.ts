@@ -2,19 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
-class Benefit {
-  #_id!: string;
-  #name!: string;
-  #description!: string;
-
-  get _id() { return this.#_id };
-  get name() { return this.#name };
-  get description() { return this.#description };
-
-  set _id(id) { this._id = id };
-  set name(name) { this.#name = name };
-  set description(description) { this.#description = description };
-}
+import { Benefit } from './benefits-data.service';
 
 export class Acitivty {
   #_id!: string;

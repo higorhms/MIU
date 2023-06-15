@@ -13,6 +13,7 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule } from '@angular/forms';
+import { BenefitComponent } from './benefit/benefit.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     ActivityComponent,
     ActivitiesComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    BenefitComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,10 @@ import { FormsModule } from '@angular/forms';
       component: ActivityComponent
     },
     {
+      path: "activity/:activityId/benefit/:benefitId",
+      component: BenefitComponent
+    },
+    {
       path: "signin",
       component: SigninComponent
     },
@@ -50,7 +56,7 @@ import { FormsModule } from '@angular/forms';
       path: "signup",
       component: SignupComponent
     }
-  ])
+    ])
   ],
   providers: [
     provideAnimations(),
