@@ -31,7 +31,7 @@ export class BenefitComponent implements OnInit {
         this.toastrService.success("Successfully deleted");
       },
       error: (error) => {
-        this.toastrService.error(error.message);
+        this.toastrService.error(error.error.message);
       }
     })
   }

@@ -12,8 +12,9 @@
     </a>
   </div>
   <div class="button-container">
-    <button class="edit-button" *ngIf="isSignedIn" routerLink="/edit">Add Benefit</button>
-    <button class="edit-button" *ngIf="isSignedIn" routerLink="/edit">Edit</button>
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/activities/create/{{activity._id}}/benefit">Add
+      Benefit</button>
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/activities/update/{{activity._id}}">Edit</button>
     <button class="delete-button" *ngIf="isSignedIn" routerLink="/" (click)="deleteActivity()">Delete</button>
   </div>
 </div>

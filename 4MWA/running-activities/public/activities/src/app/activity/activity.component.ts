@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Acitivty, ActivitiesDataService } from '../activities-data.service';
+import { Activity, ActivitiesDataService } from '../activities-data.service';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class ActivityComponent implements OnInit {
 
-  public activity: Acitivty = new Acitivty();
+  public activity: Activity = new Activity();
 
   constructor(
     private _route: ActivatedRoute,
@@ -31,7 +31,7 @@ export class ActivityComponent implements OnInit {
     const activityId = this._route.snapshot.params['activityId'];
 
     this.activitiesDataService.getActivity(activityId).subscribe({
-      next: (activity: Acitivty) => {
+      next: (activity: Activity) => {
         this.activity = activity;
       }
     })

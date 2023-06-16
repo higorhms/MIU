@@ -1,4 +1,6 @@
 <div class="container">
+  <button class="create-button" *ngIf="isSignedIn" routerLink="/activities/create">Create</button>
+
   <div class="list">
     <a class="list-item" *ngFor="let activity of activities" routerLink="/activity/{{activity._id}}">
       <div class="name-container">

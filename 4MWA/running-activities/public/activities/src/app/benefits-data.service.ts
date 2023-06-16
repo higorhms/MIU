@@ -13,25 +13,42 @@ export class Benefit {
   set _id(id) { this._id = id };
   set name(name) { this.#name = name };
   set description(description) { this.#description = description };
+
+  toJSON() {
+    return {
+      _id: this._id,
+      name: this.name,
+      description: this.description,
+    }
+  }
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class BenefitsDataService {
+
   constructor(
     private _httpClient: HttpClient,
   ) { }
 
+  create(activityId: string, newBenefit: Benefit) {
+    return this._httpClient.post<Benefit>(this._buildUrl(activityId), newBenefit.toJSON());
+  }
+
   delete(activityId: string, benefitId: string) {
-    return this._httpClient.delete(this._buildUrl(activityId, benefitId));
+    return this._httpClient.delete(this._buildUrl(activityId) + benefitId);
   }
 
   getOne(activityId: string, benefitId: string) {
-    return this._httpClient.get<Benefit>(this._buildUrl(activityId, benefitId));
+    return this._httpClient.get<Benefit>(this._buildUrl(activityId) + benefitId);
   }
 
-  _buildUrl(activityId: string, benefitId: string) {
-    return `http://localhost:3000/api/activities/${activityId}/benefits/${benefitId}`;
+  update(activityId: string, benefitId: string, newProperties: Benefit) {
+    return this._httpClient.patch<Benefit>(this._buildUrl(activityId) + benefitId, newProperties.toJSON());
+  }
+
+  _buildUrl(activityId: string) {
+    return `http://localhost:3000/api/activities/${activityId}/benefits/`;
   }
 }

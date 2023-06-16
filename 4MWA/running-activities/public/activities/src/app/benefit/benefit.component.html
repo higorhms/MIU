@@ -3,7 +3,8 @@
   <h2>{{benefit.description}} </h2>
 
   <div class="button-container">
-    <button class="edit-button" *ngIf="isSignedIn" routerLink="/edit">Edit</button>
+    <button class="edit-button" *ngIf="isSignedIn"
+      routerLink="/activities/{{activityId}}/update/benefit/{{benefit._id}}">Edit</button>
     <button class="delete-button" *ngIf="isSignedIn" routerLink="/" (click)="delete()">Delete</button>
   </div>
 </div>

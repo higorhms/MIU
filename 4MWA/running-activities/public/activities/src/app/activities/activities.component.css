@@ -75,3 +75,9 @@ button {
 button:hover {
   background-color: #1ba94c;
 }
+
+.create-button{
+  width: 10%;
+  margin: 0;
+  margin-bottom: 20px;
+}

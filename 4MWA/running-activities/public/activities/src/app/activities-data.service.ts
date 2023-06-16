@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Benefit } from './benefits-data.service';
 
-export class Acitivty {
+export class Activity {
   #_id!: string;
   #name!: string;
   #duration!: string;
@@ -22,8 +22,17 @@ export class Acitivty {
   set duration(duration) { this.#duration = duration };
   set description(description) { this.#description = description };
   set benefits(benefits) { this.#benefits = benefits };
-}
 
+  toJSON() {
+    return {
+      _id: this._id,
+      name: this.name,
+      duration: this.duration,
+      description: this.description,
+      benefits: this.benefits,
+    }
+  }
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -33,8 +42,8 @@ export class ActivitiesDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getActivities(offset: number = 1, count: number = 3): Observable<Acitivty[]> {
-    return this.httpClient.get<Acitivty[]>(this._baseUrl, {
+  getActivities(offset: number = 1, count: number = 3): Observable<Activity[]> {
+    return this.httpClient.get<Activity[]>(this._baseUrl, {
       params: {
         offset,
         count
@@ -42,8 +51,16 @@ export class ActivitiesDataService {
     });
   }
 
-  getActivity(activityId: string): Observable<Acitivty> {
-    return this.httpClient.get<Acitivty>(this._baseUrl + activityId);
+  getActivity(activityId: string): Observable<Activity> {
+    return this.httpClient.get<Activity>(this._baseUrl + activityId);
+  }
+
+  create(activity: Activity): Observable<Activity> {
+    return this.httpClient.post<Activity>(this._baseUrl, activity.toJSON());
+  }
+
+  update(activityId: string, newProperties: Partial<Activity>): Observable<Activity> {
+    return this.httpClient.patch<Activity>(this._baseUrl + activityId, newProperties);
   }
 
   deleteActivity(activityId: string) {
