@@ -5,6 +5,6 @@
   <div class="button-container">
     <button class="edit-button" *ngIf="isSignedIn"
       routerLink="/activities/{{activityId}}/update/benefit/{{benefit._id}}">Edit</button>
-    <button class="delete-button" *ngIf="isSignedIn" routerLink="/" (click)="delete()">Delete</button>
+    <button class="delete-button" *ngIf="isSignedIn" (click)="delete()">Delete</button>
   </div>
 </div>
