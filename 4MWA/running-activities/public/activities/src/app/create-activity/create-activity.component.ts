@@ -15,12 +15,12 @@ export class CreateActivityComponent {
   public activityForm!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private _formBuilder: FormBuilder,
     private _activitiesDataService: ActivitiesDataService,
     private _toastrService: ToastrService,
-    private router: Router
+    private _router: Router
   ) {
-    this.activityForm = this.formBuilder.group({
+    this.activityForm = this._formBuilder.group({
       name: ['', Validators.required],
       duration: ['', Validators.required],
       description: ['', Validators.required],
@@ -37,11 +37,9 @@ export class CreateActivityComponent {
     this._activitiesDataService.create(newActivity).subscribe({
       next: (createdActivity: Activity) => {
         this._toastrService.success(environment.SUCCESS_MESSAGE)
-        this.router.navigate([`/activity/${createdActivity._id}`])
+        this._router.navigate([`/activity/${createdActivity._id}`])
       },
-      error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
+      error: (error) => this._toastrService.error(error.error.message)
     })
   }
 }

@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AuthenticationService } from '../authentication.service';
 import { Benefit, BenefitsDataService } from '../benefits-data.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-benefit',
@@ -40,14 +40,10 @@ export class BenefitComponent implements OnInit {
     this._benefitsDataService.getOne(this.activityId, benefitId).subscribe({
       next: (benefit) => {
         this.benefit = benefit;
-        console.log(benefit)
       },
-      error: (error) => {
-        console.log(error)
-      }
+      error: (error) => this._toastrService.error(error.error.message)
     })
   }
-
 
   ngOnInit(): void {
     this.activityId = this._activatedRoute.snapshot.params['activityId'];

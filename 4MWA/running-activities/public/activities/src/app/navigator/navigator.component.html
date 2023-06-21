@@ -4,7 +4,6 @@
     <a class="item" routerLink="/activities">Activities</a>
     <a *ngIf="!isSignedIn" class="item" routerLink="/signup">Sign up</a>
     <a *ngIf="!isSignedIn" class="item" routerLink="/signin">Sign in</a>
-    <a *ngIf="isSignedIn" class="item" routerLink="/profile">Profile</a>
   </div>
   <div class="right-container">
     <a *ngIf="isSignedIn" class="item" routerLink="/signin" (click)="signOut()">Sign out</a>

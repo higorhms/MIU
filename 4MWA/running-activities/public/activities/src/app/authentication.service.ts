@@ -22,7 +22,7 @@ export class AuthenticationService {
   }
 
   get name(): string {
-    return this._jwt.decodeToken(this.token).name;
+    return this._jwt.decodeToken(this.token)?.name;
   }
 
   get token(): string{

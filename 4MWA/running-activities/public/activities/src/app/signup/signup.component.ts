@@ -38,6 +38,7 @@ export class SignUpForm {
 })
 export class SignupComponent {
   public form: SignUpForm = new SignUpForm();
+  public passwordsMatch: boolean = true;
 
   constructor(
     private _usersDataService: UsersDataService,
@@ -53,5 +54,9 @@ export class SignupComponent {
       },
       error: (error) => this._toastrService.error(error.error.message),
     })
+  }
+
+  validatePasswords() {
+    this.passwordsMatch = this.form.password === this.form.repeatPassword;
   }
 }

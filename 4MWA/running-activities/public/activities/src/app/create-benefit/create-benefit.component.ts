@@ -16,13 +16,13 @@ export class CreateBenefitComponent {
   public benefitForm!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private _formBuilder: FormBuilder,
     private _benefitsDataService: BenefitsDataService,
     private _toastrService: ToastrService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {
-    this.benefitForm = this.formBuilder.group({
+    this.benefitForm = this._formBuilder.group({
       name: ['', Validators.required],
       duration: ['', Validators.required],
       description: ['', Validators.required],
@@ -30,7 +30,7 @@ export class CreateBenefitComponent {
   }
 
   create() {
-    const activityId = this.activatedRoute.snapshot.params['activityId'];
+    const activityId = this._activatedRoute.snapshot.params['activityId'];
     const newBenefit = new Benefit();
     newBenefit.name = this.benefitForm.value.name;
     newBenefit.description = this.benefitForm.value.description;
@@ -38,7 +38,7 @@ export class CreateBenefitComponent {
     this._benefitsDataService.create(activityId, newBenefit).subscribe({
       next: () => {
         this._toastrService.success(environment.SUCCESS_MESSAGE);
-        this.router.navigate([`activity/${activityId}/`]);
+        this._router.navigate([`activity/${activityId}/`]);
       },
       error: (error) => this._toastrService.error(error.error.message)
     })

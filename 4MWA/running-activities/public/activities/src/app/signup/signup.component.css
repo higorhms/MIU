@@ -1,4 +1,4 @@
-.container{
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,6 +53,7 @@
   font-size: 1.2rem;
   transition: 0.2s;
   letter-spacing: 0.1rem;
+  cursor: pointer;
 }
 
 input {
@@ -78,4 +79,17 @@ input {
 
   display: flex;
   align-items: center;
+}
+
+button:disabled {
+  background-color: #9aeeb7;
+  cursor: default;
+}
+
+.invalid {
+  border: 1px solid red;
+}
+
+.invalid-password {
+  color: red;
 }

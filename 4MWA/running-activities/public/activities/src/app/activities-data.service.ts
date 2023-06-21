@@ -41,9 +41,14 @@ export class ActivitiesDataService {
 
   private _baseUrl: string = `${environment.BASE_URL}/activities/`;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
-  getActivities(offset: number = 1, count: number = 3): Observable<Activity[]> {
+  getActivities(
+    offset: number = environment.DEFAULT_FIRST_PAGE,
+    count: number = environment.DEFAULT_AMOUNT_OF_RESULTS
+  ): Observable<Activity[]> {
     return this.httpClient.get<Activity[]>(this._baseUrl, {
       params: {
         offset,
