@@ -21,8 +21,8 @@ import { BenefitFieldsInfoComponent } from './benefit-fields-info/benefit-fields
 import { CreateBenefitComponent } from './create-benefit/create-benefit.component';
 import { UpdateBenefitComponent } from './update-benefit/update-benefit.component';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-import { AuthenticationService } from './authentication.service';
 import { appRoutes } from './app.routes';
+import { AuthenticationInterceptor } from './authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { appRoutes } from './app.routes';
     provideToastr(),
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthenticationService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

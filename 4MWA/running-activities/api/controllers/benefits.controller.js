@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { validateObjectId, successResponse, errorResponse, createError } = require("./utils/controller.utils");
-const { _checkIfActivityExist } = require("./activities.controller").util;
+const { checkIfActivityExist } = require("./activities.controller").util;
 const constants = require("../constants");
 
 const Activity = mongoose.model(process.env.ACTIVITY_MODEL);
@@ -11,7 +11,7 @@ const findAll = function (req, res) {
 
   validateObjectId(activityId)
     .then((activityId) => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => successResponse(res, activity.benefits))
     .catch((error) => errorResponse(res, error))
 }
@@ -23,7 +23,7 @@ const findOne = function (req, res) {
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
     .then(() => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => successResponse(res, activity.benefits.id(benefitId)))
     .catch((error) => errorResponse(res, error))
@@ -36,10 +36,10 @@ const insertOne = function (req, res) {
   validateObjectId(activityId)
     .then(() => _validateSchema(newBenefit))
     .then(() => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => _addBenefitToActivity(activity, newBenefit))
     .then((activity) => activity.save())
-    .then((activity) => successResponse(res, activity))
+    .then((activity) => successResponse(res, activity, constants.CREATE_STATUS))
     .catch((error) => errorResponse(res, error))
 }
 
@@ -50,7 +50,7 @@ const deleteOne = function (req, res) {
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
     .then(() => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => _removeBenefitFromActivity(activity, benefitId))
     .then((activity) => activity.save())
@@ -66,7 +66,7 @@ const partialUpdate = function (req, res) {
   validateObjectId(activityId)
     .then(() => validateObjectId(benefitId))
     .then(() => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => _updateFields(activity, benefitId, newBenefit))
     .then((activity) => activity.save())
@@ -83,7 +83,7 @@ const fullUpdate = function (req, res) {
     .then(() => validateObjectId(benefitId))
     .then(() => _validateSchema(newBenefit))
     .then(() => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => _checkIfBenefitExist(activity, benefitId))
     .then((activity) => _updateFields(activity, benefitId, newBenefit))
     .then((activity) => successResponse(res, activity.benefits.id(benefitId)))

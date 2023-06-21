@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Benefit, BenefitsDataService } from '../benefits-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
 import { ToastrService } from 'ngx-toastr';
+
+import { AuthenticationService } from '../authentication.service';
+import { Benefit, BenefitsDataService } from '../benefits-data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-benefit',
@@ -27,12 +29,10 @@ export class BenefitComponent implements OnInit {
   delete() {
     this._benefitsDataService.delete(this.activityId, this.benefit._id).subscribe({
       next: () => {
+        this._toastrService.success(environment.SUCCESS_MESSAGE);
         this._route.navigate([`/activity/${this.activityId}`]);
-        this._toastrService.success("Successfully deleted");
       },
-      error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
+      error: (error) => this._toastrService.error(error.error.message)
     })
   }
 

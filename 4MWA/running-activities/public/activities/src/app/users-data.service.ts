@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { SignUpForm } from './signup/signup.component';
-import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+
+import { SignUpForm } from './signup/signup.component';
+import { environment } from '../environments/environment';
+import { Authentication, AuthenticationService } from './authentication.service';
 
 export class User {
   #_id!: string;
@@ -21,6 +22,7 @@ export class UsersDataService {
   private _baseUrl = `${environment.BASE_URL}/users/`;
 
   constructor(
+    private _authenticationService: AuthenticationService,
     private _httpClient: HttpClient,
     private _toastrService: ToastrService,
     private _router: Router
@@ -28,12 +30,13 @@ export class UsersDataService {
 
   signIn(username: string, password: string) {
     const url = this._baseUrl + 'signin';
-    this._httpClient.post<User>(url, {
+    this._httpClient.post<Authentication>(url, {
       username,
       password
     }).subscribe({
-      next: () => {
-        this._toastrService.success("Success", "Logged in")
+      next: (authentication: Authentication) => {
+        this._authenticationService.signIn(authentication.token);
+        this._toastrService.success(environment.WELCOME_MESSAGE + this._authenticationService.name)
         this._router.navigate(["/"]);
       },
       error: (response) => {

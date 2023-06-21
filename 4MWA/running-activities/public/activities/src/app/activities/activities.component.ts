@@ -21,14 +21,14 @@ export class ActivitiesComponent implements OnInit {
   get isSignedIn() { return this._authenticationService.isSignedIn }
 
   nextPage() {
-    if (this.activities.length < 3) return;
-    this.page = this.page + 1;
+    if (this.activities.length < environment.DEFAULT_AMOUNT_OF_RESULTS) return;
+    this.page = this.page + environment.PAGE_SKIPPER;
     this._getGames();
   }
 
   previousPage() {
-    if (this.page < 1) return;
-    this.page = this.page - 1;
+    if (this.page < environment.PAGE_SKIPPER) return;
+    this.page = this.page - environment.PAGE_SKIPPER;
     this._getGames();
   }
 

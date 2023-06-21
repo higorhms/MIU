@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 import { Benefit } from './benefits-data.service';
+import { environment } from '../environments/environment';
 
 export class Activity {
   #_id!: string;
@@ -38,7 +39,7 @@ export class Activity {
 })
 export class ActivitiesDataService {
 
-  private _baseUrl: string = 'http://localhost:3000/api/activities/';
+  private _baseUrl: string = `${environment.BASE_URL}/activities/`;
 
   constructor(private httpClient: HttpClient) { }
 

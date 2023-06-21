@@ -14,7 +14,7 @@ const findAll = function (req, res) {
 const findOne = (req, res) => {
   validateObjectId(req.params.activityId)
     .then((activityId => Activity.findById(activityId).exec()))
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => successResponse(res, activity))
     .catch((error) => errorResponse(res, error))
 }
@@ -22,14 +22,14 @@ const findOne = (req, res) => {
 const insertOne = function (req, res) {
   _fillActivity(req.body)
     .then((activity) => Activity.create(activity))
-    .then((activity) => successResponse(res, activity))
+    .then((activity) => successResponse(res, activity, constants.CREATE_STATUS))
     .catch((error) => errorResponse(res, error))
 }
 
 const deleteOne = function (req, res) {
   validateObjectId(req.params.activityId)
     .then((activityId) => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then((activity) => Activity.deleteOne({ _id: activity._id }).exec())
     .then((acknowledgeObject) => successResponse(res, acknowledgeObject))
     .catch((error) => errorResponse(res, error))
@@ -41,7 +41,7 @@ const partialUpdate = function (req, res) {
 
   validateObjectId(activityId)
     .then((activityId) => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then(() => _fillActivity(update))
     .then((activity) => Activity.findOneAndUpdate({ _id: activityId }, activity, { new: true }))
     .then((updatedActivity) => successResponse(res, updatedActivity))
@@ -54,7 +54,7 @@ const fullUpdate = function (req, res) {
 
   validateObjectId(activityId)
     .then((activityId) => Activity.findById(activityId).exec())
-    .then((activity) => _checkIfActivityExist(activity))
+    .then((activity) => checkIfActivityExist(activity))
     .then(() => _fillActivity(update))
     .then((activityToUpdate) => _validateSchema(activityToUpdate))
     .then((activityToUpdate) => Activity.findOneAndReplace({ _id: activityId }, activityToUpdate, { new: true }))
@@ -74,7 +74,7 @@ const _validateSchema = function (activity) {
 }
 
 const _fillActivity = function (data) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const newActivity = {};
     if (data.name) newActivity.name = data.name;
     if (data.duration) newActivity.duration = data.duration;
@@ -84,7 +84,7 @@ const _fillActivity = function (data) {
   })
 }
 
-const _checkIfActivityExist = function (activity) {
+const checkIfActivityExist = function (activity) {
   return new Promise((resolve, reject) => {
     if (!activity) reject(
       createError(constants.BAD_REQUEST_STATUS, process.env.ACTIVITY_NOT_FOUND_MESSAGE)
@@ -101,6 +101,6 @@ module.exports = {
   partialUpdate,
   fullUpdate,
   util: {
-    _checkIfActivityExist
+    checkIfActivityExist
   }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivitiesDataService, Activity } from '../activities-data.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { environment } from '../../environments/environment';
+import { ActivitiesDataService, Activity } from '../activities-data.service';
 
 @Component({
   selector: 'app-update-activity',
@@ -49,7 +51,7 @@ export class UpdateActivityComponent implements OnInit {
     newActivity.duration = this.activityForm.value.duration;
     this._activitiesDataService.create(newActivity).subscribe({
       next: (createdActivity: Activity) => {
-        this._toastrService.success("Activity created!")
+        this._toastrService.success(environment.SUCCESS_MESSAGE)
         this._router.navigate([`/activity/${createdActivity._id}`])
       },
       error: (error) => {

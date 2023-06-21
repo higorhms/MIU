@@ -1,6 +1,4 @@
 const activities = [
-  // previous activities
-  //...
   {
     name: "Recovery Runs",
     description: "Recovery runs are done at an easy pace, following a hard workout or race. The goal is to aid recovery by stimulating blood flow and loosening up your muscles.",

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Benefit, BenefitsDataService } from '../benefits-data.service';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -33,14 +34,13 @@ export class CreateBenefitComponent {
     const newBenefit = new Benefit();
     newBenefit.name = this.benefitForm.value.name;
     newBenefit.description = this.benefitForm.value.description;
+
     this._benefitsDataService.create(activityId, newBenefit).subscribe({
       next: () => {
-        this._toastrService.success("Benefit created!")
-        this.router.navigate([`activity/${activityId}/`])
+        this._toastrService.success(environment.SUCCESS_MESSAGE);
+        this.router.navigate([`activity/${activityId}/`]);
       },
-      error: (error) => {
-        this._toastrService.error(error.error.message);
-      }
+      error: (error) => this._toastrService.error(error.error.message)
     })
   }
 }

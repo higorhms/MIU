@@ -15,7 +15,7 @@ const insertOne = function (req, res) {
     .then((userToBeCreated) => _checkIfUserAlreadyExist(userToBeCreated))
     .then((userToBeCreated) => _encryptPassword(userToBeCreated))
     .then((userToBeCreated) => User.create(userToBeCreated))
-    .then((user) => successResponse(res, user))
+    .then((user) => successResponse(res, user, constants.CREATE_STATUS))
     .catch((error) => errorResponse(res, error))
 }
 

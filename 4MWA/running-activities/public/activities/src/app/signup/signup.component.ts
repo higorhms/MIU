@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { UsersDataService } from '../users-data.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
+import { environment } from '../../environments/environment';
+import { UsersDataService } from '../users-data.service';
+
 export class SignUpForm {
   #name!: string;
   #username!: string;
@@ -45,15 +48,10 @@ export class SignupComponent {
   signUp() {
     this._usersDataService.signUp(this.form).subscribe({
       next: () => {
-        this._toastrService.success('Success', "Signed up succesfully");
-      },
-      error: (error) => {
-        console.log(error)
-        this._toastrService.error('Failed', error.error.message);
-      },
-      complete: () => {
+        this._toastrService.success(environment.SUCCESS_MESSAGE);
         this._router.navigate(["/"]);
-      }
+      },
+      error: (error) => this._toastrService.error(error.error.message),
     })
   }
 }

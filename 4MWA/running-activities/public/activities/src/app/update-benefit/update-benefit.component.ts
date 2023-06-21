@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { BenefitsDataService, Benefit } from '../benefits-data.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-update-benefit',
@@ -48,7 +49,7 @@ export class UpdateBenefitComponent implements OnInit {
     newBenefit.description = this.benefitForm.value.description;
     this._benefitsDataService.update(this.activityId, this.benefitId, newBenefit).subscribe({
       next: () => {
-        this._toastrService.success("Benefit Updated")
+        this._toastrService.success(environment.SUCCESS_MESSAGE)
         this._router.navigate([`activity/${this.activityId}/`])
       },
       error: (error) => {

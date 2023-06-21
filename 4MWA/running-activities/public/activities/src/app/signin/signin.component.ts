@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthenticationService } from '../authentication.service';
+import { UsersDataService } from '../users-data.service';
 
 export class SignInForm {
   #username!: string;
@@ -30,10 +30,10 @@ export class SigninComponent {
   public form: SignInForm = new SignInForm();
 
   constructor(
-    private _authenticationService: AuthenticationService,
+    private _usersDataService: UsersDataService,
   ) { }
 
   signIn() {
-    // this._authenticationService.signIn(this.form.username, this.form.password );
+    this._usersDataService.signIn(this.form.username, this.form.password);
   }
 }
