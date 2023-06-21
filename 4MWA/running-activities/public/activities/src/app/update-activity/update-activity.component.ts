@@ -14,13 +14,13 @@ export class UpdateActivityComponent implements OnInit {
   public activity: Activity = new Activity();
 
   constructor(
-    private formBuilder: FormBuilder,
-    private activitiesDataService: ActivitiesDataService,
-    private toastrService: ToastrService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private _formBuilder: FormBuilder,
+    private _activitiesDataService: ActivitiesDataService,
+    private _toastrService: ToastrService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {
-    this.activityForm = this.formBuilder.group({
+    this.activityForm = this._formBuilder.group({
       name: ['', Validators.required],
       duration: ['', Validators.required],
       description: ['', Validators.required],
@@ -28,12 +28,12 @@ export class UpdateActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const activityId = this.activatedRoute.snapshot.params['activityId'];
+    const activityId = this._activatedRoute.snapshot.params['activityId'];
 
-    this.activitiesDataService.getActivity(activityId).subscribe({
+    this._activitiesDataService.getActivity(activityId).subscribe({
       next: (activity: Activity) => {
         this.activity = activity;
-        this.activityForm = this.formBuilder.group({
+        this.activityForm = this._formBuilder.group({
           name: [activity.name, Validators.required],
           duration: [activity.duration, Validators.required],
           description: [activity.description, Validators.required],
@@ -47,13 +47,13 @@ export class UpdateActivityComponent implements OnInit {
     newActivity.name = this.activityForm.value.name;
     newActivity.description = this.activityForm.value.description;
     newActivity.duration = this.activityForm.value.duration;
-    this.activitiesDataService.create(newActivity).subscribe({
+    this._activitiesDataService.create(newActivity).subscribe({
       next: (createdActivity: Activity) => {
-        this.toastrService.success("Activity created!")
-        this.router.navigate([`/activity/${createdActivity._id}`])
+        this._toastrService.success("Activity created!")
+        this._router.navigate([`/activity/${createdActivity._id}`])
       },
       error: (error) => {
-        this.toastrService.error(error.error.message);
+        this._toastrService.error(error.error.message);
       }
     })
   }

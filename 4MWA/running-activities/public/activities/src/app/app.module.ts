@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 
@@ -20,6 +20,9 @@ import { UpdateActivityComponent } from './update-activity/update-activity.compo
 import { BenefitFieldsInfoComponent } from './benefit-fields-info/benefit-fields-info.component';
 import { CreateBenefitComponent } from './create-benefit/create-benefit.component';
 import { UpdateBenefitComponent } from './update-benefit/update-benefit.component';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { AuthenticationService } from './authentication.service';
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -45,55 +48,14 @@ import { UpdateBenefitComponent } from './update-benefit/update-benefit.componen
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([{
-      path: "",
-      component: HomeComponent
-    },
-    {
-      path: "activities",
-      component: ActivitiesComponent
-    },
-    {
-      path: "activity/:activityId",
-      component: ActivityComponent
-    },
-    {
-      path: "activities/create",
-      component: CreateActivityComponent
-    },
-    {
-      path: "activities/update/:activityId",
-      component: UpdateActivityComponent
-    },
-    {
-      path: "activities/create/:activityId/benefit",
-      component: CreateBenefitComponent
-    },
-    {
-      path: "activity/:activityId/benefit/:benefitId",
-      component: BenefitComponent
-    },
-    {
-      path: "activity/:activityId/update/benefit/:benefitId",
-      component: BenefitComponent
-    },
-    {
-      path: "activities/:activityId/update/benefit/:benefitId",
-      component: UpdateBenefitComponent
-    },
-    {
-      path: "signin",
-      component: SigninComponent
-    },
-    {
-      path: "signup",
-      component: SignupComponent
-    }
-    ])
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     provideAnimations(),
     provideToastr(),
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    // { provide: HTTP_INTERCEPTORS, useClass: AuthenticationService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

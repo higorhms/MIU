@@ -16,25 +16,25 @@ export class UpdateBenefitComponent implements OnInit {
   public benefitId!: string;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private benefitsDataService: BenefitsDataService,
-    private toastrService: ToastrService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private _formBuilder: FormBuilder,
+    private _benefitsDataService: BenefitsDataService,
+    private _toastrService: ToastrService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {
-    this.benefitForm = this.formBuilder.group({
+    this.benefitForm = this._formBuilder.group({
       name: ['', Validators.required],
       duration: ['', Validators.required],
       description: ['', Validators.required],
     })
   }
   ngOnInit(): void {
-    this.activityId = this.activatedRoute.snapshot.params['activityId'];
-    this.benefitId = this.activatedRoute.snapshot.params['benefitId'];
+    this.activityId = this._activatedRoute.snapshot.params['activityId'];
+    this.benefitId = this._activatedRoute.snapshot.params['benefitId'];
 
-    this.benefitsDataService.getOne(this.activityId, this.benefitId).subscribe({
+    this._benefitsDataService.getOne(this.activityId, this.benefitId).subscribe({
       next: (benefit: Benefit) => {
-        this.benefitForm = this.formBuilder.group({
+        this.benefitForm = this._formBuilder.group({
           name: [benefit.name, Validators.required],
           description: [benefit.description, Validators.required],
         })
@@ -46,13 +46,13 @@ export class UpdateBenefitComponent implements OnInit {
     const newBenefit = new Benefit();
     newBenefit.name = this.benefitForm.value.name;
     newBenefit.description = this.benefitForm.value.description;
-    this.benefitsDataService.update(this.activityId, this.benefitId, newBenefit).subscribe({
+    this._benefitsDataService.update(this.activityId, this.benefitId, newBenefit).subscribe({
       next: () => {
-        this.toastrService.success("Benefit Updated")
-        this.router.navigate([`activity/${this.activityId}/`])
+        this._toastrService.success("Benefit Updated")
+        this._router.navigate([`activity/${this.activityId}/`])
       },
       error: (error) => {
-        this.toastrService.error(error.error.message);
+        this._toastrService.error(error.error.message);
       }
     })
   }

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from '../environments/environment';
+
 export class Benefit {
   #_id!: string;
   #name!: string;
@@ -49,6 +51,6 @@ export class BenefitsDataService {
   }
 
   _buildUrl(activityId: string) {
-    return `http://localhost:3000/api/activities/${activityId}/benefits/`;
+    return `${environment.BASE_URL}/activities/${activityId}/benefits/`;
   }
 }

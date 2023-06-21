@@ -1,0 +1,15 @@
+1. Scehema hasn't been registered
+2. delete function was named "delte"
+3. HomeComponent was not imported
+4. <app-footer> was named <app-foter>
+5. cityService was not being injected in the constructor
+6. The cors middleware was not calling next()
+7. Proper hardening
+8. cities/:cityId was written cites/cityId
+9. cities/:cityId controller was not being called
+10. req.params.cityId in the controller was written req.params.cityid
+11. create a get for loc City.getLoc
+12. city component, fillCity was not setting the component property (this.city)
+13. the HomeComponent was being referenced in the navigator as "/home" but the correct is "/"
+14. CORS for delete was not enabled
+15. DELETE method was not working properly

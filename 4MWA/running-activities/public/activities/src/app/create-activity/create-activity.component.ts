@@ -14,8 +14,8 @@ export class CreateActivityComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private activitiesDataService: ActivitiesDataService,
-    private toastrService: ToastrService,
+    private _activitiesDataService: ActivitiesDataService,
+    private _toastrService: ToastrService,
     private router: Router
   ) {
     this.activityForm = this.formBuilder.group({
@@ -30,13 +30,13 @@ export class CreateActivityComponent {
     newActivity.name = this.activityForm.value.name;
     newActivity.description = this.activityForm.value.description;
     newActivity.duration = this.activityForm.value.duration;
-    this.activitiesDataService.create(newActivity).subscribe({
+    this._activitiesDataService.create(newActivity).subscribe({
       next: (createdActivity: Activity) => {
-        this.toastrService.success("Activity created!")
+        this._toastrService.success("Activity created!")
         this.router.navigate([`/activity/${createdActivity._id}`])
       },
       error: (error) => {
-        this.toastrService.error(error.error.message);
+        this._toastrService.error(error.error.message);
       }
     })
   }

@@ -4,7 +4,9 @@
   "description": "an api where you can find the right running activity for your needs",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "startBackend": "node app.js",
+    "startFrotend": "cd public && cd activities && npm start",
+    "start": "npm run startBackend | npm run startFrotend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "higor",

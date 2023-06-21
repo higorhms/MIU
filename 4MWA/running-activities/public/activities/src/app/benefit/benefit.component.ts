@@ -13,31 +13,31 @@ export class BenefitComponent implements OnInit {
   public activityId!: string;
   public benefit: Benefit = new Benefit();
 
-  get isSignedIn() { return this.authenticationService.isSignedIn }
+  get isSignedIn() { return this._authenticationService.isSignedIn }
 
   constructor(
-    private benefitsDataService: BenefitsDataService,
-    private authenticationService: AuthenticationService,
-    private toastrService: ToastrService,
+    private _benefitsDataService: BenefitsDataService,
+    private _authenticationService: AuthenticationService,
+    private _toastrService: ToastrService,
     private _activatedRoute: ActivatedRoute,
     private _route: Router,
   ) { }
 
 
   delete() {
-    this.benefitsDataService.delete(this.activityId, this.benefit._id).subscribe({
+    this._benefitsDataService.delete(this.activityId, this.benefit._id).subscribe({
       next: () => {
         this._route.navigate([`/activity/${this.activityId}`]);
-        this.toastrService.success("Successfully deleted");
+        this._toastrService.success("Successfully deleted");
       },
       error: (error) => {
-        this.toastrService.error(error.error.message);
+        this._toastrService.error(error.error.message);
       }
     })
   }
 
   _getBenefit(benefitId: string) {
-    this.benefitsDataService.getOne(this.activityId, benefitId).subscribe({
+    this._benefitsDataService.getOne(this.activityId, benefitId).subscribe({
       next: (benefit) => {
         this.benefit = benefit;
         console.log(benefit)

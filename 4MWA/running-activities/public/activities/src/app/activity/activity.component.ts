@@ -15,7 +15,7 @@ export class ActivityComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private activitiesDataService: ActivitiesDataService,
+    private _activitiesDataService: ActivitiesDataService,
     private _authenticationService: AuthenticationService
   ) { }
 
@@ -24,13 +24,13 @@ export class ActivityComponent implements OnInit {
 
 
   deleteActivity() {
-    this.activitiesDataService.deleteActivity(this.activity._id).subscribe((response) => { console.log(response) });
+    this._activitiesDataService.deleteActivity(this.activity._id).subscribe((response) => { console.log(response) });
   }
 
   ngOnInit(): void {
     const activityId = this._route.snapshot.params['activityId'];
 
-    this.activitiesDataService.getActivity(activityId).subscribe({
+    this._activitiesDataService.getActivity(activityId).subscribe({
       next: (activity: Activity) => {
         this.activity = activity;
       }

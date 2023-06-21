@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Activity, ActivitiesDataService } from '../activities-data.service';
 import { AuthenticationService } from '../authentication.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-activities',
@@ -9,14 +11,14 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class ActivitiesComponent implements OnInit {
   public activities: Activity[] = [];
-  public page: number = 1;
+  public page: number = environment.DEFAULT_FIRST_PAGE;
 
   constructor(
-    private activitiesDataService: ActivitiesDataService,
-    private authenticationService: AuthenticationService
+    private _activitiesDataService: ActivitiesDataService,
+    private _authenticationService: AuthenticationService
   ) { }
 
-  get isSignedIn() { return this.authenticationService.isSignedIn }
+  get isSignedIn() { return this._authenticationService.isSignedIn }
 
   nextPage() {
     if (this.activities.length < 3) return;
@@ -35,10 +37,9 @@ export class ActivitiesComponent implements OnInit {
   }
 
   _getGames() {
-    this.activitiesDataService.getActivities(this.page).subscribe({
+    this._activitiesDataService.getActivities(this.page).subscribe({
       next: (activities: Activity[]) => {
         this.activities = activities;
-        console.log(this.activities.length)
       }
     })
   }

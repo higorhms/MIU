@@ -39,17 +39,17 @@ export class SignupComponent {
   constructor(
     private _usersDataService: UsersDataService,
     private _router: Router,
-    private toastr: ToastrService
+    private _toastrService: ToastrService
   ) { }
 
   signUp() {
     this._usersDataService.signUp(this.form).subscribe({
       next: () => {
-        this.toastr.success('Success', "Signed up succesfully");
+        this._toastrService.success('Success', "Signed up succesfully");
       },
       error: (error) => {
         console.log(error)
-        this.toastr.error('Failed', error.error.message);
+        this._toastrService.error('Failed', error.error.message);
       },
       complete: () => {
         this._router.navigate(["/"]);
