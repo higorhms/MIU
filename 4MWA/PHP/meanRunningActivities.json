@@ -1,0 +1,271 @@
+[{
+	"_id": {
+		"$oid": "64948ae2812ae869a8427027"
+	},
+	"name": "Recovery Runs",
+	"duration": "20-30 minutes",
+	"description": "Recovery runs are done at an easy pace, following a hard workout or race. The goal is to aid recovery by stimulating blood flow and loosening up your muscles.",
+	"benefits": [
+		{
+			"name": "Improved Recovery",
+			"description": "Recovery runs stimulate blood flow to the muscles, helping to speed up the recovery process after a hard workout.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427028"
+			}
+		},
+		{
+			"name": "Injury Prevention",
+			"description": "Recovery runs allow you to continue training without placing too much additional stress on your muscles and joints.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427029"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a842702a"
+	},
+	"name": "Progression Runs",
+	"duration": "30-60 minutes",
+	"description": "Progression runs start at an easy pace, then gradually speed up to a moderate or hard pace towards the end. They're a great way to build stamina and teach your body to finish strong.",
+	"benefits": [
+		{
+			"name": "Increased Stamina",
+			"description": "Progression runs build stamina by training your body to run faster when it's already tired.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842702b"
+			}
+		},
+		{
+			"name": "Mental Strength",
+			"description": "Learning to push through fatigue and finish a run strong can also help improve your mental strength and resilience.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842702c"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a842702d"
+	},
+	"name": "Speed Runs",
+	"duration": "20-30 minutes",
+	"description": "Speed runs are shorter workouts designed to increase your maximum running speed. They typically involve intervals run at a fast pace, with short recovery periods in between.",
+	"benefits": [
+		{
+			"name": "Speed Development",
+			"description": "Speed runs develop your fast-twitch muscle fibers and help improve your maximum running speed.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842702e"
+			}
+		},
+		{
+			"name": "Improved Running Economy",
+			"description": "Speed work can also improve your running economy, allowing you to use less energy at any given pace.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842702f"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a8427030"
+	},
+	"name": "Race-Pace Runs",
+	"duration": "Varies based on race distance",
+	"description": "Race-pace runs are workouts done at your goal race pace. They help your body and mind get used to the pace you aim to run in your race.",
+	"benefits": [
+		{
+			"name": "Pace Familiarity",
+			"description": "Race-pace runs help you get a feel for your goal race pace, making it easier to maintain that pace on race day.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427031"
+			}
+		},
+		{
+			"name": "Race Preparation",
+			"description": "Running at your race pace helps simulate race conditions and prepare you for the mental and physical challenges of the race.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427032"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a8427033"
+	},
+	"name": "Base Run",
+	"duration": "20-60 minutes",
+	"description": "Base runs are short to moderate-length runs undertaken at a runner's natural pace. These runs form the foundation of any running routine.",
+	"benefits": [
+		{
+			"name": "Aerobic Fitness",
+			"description": "Regular base running builds your aerobic fitness, improving cardiovascular health and stamina.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427034"
+			}
+		},
+		{
+			"name": "Establish Routine",
+			"description": "Base runs help establish a regular running routine and develop the habit of running.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427035"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a8427036"
+	},
+	"name": "Long Run",
+	"duration": "60+ minutes",
+	"description": "Long runs are typically the longest run of the week, done at a steady, sustainable pace. They help build endurance and mental toughness.",
+	"benefits": [
+		{
+			"name": "Increased Endurance",
+			"description": "Long runs increase your endurance and stamina, allowing you to run longer distances.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427037"
+			}
+		},
+		{
+			"name": "Mental Toughness",
+			"description": "The extended duration of long runs develops mental strength and resilience.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427038"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a8427039"
+	},
+	"name": "Interval Run",
+	"duration": "20-40 minutes",
+	"description": "Interval runs involve periods of intense effort interspersed with periods of moderate to light effort. This training method improves speed and cardiovascular fitness.",
+	"benefits": [
+		{
+			"name": "Improved Cardiovascular Fitness",
+			"description": "Interval runs enhance your VO2 max, helping your body to use oxygen more efficiently.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842703a"
+			}
+		},
+		{
+			"name": "Increased Speed",
+			"description": "The high-intensity periods in interval running boost your running speed.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842703b"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a842703c"
+	},
+	"name": "Hill Run",
+	"duration": "30-60 minutes",
+	"description": "Hill runs involve running uphill to build strength and power. The incline makes your body work harder, yielding muscular and cardiovascular benefits.",
+	"benefits": [
+		{
+			"name": "Increased Leg Strength",
+			"description": "Hill running strengthens the leg muscles, enhancing your power and speed.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842703d"
+			}
+		},
+		{
+			"name": "Improved Running Economy",
+			"description": "Hill running develops better form and efficiency, which can lead to improved performance.",
+			"_id": {
+				"$oid": "64948ae2812ae869a842703e"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a842703f"
+	},
+	"name": "Tempo Run",
+	"duration": "20-60 minutes",
+	"description": "Tempo runs, also known as threshold runs, are done at a “comfortably hard” pace that is just outside your comfort zone. They are designed to increase your anaerobic threshold.",
+	"benefits": [
+		{
+			"name": "Improved Anaerobic Threshold",
+			"description": "Tempo runs increase your anaerobic threshold, allowing you to sustain a faster pace for longer durations.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427040"
+			}
+		},
+		{
+			"name": "Increased Lactate Processing",
+			"description": "Tempo runs train your body to process lactate - a byproduct of hard exercise - more effectively, delaying fatigue.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427041"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948ae2812ae869a8427042"
+	},
+	"name": "Fartlek Run",
+	"duration": "40-60 minutes",
+	"description": "Fartlek is a Swedish term for 'Speed Play.' These workouts involve varying your pace throughout your run, alternating between fast segments and slow jogs.",
+	"benefits": [
+		{
+			"name": "Improved Speed and Endurance",
+			"description": "The variable intensity of Fartlek runs can improve both speed and endurance.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427043"
+			}
+		},
+		{
+			"name": "Versatility",
+			"description": "Fartlek runs train your body to handle different speeds and intensities, making it a versatile workout.",
+			"_id": {
+				"$oid": "64948ae2812ae869a8427044"
+			}
+		}
+	],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948d652b271cdd2b00fb79"
+	},
+	"name": "Recovery Runs 1",
+	"duration": "20-30 minutes",
+	"description": "Recovery runs are done at an easy pace, following a hard workout or race. The goal is to aid recovery by stimulating blood flow and loosening up your muscles.",
+	"benefits": [],
+	"__v": 0
+},
+{
+	"_id": {
+		"$oid": "64948d672b271cdd2b00fb7d"
+	},
+	"name": "Recovery Runs",
+	"duration": "20-30 minutes",
+	"description": "Recovery runs are done at an easy pace, following a hard workout or race. The goal is to aid recovery by stimulating blood flow and loosening up your muscles.",
+	"benefits": [],
+	"__v": 0
+}]
+

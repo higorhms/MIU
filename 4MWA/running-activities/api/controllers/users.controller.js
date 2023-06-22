@@ -26,7 +26,7 @@ const signIn = function (req, res) {
     .then((user) => _checkPassword(user, req.body.password))
     .then((user) => _generateToken(user.name))
     .then((token) => successResponse(res, { token }))
-    .catch((error) => errorResponse(res, error))
+    .catch(() => errorResponse(res, { code: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
 }
 
 const _generateToken = function (userName) {

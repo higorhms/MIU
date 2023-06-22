@@ -50,7 +50,7 @@ export class SignupComponent {
     this._usersDataService.signUp(this.form).subscribe({
       next: () => {
         this._toastrService.success(environment.SUCCESS_MESSAGE);
-        this._router.navigate(["/"]);
+        this._router.navigate(["/signin"]);
       },
       error: (error) => this._toastrService.error(error.error.message),
     })

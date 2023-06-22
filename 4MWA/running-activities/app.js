@@ -13,6 +13,7 @@ app.use(function (req, res, next) {
 })
 
 app.use(express.json());
+
 app.use("/api", routes);
 
 app.set("port", process.env.PORT);
