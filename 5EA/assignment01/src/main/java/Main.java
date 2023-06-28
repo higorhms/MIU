@@ -36,6 +36,7 @@ public class Main {
         tx.begin();
         em.remove(modifiedCar);
         tx.commit();
+
         Car deletedCar = em.find(Car.class, 1);
         System.out.println("Deleted Car: ");
         System.out.println(deletedCar);
