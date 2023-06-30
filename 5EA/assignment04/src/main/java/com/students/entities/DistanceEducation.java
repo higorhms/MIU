@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Cacheable(value = false)
 public class DistanceEducation extends Course {
     private String examProfessor;
 
