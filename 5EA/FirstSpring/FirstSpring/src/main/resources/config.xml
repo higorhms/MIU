@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="vehicle" class="entities.Car">
+        <constructor-arg type="java.lang.String" value="Renegade"></constructor-arg>
+        <property name="year" value="2019"></property>
+    </bean>
+
+    <bean id="game" class="entities.Game">
+        <constructor-arg ref="vehicle"></constructor-arg>
+    </bean>
+
+</beans>
