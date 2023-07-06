@@ -3,3 +3,6 @@ out
 .angular
 node_modules
 .vscode
+.DS_Store
+.idea
+.mvn

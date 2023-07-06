@@ -1,6 +1,16 @@
 package com.entities;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Cow extends Animal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Version
+    private int version;
+
     private int milk;
 
     private String foodType;
@@ -10,4 +20,9 @@ public class Cow extends Animal {
         this.milk = milk;
         this.foodType = foodType;
     }
+
+    public Cow() {
+
+    }
+
 }

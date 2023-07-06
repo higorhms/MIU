@@ -12,6 +12,7 @@ public class Car implements Vehicle {
     }
 
     public Car(String model) {
+        System.out.println("Car constructor");
         this.model = model;
     }
 
@@ -23,5 +24,21 @@ public class Car implements Vehicle {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "model='" + model + '\'' +
+                ", year=" + year +
+                '}';
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void init(){
+        System.out.println("init car");
     }
 }

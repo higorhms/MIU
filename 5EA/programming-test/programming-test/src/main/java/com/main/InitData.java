@@ -1,12 +1,13 @@
 package com.main;
 
 import com.entities.*;
+import com.persistence.PersistenceService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class initData {
-    private static void CreateData() {
+public class InitData {
+    public static void CreateData() {
         //Cow constructor int price, int weight, int age, int milk, String foodtype
         Cow blackCow = new Cow(1500, 1200, 10, 6, "grass");
         Cow brownCow = new Cow(1600, 1250, 8, 8, "grass");
@@ -52,5 +53,12 @@ public class initData {
 
         List<Farm> jillFarms = new ArrayList<Farm>();
         Farmer jill = new Farmer("Jill", 50, false, 25, jillFarms, organicFarm);
+
+        //--------------------------------------------
+
+        PersistenceService ps = new PersistenceService();
+        ps.save(jill);
+        ps.save(john);
+        ps.save(jack);
     }
 }

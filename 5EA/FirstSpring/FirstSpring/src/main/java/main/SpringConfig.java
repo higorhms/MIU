@@ -9,12 +9,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfig {
 
-    @Bean
+    @Bean(initMethod = "init")
     public Vehicle vehicle(){
-        return new Car();
+        Car car = new Car("Renegade");
+        car.setYear(2019);
+        return car;
     }
 
-    @Bean
+    @Bean(name = "game")
     public Game game(){
         return new Game(this.vehicle());
     }

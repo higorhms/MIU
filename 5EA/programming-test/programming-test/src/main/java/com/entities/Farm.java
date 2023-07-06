@@ -9,6 +9,8 @@ import java.util.List;
 public class Farm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     private String name;
 
     @Version
@@ -17,19 +19,27 @@ public class Farm {
     private int size;
     private int cost;
 
-    private int liveStock;
+    private int profit;
 
-    private List<Animal> stock = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Animal> liveStock = new ArrayList<>();
 
-    public Farm(String name, int size, int cost, int liveStock, List<Animal> stock) {
+    @OneToOne(mappedBy = "operatedFarm")
+    private Farmer operator;
+
+    public Farm(String name, int size, int cost, int profit, List<Animal> liveStock) {
         this.name = name;
         this.size = size;
         this.cost = cost;
         this.liveStock = liveStock;
-        this.stock = stock;
+        this.profit = profit;
     }
 
     public Farm() {
 
+    }
+
+    public List<Animal> getLiveStock() {
+        return liveStock;
     }
 }

@@ -4,6 +4,7 @@ public class Game {
     private Vehicle vehicle;
 
     public Game(Vehicle vehicle) {
+        System.out.println("Game constructor");
         this.vehicle = vehicle;
     }
 
