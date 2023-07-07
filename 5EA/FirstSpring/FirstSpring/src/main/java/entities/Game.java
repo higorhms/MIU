@@ -4,7 +4,7 @@ public class Game {
     private Vehicle vehicle;
 
     public Game(Vehicle vehicle) {
-        System.out.println("Game constructor");
+//        System.out.println("Game constructor");
         this.vehicle = vehicle;
     }
 
@@ -17,5 +17,9 @@ public class Game {
         return "Game{" +
                 "vehicle=" + vehicle +
                 '}';
+    }
+
+    public void init(){
+        System.out.println("init game");
     }
 }

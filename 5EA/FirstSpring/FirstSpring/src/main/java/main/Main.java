@@ -11,12 +11,12 @@ public class Main {
 //        ApplicationContext ac = new ClassPathXmlApplicationContext("config.xml");
         ApplicationContext ac = new AnnotationConfigApplicationContext(SpringConfig.class);
         //environment
-        GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
-        applicationContext.load("config*.xml");
-        applicationContext.refresh();
+//        GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
+//        applicationContext.load("config*.xml");
+//        applicationContext.refresh();
         //environment
 
-        Object game = ac.getBean("game");
+        Game game = ac.getBean("game", Game.class);
 
 
         System.out.println(game);

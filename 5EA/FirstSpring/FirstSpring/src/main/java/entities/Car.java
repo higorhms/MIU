@@ -12,7 +12,7 @@ public class Car implements Vehicle {
     }
 
     public Car(String model) {
-        System.out.println("Car constructor");
+//        System.out.println("Car constructor");
         this.model = model;
     }
 

@@ -12,4 +12,6 @@
         <constructor-arg ref="vehicle"></constructor-arg>
     </bean>
 
+    <bean id="postProcessor" class="practices.CustomBeanPostProcessor"></bean>
+
 </beans>
