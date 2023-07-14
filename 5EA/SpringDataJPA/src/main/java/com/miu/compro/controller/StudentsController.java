@@ -1,7 +1,7 @@
-package com.example.controller;
+package com.miu.compro.controller;
 
-import com.example.entities.Student;
-import com.example.services.StudentsService;
+import com.miu.compro.entities.Student;
+import com.miu.compro.services.StudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ public class StudentsController {
         this.studentsService = studentsService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @GetMapping("")
     public List<Student> getAll(){
         return this.studentsService.getAll();
     }
