@@ -41,4 +41,13 @@ public class Car implements Vehicle {
     public void init(){
         System.out.println("init car");
     }
+
+
+    public static Car getInstance(){
+        return new Car();
+    }
+
+    public static Car getInstance(String s) {
+        return new Car(s);
+    }
 }

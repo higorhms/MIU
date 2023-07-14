@@ -1,6 +1,7 @@
 package main;
 
 import entities.Game;
+import entities.Person;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,9 +17,11 @@ public class Main {
 //        applicationContext.refresh();
         //environment
 
-        Game game = ac.getBean("game", Game.class);
+//        Game game = ac.getBean("game", Game.class);
+        Person person = ac.getBean("person", Person.class);
 
 
-        System.out.println(game);
+//        System.out.println(game);
+        System.out.println(person);
     }
 }

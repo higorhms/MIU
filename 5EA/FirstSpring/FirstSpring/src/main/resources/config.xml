@@ -3,15 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="vehicle" class="entities.Car" init-method="init">
+
+
+    <bean id="vehicle" class="entities.Car" init-method="init" factory-method="getInstance">
         <constructor-arg type="java.lang.String" value="Renegade"></constructor-arg>
         <property name="year" value="2019"></property>
     </bean>
 
-    <bean id="game" class="entities.Game">
+    <bean id="vehicleFactory" class="factories.VehicleFactory">
+    </bean>
+
+    <bean id="game" class="entities.Game" >
         <constructor-arg ref="vehicle"></constructor-arg>
+        <lookup-method name="getVehicle"></lookup-method>
     </bean>
 
     <bean id="postProcessor" class="practices.CustomBeanPostProcessor"></bean>
+
+    <bean id="person" class="entities.Person" autowire="byType">
+
+    </bean>
 
 </beans>

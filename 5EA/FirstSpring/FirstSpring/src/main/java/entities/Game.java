@@ -1,11 +1,14 @@
 package entities;
 
-public class Game {
+public abstract class Game {
     private Vehicle vehicle;
 
     public Game(Vehicle vehicle) {
 //        System.out.println("Game constructor");
         this.vehicle = vehicle;
+    }
+
+    public Game() {
     }
 
     public void start() {
@@ -22,4 +25,6 @@ public class Game {
     public void init(){
         System.out.println("init game");
     }
+
+    public abstract Vehicle getVehicle() throws Exception;
 }
