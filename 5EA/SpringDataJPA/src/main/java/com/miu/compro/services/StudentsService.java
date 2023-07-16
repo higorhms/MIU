@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -37,5 +38,28 @@ public class StudentsService {
 
     public List<Student> findAllStudentsWithGpaLessThanAndHaveABookWithMoreThanPages(int gpa, int pages){
         return this.studentsRepository.findAll(StudentSpecification.findAllStudentsWithGpaLessThanAndHaveABookWithMoreThanPages(gpa, pages));
+    }
+
+    public void deleteById(int studentId) {
+        this.studentsRepository.deleteById(studentId);
+    }
+
+    public Student findOne(int studentId) {
+        return this.studentsRepository.findById(studentId).get();
+    }
+
+    public Student createOne(Student student) {
+        return this.studentsRepository.save(student);
+    }
+
+
+    public Student updateOne(int id, Map<String, Object> fieldsToUpdate) {
+        return this.studentsRepository.findById(id).map(user -> {
+            if (fieldsToUpdate.containsKey("name")) {
+                user.setName((String) fieldsToUpdate.get("name"));
+            }
+
+            return studentsRepository.save(user);
+        }).get();
     }
 }

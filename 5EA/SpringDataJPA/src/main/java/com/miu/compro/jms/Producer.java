@@ -1,5 +1,6 @@
 package com.miu.compro.jms;
 
+import com.miu.compro.entities.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
@@ -19,6 +20,9 @@ public class Producer {
     }
 
     public void send(String message){
-        jmsTemplate.convertAndSend(queueName, message);
+        Student student = new Student();
+        student.setName("Higor");
+        student.setGpa(40);
+        jmsTemplate.convertAndSend(queueName, student);
     }
 }
