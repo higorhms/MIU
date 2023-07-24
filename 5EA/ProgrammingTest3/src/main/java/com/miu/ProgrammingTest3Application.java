@@ -1,14 +1,13 @@
-package com.miu.compro;
+package com.miu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
-@EnableJms
-public class SpringJpaApplication {
+public class ProgrammingTest3Application {
+
     public static void main(String[] args) {
-        SpringApplication.run(SpringJpaApplication.class, args);
+        SpringApplication.run(ProgrammingTest3Application.class, args);
     }
 
 }

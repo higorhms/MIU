@@ -1,9 +1,12 @@
 package com.miu.compro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-public class Book {
+public class Book{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -11,8 +14,9 @@ public class Book {
     private Integer numberOfPages;
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
+//    @JsonIgnore
     private Student student;
 
     public Book(String title, Integer numberOfPages, Double price, Student student) {
@@ -55,5 +59,13 @@ public class Book {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

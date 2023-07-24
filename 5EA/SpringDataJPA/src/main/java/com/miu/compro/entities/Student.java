@@ -9,7 +9,7 @@ import java.util.List;
 @EntityListeners(StudentEventListener.class)
 @Entity
 @NamedQuery(name = "Student.findAllQualifiedForGraduation", query = "SELECT s FROM Student s WHERE s.gpa >= 30 AND s.courseCount >= 9")
-public class Student implements Serializable {
+public class Student{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
