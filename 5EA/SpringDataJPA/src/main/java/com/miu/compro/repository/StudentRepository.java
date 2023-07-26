@@ -15,6 +15,4 @@ public interface StudentRepository extends JpaRepository<Student, Integer>, JpaS
     List<Student> findAllQualifiedForGraduation();
 
     List<Student> findByGpaEqualsOrderByGpaAsc(int gpa);
-
-
 }
