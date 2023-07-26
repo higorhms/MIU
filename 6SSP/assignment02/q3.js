@@ -11,7 +11,6 @@ function slow(callback){
 } 
 
 function exec(fn){ 
-  // Complete the code here to implement chaining with callback
   const callbacks = {
       done: null,
       fail: null
