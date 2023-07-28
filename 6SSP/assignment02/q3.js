@@ -1,45 +1,14 @@
-function slow(callback){ 
-  setTimeout(() => {
-    for(let i=0; i<= 5e8; i++){}
+const fs = require("fs");
+const path = require("path");
+const zlib = require("zlib");
 
-    if (Math.random() > 0.5) {
-      return callback("Error", null);
-    }
+const readStream = fs.createReadStream(path.join(__dirname, "hello.txt.zip"));
+const writeStream = fs.createWriteStream(path.join(__dirname, "unzipped.txt"));
 
-    return callback(null, { id: 12345 });
-  }, 0);
-} 
+const gzip = zlib.createGunzip();
 
-function exec(fn){ 
-  const callbacks = {
-      done: null,
-      fail: null
-    };
+gzip.on("error", (error) => {
+  console.error(error)
+})
 
-  fn(function(err, data){
-    if(err){
-      callbacks.fail(err);
-    }else{
-      callbacks.done(data);
-    }
-  });
-
-  return {
-    done: function(fn) {
-      callbacks.done = fn;
-      return this;
-    },
-    fail: function(fn){
-      callbacks.fail = fn;
-      return this;
-    }
-  }
-}
-
-exec(slow)
-  .done(function(data){ 
-    console.log("Done: " + JSON.stringify(data)); 
-  })
-  .fail(function(err){ 
-    console.log("Error: " + JSON.stringify(err)); 
-  }); 
+readStream.pipe(gzip).pipe(writeStream);

@@ -1,15 +1,14 @@
-const result = (function(exports, module){
-    exports = module.exports;
-    exports.firstname = 'John';
-    module.exports.lastname = 'Smith';
-    exports = {
-        getFullName: function(){
-            console.log('John Smith')
-        }
-    }
-    return module.exports;
-}).apply(null, [null, {exports: {}}]);
+Array.prototype.odd = function() {
+    return this.filter((el) => {
+        return el % 2 !== 0;
+    });
+};
 
-console.log(result);
+Array.prototype.even = function(){
+    return this.filter((el) => {
+        return el % 2 === 0;
+    });
+};
 
-// Result - { firstname: 'John', lastname: 'Smith' }
+console.log("Even result: " + [1,2,3,4,5,6,7,8].even()); // [2,4,6,8]
+console.log("Odd result: " + [1,2,3,4,5,6,7,8].odd());// [1,3,5,7]
