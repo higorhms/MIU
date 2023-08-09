@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Rujuan Xing">
+  <title>Login</title>
+
+  <link href="./resources/bootstrap.min.css" rel="stylesheet">
+  <link href="./resources/carousel.css" rel="stylesheet">
+  <script src="./resources/login.js"></script>
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">Login</div>
+          <div class="card-body">
+            <form  id="login-form">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <button id="login-btn" type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div>
+              <a class="btn btn-success" href="signup.html">Sign up</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
