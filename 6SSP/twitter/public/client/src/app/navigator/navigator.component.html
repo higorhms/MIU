@@ -1,0 +1,11 @@
+<div class="header">
+  <div class="menu">
+    <a class="item" routerLink="/">Home</a>
+    <a class="item" routerLink="/activities">Activities</a>
+    <a *ngIf="!isSignedIn" class="item" routerLink="/signup">Sign up</a>
+    <a *ngIf="!isSignedIn" class="item" routerLink="/signin">Sign in</a>
+  </div>
+  <div class="right-container">
+    <a *ngIf="isSignedIn" class="item" routerLink="/signin" (click)="signOut()">Sign out</a>
+  </div>
+</div>

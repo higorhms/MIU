@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>{{activity.name}}</h1>
+  <span>{{activity.duration}}</span>
+  <h2>{{activity.description}} </h2>
+  <strong>Benefits:</strong>
+  <div class="list">
+    <a class="list-item" *ngFor="let benefit of activity.benefits"
+      routerLink="/activity/{{activity._id}}/benefit/{{benefit._id}}">
+      <span class="benefit-name">{{benefit.name}}</span>
+      <br />
+      <span class="benefit-description">{{benefit.description}}</span>
+    </a>
+  </div>
+  <div class="button-container">
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/activities/create/{{activity._id}}/benefit">Add
+      Benefit</button>
+    <button class="edit-button" *ngIf="isSignedIn" routerLink="/activities/update/{{activity._id}}">Edit</button>
+    <button class="delete-button" *ngIf="isSignedIn" routerLink="/" (click)="deleteActivity()">Delete</button>
+  </div>
+</div>

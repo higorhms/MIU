@@ -1,0 +1,85 @@
+.container {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.list {
+  display: grid;
+  grid-gap: 35px;
+  grid-template-columns: repeat(1, minmax(400px, 1fr));
+  margin-bottom: 30px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 30px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.list-item:hover {
+  box-shadow: 0px 0px 8px 0px #1ba94c;
+}
+
+span {
+  font-size: 1.2em;
+  color: #646470;
+}
+
+h2 {
+  color: #737380;
+}
+
+strong {
+  font-size: 1.5em;
+}
+
+.benefit-name {
+  color: #222;
+  text-decoration: underline;
+}
+
+.delete-button {
+  box-shadow: 0px 0px 8px 0px #f50606;
+}
+
+.delete-button:hover {
+  background-color: #f50606;
+  transition: 0.2s;
+}
+
+.edit-button {
+  box-shadow: 0px 0px 8px 0px #1ba94c;
+}
+
+.edit-button:hover {
+  background-color: #1ba94c;
+  transition: 0.2s;
+}
+
+button {
+  width: 20%;
+  height: 46px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+  color: #222;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.button-container {
+  display: flex;
+}

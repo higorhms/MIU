@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  min-height: 50vh;
+  height: 100%;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.form-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container p {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 2.2rem;
+  color: #222;
+}
+
+.submit-button {
+  position: relative;
+  margin-top: 10px;
+  width: 80%;
+  height: 46px;
+  border-radius: 10px;
+  border: none;
+  background: #1ba94c;
+  color: #222;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+}
+
+input {
+  border: 0;
+  font-size: 1.2rem;
+  width: 300px;
+  padding: 25px;
+  margin: 5px;
+  color: #222;
+  border: 1px solid #1ba94c;
+}
+
+.create-account h1 {
+  font-weight: normal;
+  font-size: 1rem;
+  color: #222;
+}
+
+.create-account a {
+  font-size: 1rem;
+  text-decoration: none;
+  color: #1ba94c;
+
+  display: flex;
+  align-items: center;
+}

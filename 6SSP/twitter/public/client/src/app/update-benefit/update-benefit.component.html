@@ -1,0 +1,26 @@
+<div class="container">
+  <form [formGroup]="benefitForm" (ngSubmit)="update()">
+    <div class="form-container">
+      <label>Name:</label>
+      <div class="input-container">
+        <input class="input" type="text" name="name" id="name" formControlName="name"
+          [class.invalid]="benefitForm.controls['name'].touched && benefitForm.controls['name'].invalid">
+        <span *ngIf="benefitForm.controls['name'].touched && benefitForm.controls['name'].invalid">Name must be
+          provided</span>
+      </div>
+      <label>Description:</label>
+      <div class="input-container">
+        <textarea class="input" type="text" name="description" id="description" formControlName="description"
+          [class.invalid]="benefitForm.controls['description'].touched && benefitForm.controls['description'].invalid">
+        </textarea>
+        <span
+          *ngIf="benefitForm.controls['description'].touched && benefitForm.controls['description'].invalid">Description
+          must be provided</span>
+      </div>
+    </div>
+    <button class="create-button" type="submit">Save</button>
+  </form>
+  <div class="instructions">
+    <app-benefit-fields-info></app-benefit-fields-info>
+  </div>
+</div>

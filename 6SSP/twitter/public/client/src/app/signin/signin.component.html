@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="form-container">
+    <div>
+      <p>Login</p>
+    </div>
+
+    <form>
+      <input placeholder="username" name="username" [(ngModel)]="form.username" />
+      <input placeholder="password" name="password" type="password" [(ngModel)]="form.password" />
+      <button class="submit-button" type="submit" (click)="signIn()">Sign in</button>
+    </form>
+
+    <div class="create-account">
+      <h1>Don't you have an account yet?</h1>
+
+      <a routerLink="/signup">Sign up</a>
+    </div>
+  </div>
+</div>
