@@ -27,8 +27,12 @@ const validatePaginationParams = function (offset, count) {
   })
 }
 
-const successResponse = function (res, message, status = constants.SUCCESS_STATUS) {
+const successResponse = function (res, message, status = constants.SUCCESS_STATUS) { 
   return res.status(status).json(message);
+}
+
+const noContentResponse = function (res, status = constants.NO_CONTENT_STATUS) { 
+  return res.status(status).send();
 }
 
 const errorResponse = function (res, error) {

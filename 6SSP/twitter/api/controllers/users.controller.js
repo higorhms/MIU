@@ -20,18 +20,56 @@ const insertOne = function (req, res) {
 }
 
 const signIn = function (req, res) {
-  _validateRequestCredentials(req.body)
+  _validateRequestCredentials(req.body) 
     .then((credentials) => User.findOne({ username: credentials.username }).exec())
     .then((user) => _checkIfUserExist(user))
     .then((user) => _checkPassword(user, req.body.password))
-    .then((user) => _generateToken(user.name))
+    .then((user) => _generateToken(user._id)) 
     .then((token) => successResponse(res, { token }))
     .catch(() => errorResponse(res, { code: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
 }
 
-const _generateToken = function (userName) {
+const follow = function (req, res){
+  const username = req.params.username;
+  const userId = req.params.userId;
+
+  User.findOne({ username: username }).exec()
+    .then((userToFollow) => _checkIfUserExist(userToFollow))
+    .then((userToFollow) => _addFollower(userToFollow, userId))
+    .then(() => noContentResponse())
+    .catch((error) => errorResponse(res, error))
+}
+
+const unfollow = function (req, res){
+  const username = req.params.username;
+  const userId = req.params.userId;
+
+  User.findOne({ username: username }).exec()
+    .then((userToUnfollow) => _checkIfUserExist(userToUnfollow))
+    .then((userToUnfollow) => _removeFollower(userToUnfollow, userId))
+    .then(() => noContentResponse())
+    .catch((error) => errorResponse(res, error))
+}
+
+const _removeFollower = function(userToUnfollow, follower){
+  new Promise(resolve => {
+    userToUnfollow.followers = userToUnfollow.followers.filter(follower => follower._id.toString() === follower);
+    userToUnfollow.save()
+      .then(() => resolve())
+  })
+}
+
+const _addFollower = function(userToFollow, follower){
+  new Promise(resolve => {
+    userToFollow.followers.push(mongoose.Types.ObjectId(follower));
+    userToFollow.save()
+      .then(() => resolve())
+  })
+}
+
+const _generateToken = function (userId) {
   const sign = util.promisify(jwt.sign);
-  return sign({ name: userName }, process.env.ENCODING_SECRET, { expiresIn: constants.EXPIRATION_TIME });
+  return sign({ _id: userId }, process.env.ENCODING_SECRET, { expiresIn: constants.EXPIRATION_TIME });
 }
 
 const _checkPassword = function (databaseUser, requestPassword) {
@@ -104,5 +142,7 @@ const _validateSchema = function (user) {
 
 module.exports = {
   insertOne,
-  signIn
+  signIn,
+  follow,
+  unfollow
 }

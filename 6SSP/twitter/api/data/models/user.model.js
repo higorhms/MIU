@@ -11,8 +11,10 @@ const userSchema = mongoose.Schema({
     required: true,
     minlength: 8
   },
-  followers: [String],
-  following: [String]
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: process.env.USER_MODEL
+  }]
 })
 
 mongoose.model(process.env.USER_MODEL, userSchema, process.env.USER_COLLECTION)

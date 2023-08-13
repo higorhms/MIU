@@ -5,6 +5,7 @@ module.exports = {
   NOT_FOUND_STATUS: parseInt(process.env.NOT_FOUND_STATUS),
   CREATE_STATUS: parseInt(process.env.CREATE_STATUS),
   INTERNAL_SERVER_ERROR_STATUS: parseInt(process.env.INTERNAL_SERVER_ERROR_STATUS),
+  NO_CONTENT_STATUS: parseInt(process.env.NO_CONTENT_STATUS),
   UNAUTHORIZED_STATUS: parseInt(process.env.UNAUTHORIZED_STATUS),
   SUCCESS_STATUS: parseInt(process.env.SUCCESS_STATUS),
   ENCRYPTION_SALT: parseInt(process.env.ENCRYPTION_SALT),

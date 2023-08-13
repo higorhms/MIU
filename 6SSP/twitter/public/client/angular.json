@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "activities": {
+    "tweets": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -38,7 +38,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/activities",
+            "outputPath": "dist/tweets",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -92,10 +92,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "activities:build:production"
+              "browserTarget": "tweets:build:production"
             },
             "development": {
-              "browserTarget": "activities:build:development"
+              "browserTarget": "tweets:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -103,7 +103,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "activities:build"
+            "browserTarget": "tweets:build"
           }
         },
         "test": {

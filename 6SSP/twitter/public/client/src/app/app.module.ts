@@ -10,17 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { HomeComponent } from './home/home.component';
-import { ActivityComponent } from './activity/activity.component';
-import { ActivitiesComponent } from './activities/activities.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { BenefitComponent } from './benefit/benefit.component';
-import { CreateActivityComponent } from './create-activity/create-activity.component';
-import { ActivityFieldsInfoComponent } from './activity-fields-info/activity-fields-info.component';
-import { UpdateActivityComponent } from './update-activity/update-activity.component';
-import { BenefitFieldsInfoComponent } from './benefit-fields-info/benefit-fields-info.component';
-import { CreateBenefitComponent } from './create-benefit/create-benefit.component';
-import { UpdateBenefitComponent } from './update-benefit/update-benefit.component';
 import { appRoutes } from './app.routes';
 import { AuthenticationInterceptor } from './authentication.interceptor';
 
@@ -29,17 +20,8 @@ import { AuthenticationInterceptor } from './authentication.interceptor';
     AppComponent,
     NavigatorComponent,
     HomeComponent,
-    ActivityComponent,
-    ActivitiesComponent,
     SigninComponent,
     SignupComponent,
-    BenefitComponent,
-    CreateActivityComponent,
-    ActivityFieldsInfoComponent,
-    UpdateActivityComponent,
-    BenefitFieldsInfoComponent,
-    CreateBenefitComponent,
-    UpdateBenefitComponent
   ],
   imports: [
     BrowserModule,

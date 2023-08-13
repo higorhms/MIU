@@ -5,7 +5,6 @@
     </div>
 
     <form>
-      <input placeholder="name" name="name" [(ngModel)]="form.name" />
       <input placeholder="username" name="username" [(ngModel)]="form.username" />
       <input placeholder="password" name="password" type="password" [(ngModel)]="form.password"
         (blur)="validatePasswords()" [class.invalid]="!passwordsMatch" />

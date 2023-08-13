@@ -10,4 +10,10 @@ usersRoutes.route("/users")
 usersRoutes.route("/users/signin")
   .post(usersController.signIn)
 
+usersRoutes.route("/follow/:username")
+  .post(usersController.follow)
+
+usersRoutes.route("/unfollow/:username")
+  .post(usersController.unfollow)
+
 module.exports = usersRoutes;

@@ -1,4 +1,23 @@
-<div>
-  <h1 *ngIf="name"> Hello {{name}} !</h1>
-  <h1>Welcome to MEAN Running Activities</h1>
+<div class="container">
+  <app-navigator></app-navigator>
+
+  <div class="feed-container">
+    <div class="crate-container">
+      <textarea placeholder="What is Happening?!" [(ngModel)]="form.description"></textarea>
+      <button class="create-button" *ngIf="isSignedIn" (click)="form.description && _create()">Post</button>
+    </div>
+
+    <div class="list">
+      <a class="list-item" *ngFor="let tweet of tweets">
+        <div class="name-container">
+          <h1>@{{tweet.author.username}}</h1>
+        </div>
+        <p class="description">{{tweet.description}}</p>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <p>nothing</p>
+  </div>
 </div>

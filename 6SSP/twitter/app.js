@@ -1,16 +1,12 @@
 require("dotenv").config();
 require("./api/data/db");
+const cors = require('cors')
 const express = require("express");
 
 const routes = require("./api/routes");
 const app = express();
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-})
+app.use(cors())
 
 app.use(express.json());
 

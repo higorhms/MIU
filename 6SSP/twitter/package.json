@@ -4,7 +4,7 @@
   "description": "SspTweets server",
   "main": "app.js",
   "scripts": {
-    "startFrotend": "cd public && cd activities && npm start",
+    "startFrontend": "cd public && cd client && npm start",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "5.1.0",
+    "cors": "2.8.5",
     "dotenv": "16.1.3",
     "express": "4.18.2",
     "jsonwebtoken": "9.0.0",

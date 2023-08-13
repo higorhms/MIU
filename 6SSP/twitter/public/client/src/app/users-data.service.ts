@@ -9,10 +9,13 @@ import { Authentication, AuthenticationService } from './authentication.service'
 
 export class User {
   #_id!: string;
+  #username!: string;
 
   get _id() { return this.#_id };
+  get username() { return this.#username };
 
   set _id(id) { this._id = id };
+  set username(username) { this.#username = username };
 }
 
 @Injectable({

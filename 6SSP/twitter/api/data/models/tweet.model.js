@@ -7,7 +7,12 @@ const tweetsSchema = mongoose.Schema({
     required: true
   },
   author: {
-    type: userSchema,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: process.env.USER_MODEL, 
+    required: true
+  },
+  date: {
+    type: Date,
     required: true
   }
 })
