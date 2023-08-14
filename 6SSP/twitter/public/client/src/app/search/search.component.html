@@ -1,7 +1,7 @@
 <div class="container">
   <div class="search-container">
     <i class="fas fa-search search-icon"></i>
-    <input type="text" placeholder="Search..." class="rounded-input">
+    <input type="text" placeholder="Search..." class="rounded-input" [(ngModel)]="form.username" (input)="onSearchChange()">
   </div>
 
   <div class="users-container">

@@ -57,8 +57,8 @@ export class UsersDataService {
     return this._httpClient.post(this._baseUrl, signUpForm.toJSON());
   }
 
-  getAll(){
-    return this._httpClient.get<User[]>(this._baseUrl);
+  getAll(username: string){
+    return this._httpClient.get<User[]>(this._baseUrl, { params: { username } });
   }
 
   follow(username: string){

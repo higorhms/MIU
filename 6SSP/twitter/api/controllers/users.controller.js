@@ -5,14 +5,15 @@ const util = require("util");
 
 const { successResponse, errorResponse, createError, noContentResponse } = require("./utils/controller.utils");
 const constants = require("../constants");
-const { rejects } = require("assert");
 
 const User = mongoose.model(process.env.USER_MODEL);
 
 const findAll = function (req, res) {
   const userId = req.userId;
-
-  User.find({ _id: { $ne: new mongoose.Types.ObjectId(userId) } }).exec()
+  const username = req.query.username;
+  const filter = { _id: { $ne: new mongoose.Types.ObjectId(userId) } };
+  if(username) filter.username = { $regex: new RegExp(username, 'i') };
+  User.find(filter).exec()
     .then(users => successResponse(res, users))
     .catch((error) => errorResponse(res, error))
 }
