@@ -9,9 +9,13 @@
 
     <div class="list">
       <a class="list-item" *ngFor="let tweet of tweets">
-        <div class="name-container">
-          <h1>@{{tweet.author.username}}</h1>
-        </div>
+        <a class="avatar-container" href="/">
+          <img class="avatar" src="https://ui-avatars.com/api/?name={{tweet.author.name}}" alt="avatar">
+          <div class="name-container">
+            <h1>{{tweet.author.name}}</h1>
+            <h2>@{{tweet.author.username}} - {{ tweet.date | amTimeAgo }}</h2>
+          </div>
+        </a>
         <p class="description">{{tweet.description}}</p>
       </a>
     </div>

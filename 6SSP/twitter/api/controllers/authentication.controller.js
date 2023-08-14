@@ -19,10 +19,7 @@ const authenticate = function (req, res, next) {
       req.userId = data._id;
       next()
     })
-    .catch((error) => {
-      console.log(error);
-      errorResponse(res, { status: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE })
-    })
+    .catch(() => errorResponse(res, { status: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
 }
  
 module.exports = {

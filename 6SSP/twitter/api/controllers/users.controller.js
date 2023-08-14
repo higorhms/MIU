@@ -5,12 +5,12 @@ const util = require("util");
 
 const { successResponse, errorResponse, createError, noContentResponse } = require("./utils/controller.utils");
 const constants = require("../constants");
+const { rejects } = require("assert");
 
 const User = mongoose.model(process.env.USER_MODEL);
 
 const findAll = function (req, res) {
   const userId = req.userId;
-  console.log(userId)
 
   User.find({ _id: { $ne: new mongoose.Types.ObjectId(userId) } }).exec()
     .then(users => successResponse(res, users))
@@ -33,7 +33,7 @@ const signIn = function (req, res) {
     .then((credentials) => User.findOne({ username: credentials.username }).exec())
     .then((user) => _checkIfUserExist(user))
     .then((user) => _checkPassword(user, req.body.password))
-    .then((user) => _generateToken(user._id))
+    .then((user) => _generateToken(user._id)) 
     .then((token) => successResponse(res, { token }))
     .catch(() => errorResponse(res, { status: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
 }
@@ -56,15 +56,16 @@ const unfollow = function (req, res) {
   User.findOne({ username: username }).exec()
     .then((userToUnfollow) => _checkIfUserExist(userToUnfollow))
     .then((userToUnfollow) => _removeFollower(userToUnfollow, userId))
-    .then(() => noContentResponse())
+    .then(() => noContentResponse(res))
     .catch((error) => errorResponse(res, error))
 }
 
 const _removeFollower = function (userToUnfollow, follower) {
-  return new Promise(resolve => {
-    userToUnfollow.followers = userToUnfollow.followers.filter(follower => follower._id.toString() === follower);
+  return new Promise((resolve, reject) => {
+    userToUnfollow.followers = userToUnfollow.followers.filter(storedFollower => storedFollower.toString() !== follower);
     userToUnfollow.save()
       .then(() => resolve())
+      .catch(error => reject(error))
   })
 }
 

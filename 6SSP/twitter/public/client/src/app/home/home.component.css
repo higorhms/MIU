@@ -3,7 +3,7 @@
   padding-right: 20px;
   padding-bottom: 20px;
   display: grid;
-  grid-template-columns: 300px 1fr 300px;
+  grid-template-columns: 30% 1fr 30%;
   height: 100vh;
 }
 
@@ -57,26 +57,29 @@ textarea {
 }
 
 .description {
-  padding: 10px;
-  margin-left: 3%;
-  height: 100%;
   color: #fff4f4;
-  overflow: hidden;
   font-size: 1rem;
+  margin-left: 8%;
+  margin-top: 1%;
 }
 
 .name-container {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   padding: 5px;
   font-weight: bold;
-  text-align: center;
   border-radius: 5px 5px 0px 0px;
 }
 
 h1 {
-  color: white;
+  color: #E7E9EA;
   font-size: 1.4rem;
+}
+
+h2 {
+  color: #71767B;
+  font-size: 1rem;
+  margin-left: 5px;
 }
 
 button {
@@ -97,4 +100,17 @@ button {
 
 button:hover {
   background-color: #124E78;
+}
+
+.avatar-container {
+  display: flex;
+  text-decoration: none;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin: 5px;
+  border: 4px solid #1C9BEF;
 }

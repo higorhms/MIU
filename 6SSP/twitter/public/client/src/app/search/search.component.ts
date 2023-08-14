@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User, UsersDataService } from '../users-data.service';
 import { AuthenticationService } from '../authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -16,26 +17,32 @@ export class SearchComponent implements OnInit {
   constructor(
     private _usersDataService: UsersDataService,
     private _authenticationService: AuthenticationService,
+    private _router: Router,
   ) { }
 
   _getUsers() {
     this._usersDataService.getAll().subscribe({
       next: (users: User[]) => {
         this.users = users;
-        console.log(this.users);
       }
     })
   }
 
   follow(username: string) {
     this._usersDataService.follow(username).subscribe({
-      next: () => this._getUsers()
+      next: () => {
+        this._getUsers();
+        this._router.navigate(["/"]);
+      }
     })
   }
 
   unfollow(username: string) {
     this._usersDataService.unfollow(username).subscribe({
-      next: () => this._getUsers()
+      next: () => {
+        this._getUsers();
+        this._router.navigate(["/"]);
+      }
     })
   }
 

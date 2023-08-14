@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { AuthenticationService } from '../authentication.service';
 import { environment } from '../../environments/environment';
 import { TweetsDataService, Tweet } from '../tweets-data.service';
 
-class CreatePostForm{
+class CreatePostForm {
   #description!: string;
   get description() { return this.#description }
   set description(description) { this.#description = description }
@@ -38,23 +38,19 @@ export class HomeComponent implements OnInit {
   nextPage() {
     if (this.tweets.length < environment.DEFAULT_AMOUNT_OF_RESULTS) return;
     this.page = this.page + environment.PAGE_SKIPPER;
-    this._getTweets();
-  }
-
-  previousPage() {
-    if (this.page < environment.PAGE_SKIPPER) return;
-    this.page = this.page - environment.PAGE_SKIPPER;
-    this._getTweets();
   }
 
   ngOnInit(): void {
     this._getTweets();
   }
 
-  _getTweets() {
-    this._tweetsDataService.getAll().subscribe({
+  _getTweets(newTweet: boolean = false) {
+    if (newTweet) this.page = environment.DEFAULT_FIRST_PAGE;
+    this._tweetsDataService.getAll(this.page).subscribe({
       next: (tweets: Tweet[]) => {
-        this.tweets = tweets;
+        if (newTweet) this.tweets = tweets;
+        if (!newTweet) this.tweets = [...this.tweets, ...tweets];
+        this.nextPage();
       }
     })
   }
@@ -63,9 +59,16 @@ export class HomeComponent implements OnInit {
     this._tweetsDataService.create(this.form.description).subscribe({
       next: () => {
         this._toastrService.success(environment.SUCCESS_MESSAGE);
-        this._getTweets()
+        this._getTweets(true)
       },
       error: (error) => this._toastrService.error(error.error.message)
     })
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+    const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    const max = document.documentElement.scrollHeight;
+    if (pos >= max) this._getTweets();
   }
 }

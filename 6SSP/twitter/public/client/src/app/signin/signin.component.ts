@@ -34,6 +34,6 @@ export class SigninComponent {
   ) { }
 
   signIn() {
-    this._usersDataService.signIn(this.form.username, this.form.password);
+    this._usersDataService.signIn(this.form.username, this.form.password)
   }
 }

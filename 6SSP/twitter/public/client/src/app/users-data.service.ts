@@ -9,14 +9,17 @@ import { Authentication, AuthenticationService } from './authentication.service'
 
 export class User {
   #_id!: string;
+  #name!: string;
   #username!: string;
   #followers!: String[];
 
   get _id() { return this.#_id };
+  get name() { return this.#name };
   get username() { return this.#username };
   get followers() { return this.#followers };
 
   set _id(id) { this._id = id };
+  set name(name) { this.#name = name };
   set username(username) { this.#username = username };
   set followers(followers) { this.#followers = followers };
 }

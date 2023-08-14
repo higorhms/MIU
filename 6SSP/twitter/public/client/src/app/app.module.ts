@@ -15,6 +15,7 @@ import { SignupComponent } from './signup/signup.component';
 import { appRoutes } from './app.routes';
 import { AuthenticationInterceptor } from './authentication.interceptor';
 import { SearchComponent } from './search/search.component';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SearchComponent } from './search/search.component';
     SearchComponent,
   ],
   imports: [
+    MomentModule,
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

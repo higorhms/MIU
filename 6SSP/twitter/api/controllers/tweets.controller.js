@@ -13,7 +13,7 @@ const findAll = function (req, res) {
   const userId = req.userId;
 
   validatePaginationParams(req.query.offset, req.query.count)
-    .then(({ page, count }) => Tweet.find().sort('-date').skip(page).limit(count).populate('author', '_id username followers').exec())
+    .then(({ page, count }) => Tweet.find().sort('-date').skip(page).limit(count).populate('author', '_id name username followers').exec())
     .then((tweets) => _filterByOwnOrUsersYouFollowTweets(tweets, userId))
     .then((tweets) => successResponse(res, tweets))
     .catch((error) => errorResponse(res, error))
