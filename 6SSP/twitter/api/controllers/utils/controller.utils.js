@@ -50,5 +50,6 @@ module.exports = {
   successResponse,
   createError,
   errorResponse,
-  validatePaginationParams
+  validatePaginationParams,
+  noContentResponse
 }

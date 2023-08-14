@@ -8,7 +8,7 @@ const authenticate = function (req, res, next) {
   const headerExist = req.headers.authorization;
 
   if (!headerExist) {
-    return errorResponse(res, { code: constants.FORBIDDEN_STATUS, message: process.env.NO_TOKEN_PROVIDED_MESSAGE });
+    return errorResponse(res, { status: constants.FORBIDDEN_STATUS, message: process.env.NO_TOKEN_PROVIDED_MESSAGE });
   }
 
   const token = req.headers.authorization.split(" ")[1];

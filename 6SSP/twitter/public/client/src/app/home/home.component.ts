@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AuthenticationService } from '../authentication.service';
 import { environment } from '../../environments/environment';
-import { BenefitsDataService, Tweet } from '../tweets-data.service';
+import { TweetsDataService, Tweet } from '../tweets-data.service';
 
 class CreatePostForm{
   #description!: string;
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _authenticationService: AuthenticationService,
-    private _benefitsDataService: BenefitsDataService,
+    private _tweetsDataService: TweetsDataService,
     private _toastrService: ToastrService,
   ) { }
 
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   _getTweets() {
-    this._benefitsDataService.getAll().subscribe({
+    this._tweetsDataService.getAll().subscribe({
       next: (tweets: Tweet[]) => {
         this.tweets = tweets;
       }
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   _create() {
-    this._benefitsDataService.create(this.form.description).subscribe({
+    this._tweetsDataService.create(this.form.description).subscribe({
       next: () => {
         this._toastrService.success(environment.SUCCESS_MESSAGE);
         this._getTweets()

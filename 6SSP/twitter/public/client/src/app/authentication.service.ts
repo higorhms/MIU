@@ -21,8 +21,8 @@ export class AuthenticationService {
     return !!this.token;
   }
 
-  get name(): string {
-    return this._jwt.decodeToken(this.token)?.name;
+  get id(): string {
+    return this._jwt.decodeToken(this.token)?._id;
   }
 
   get token(): string{

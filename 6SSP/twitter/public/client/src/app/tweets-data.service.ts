@@ -28,7 +28,7 @@ export class Tweet {
 @Injectable({
   providedIn: 'root'
 })
-export class BenefitsDataService {
+export class TweetsDataService {
 
   constructor(
     private _httpClient: HttpClient,

@@ -4,7 +4,7 @@
   <div class="feed-container">
     <div class="crate-container">
       <textarea placeholder="What is Happening?!" [(ngModel)]="form.description"></textarea>
-      <button class="create-button" *ngIf="isSignedIn" (click)="form.description && _create()">Post</button>
+      <button *ngIf="isSignedIn" (click)="form.description && _create()">Post</button>
     </div>
 
     <div class="list">
@@ -16,8 +16,5 @@
       </a>
     </div>
   </div>
-
-  <div>
-    <p>nothing</p>
-  </div>
+  <app-search></app-search>
 </div>

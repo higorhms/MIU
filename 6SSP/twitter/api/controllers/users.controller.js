@@ -3,10 +3,19 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const util = require("util");
 
-const { successResponse, errorResponse, createError } = require("./utils/controller.utils");
+const { successResponse, errorResponse, createError, noContentResponse } = require("./utils/controller.utils");
 const constants = require("../constants");
 
 const User = mongoose.model(process.env.USER_MODEL);
+
+const findAll = function (req, res) {
+  const userId = req.userId;
+  console.log(userId)
+
+  User.find({ _id: { $ne: new mongoose.Types.ObjectId(userId) } }).exec()
+    .then(users => successResponse(res, users))
+    .catch((error) => errorResponse(res, error))
+}
 
 const insertOne = function (req, res) {
   const userToBeCreated = _fillUser(req.body);
@@ -20,29 +29,29 @@ const insertOne = function (req, res) {
 }
 
 const signIn = function (req, res) {
-  _validateRequestCredentials(req.body) 
+  _validateRequestCredentials(req.body)
     .then((credentials) => User.findOne({ username: credentials.username }).exec())
     .then((user) => _checkIfUserExist(user))
     .then((user) => _checkPassword(user, req.body.password))
-    .then((user) => _generateToken(user._id)) 
+    .then((user) => _generateToken(user._id))
     .then((token) => successResponse(res, { token }))
-    .catch(() => errorResponse(res, { code: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
+    .catch(() => errorResponse(res, { status: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
 }
 
-const follow = function (req, res){
-  const username = req.params.username;
-  const userId = req.params.userId;
+const follow = function (req, res) {
+  const username = req.body.username;
+  const userId = req.userId;
 
   User.findOne({ username: username }).exec()
     .then((userToFollow) => _checkIfUserExist(userToFollow))
     .then((userToFollow) => _addFollower(userToFollow, userId))
-    .then(() => noContentResponse())
+    .then(() => noContentResponse(res))
     .catch((error) => errorResponse(res, error))
 }
 
-const unfollow = function (req, res){
-  const username = req.params.username;
-  const userId = req.params.userId;
+const unfollow = function (req, res) {
+  const username = req.body.username;
+  const userId = req.userId;
 
   User.findOne({ username: username }).exec()
     .then((userToUnfollow) => _checkIfUserExist(userToUnfollow))
@@ -51,17 +60,19 @@ const unfollow = function (req, res){
     .catch((error) => errorResponse(res, error))
 }
 
-const _removeFollower = function(userToUnfollow, follower){
-  new Promise(resolve => {
+const _removeFollower = function (userToUnfollow, follower) {
+  return new Promise(resolve => {
     userToUnfollow.followers = userToUnfollow.followers.filter(follower => follower._id.toString() === follower);
     userToUnfollow.save()
       .then(() => resolve())
   })
 }
 
-const _addFollower = function(userToFollow, follower){
-  new Promise(resolve => {
-    userToFollow.followers.push(mongoose.Types.ObjectId(follower));
+const _addFollower = function (userToFollow, follower) {
+  return new Promise((resolve, reject) => {
+    const alreadyFollowing = userToFollow.followers.find(storedFollower => storedFollower.toString() === follower);
+    if (alreadyFollowing) reject(createError(constants.BAD_REQUEST_STATUS, "Already following"));
+    userToFollow.followers.push(new mongoose.Types.ObjectId(follower));
     userToFollow.save()
       .then(() => resolve())
   })
@@ -144,5 +155,6 @@ module.exports = {
   insertOne,
   signIn,
   follow,
-  unfollow
+  unfollow,
+  findAll
 }

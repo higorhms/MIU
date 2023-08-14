@@ -14,6 +14,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { appRoutes } from './app.routes';
 import { AuthenticationInterceptor } from './authentication.interceptor';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AuthenticationInterceptor } from './authentication.interceptor';
     HomeComponent,
     SigninComponent,
     SignupComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

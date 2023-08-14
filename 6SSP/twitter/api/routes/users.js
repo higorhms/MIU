@@ -1,19 +1,21 @@
 const express = require("express");
 
+const authenticationController = require('../controllers/authentication.controller')
 const usersController = require("../controllers/users.controller");
 
 const usersRoutes = express.Router();
 
-usersRoutes.route("/users")
+usersRoutes.route("/")
+  .get(authenticationController.authenticate, usersController.findAll)
   .post(usersController.insertOne)
 
-usersRoutes.route("/users/signin")
+usersRoutes.route("/signin")
   .post(usersController.signIn)
 
-usersRoutes.route("/follow/:username")
-  .post(usersController.follow)
+usersRoutes.route("/follow")
+  .post(authenticationController.authenticate, usersController.follow)
 
-usersRoutes.route("/unfollow/:username")
-  .post(usersController.unfollow)
+usersRoutes.route("/unfollow")
+  .post(authenticationController.authenticate, usersController.unfollow)
 
 module.exports = usersRoutes;

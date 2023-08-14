@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="search-container">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" placeholder="Search..." class="rounded-input">
+  </div>
+
+  <div class="users-container">
+    <h1>Who to follow</h1>
+    <div class="list-item" *ngFor="let user of users">
+      <a class="avatar-container" href="/">
+        <img class="avatar" src="https://ui-avatars.com/api/?name={{user.username}}" alt="avatar">
+        <p>@{{user.username}}</p>
+      </a>
+      <button (click)="toggleFollow(user)">{{followAction(user)}}</button>
+    </div>
+  </div>
+</div>

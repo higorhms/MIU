@@ -5,7 +5,7 @@ const tweetsRoutes = require("./tweets");
 const usersRoutes = require("./users");
 const authenticationController = require('../controllers/authentication.controller');
 
-routes.use(usersRoutes);
+routes.use('/users/', usersRoutes);
 routes.use(authenticationController.authenticate)
 routes.use(tweetsRoutes);
 

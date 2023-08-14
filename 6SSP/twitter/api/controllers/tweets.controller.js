@@ -13,7 +13,7 @@ const findAll = function (req, res) {
   const userId = req.userId;
 
   validatePaginationParams(req.query.offset, req.query.count)
-    .then(({ page, count }) => Tweet.find().sort('-date').skip(page).limit(count).populate('author', '_id username').exec())
+    .then(({ page, count }) => Tweet.find().sort('-date').skip(page).limit(count).populate('author', '_id username followers').exec())
     .then((tweets) => _filterByOwnOrUsersYouFollowTweets(tweets, userId))
     .then((tweets) => successResponse(res, tweets))
     .catch((error) => errorResponse(res, error))
@@ -40,12 +40,10 @@ const _fillTweet = function (data, userId) {
 
 const _filterByOwnOrUsersYouFollowTweets = function (tweets, userId) {
   return new Promise((resolve) => {
-    User.findById(userId).then(user => {
-      const filteredTweets = tweets.filter(tweet =>
-        tweet.author._id.toString() === userId || user.following.includes(tweet.author._id)
-      );
-      resolve(filteredTweets);
-    })
+    const filteredTweets = tweets.filter(tweet => {
+      return tweet.author._id.toString() === userId || tweet.author?.followers.includes(userId)
+    });
+    resolve(filteredTweets);
   })
 }
 

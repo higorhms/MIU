@@ -10,12 +10,15 @@ import { Authentication, AuthenticationService } from './authentication.service'
 export class User {
   #_id!: string;
   #username!: string;
+  #followers!: String[];
 
   get _id() { return this.#_id };
   get username() { return this.#username };
+  get followers() { return this.#followers };
 
   set _id(id) { this._id = id };
   set username(username) { this.#username = username };
+  set followers(followers) { this.#followers = followers };
 }
 
 @Injectable({
@@ -39,7 +42,6 @@ export class UsersDataService {
     }).subscribe({
       next: (authentication: Authentication) => {
         this._authenticationService.signIn(authentication.token);
-        this._toastrService.success(environment.WELCOME_MESSAGE + this._authenticationService.name)
         this._router.navigate(["/"]);
       },
       error: (response) => {
@@ -50,5 +52,17 @@ export class UsersDataService {
 
   signUp(signUpForm: SignUpForm) {
     return this._httpClient.post(this._baseUrl, signUpForm.toJSON());
+  }
+
+  getAll(){
+    return this._httpClient.get<User[]>(this._baseUrl);
+  }
+
+  follow(username: string){
+    return this._httpClient.post<void>(this._baseUrl + `follow`, {username})
+  }
+
+  unfollow(username: string){
+    return this._httpClient.post<void>(this._baseUrl + `unfollow`, {username})
   }
 }
