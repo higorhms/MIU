@@ -3,14 +3,14 @@
   <a class="item" routerLink="/"><i class="fas fa-home"></i>
     Home
   </a>
-  <a class="item" routerLink="/"><i class="fas fa-user"></i>
+  <a *ngIf="isSignedIn" class="item" routerLink="/"><i class="fas fa-user"></i>
     Profile
   </a>
   <a *ngIf="!isSignedIn" class="item" routerLink="/signup">
     <i class="fas fa-user-plus"></i> Sign up
   </a>
   <a *ngIf="!isSignedIn" class="item" routerLink="/signin">
-    <i class="fas fa-sign-in-alt"></i> Sign in
+    <i class="fas fa-sign-in-alt"></i> Login
   </a>
   <a *ngIf="isSignedIn" class="item" routerLink="/signin" (click)="signOut()">
     <i class="fas fa-sign-out-alt"></i> Sign out

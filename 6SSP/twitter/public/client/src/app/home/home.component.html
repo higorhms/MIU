@@ -2,9 +2,12 @@
   <app-navigator></app-navigator>
 
   <div class="feed-container">
-    <div class="crate-container">
+    <div *ngIf="isSignedIn" class="crate-container">
       <textarea placeholder="What is Happening?!" [(ngModel)]="form.description"></textarea>
-      <button *ngIf="isSignedIn" (click)="form.description && _create()">Post</button>
+      <button (click)="form.description && _create()">Post</button>
+    </div>
+    <div *ngIf="!isSignedIn" class="whats-happening">
+      <h1>What’s happening</h1>
     </div>
 
     <div class="list">
@@ -20,5 +23,5 @@
       </a>
     </div>
   </div>
-  <app-search></app-search>
+  <app-search *ngIf="isSignedIn"></app-search>
 </div>

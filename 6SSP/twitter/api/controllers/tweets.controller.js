@@ -7,7 +7,6 @@ const {
 } = require("./utils/controller.utils");
 
 const Tweet = mongoose.model(process.env.TWEET_MODEL);
-const User = mongoose.model(process.env.USER_MODEL);
 
 const findAll = function (req, res) {
   const userId = req.userId;
@@ -40,9 +39,14 @@ const _fillTweet = function (data, userId) {
 
 const _filterByOwnOrUsersYouFollowTweets = function (tweets, userId) {
   return new Promise((resolve) => {
-    const filteredTweets = tweets.filter(tweet => {
-      return tweet.author._id.toString() === userId || tweet.author?.followers.includes(userId)
-    });
+    let filteredTweets = [];
+    if (userId) {
+      filteredTweets = tweets.filter(tweet => {
+        return tweet.author._id.toString() === userId || tweet.author?.followers.includes(userId)
+      });
+    } else {
+      filteredTweets = tweets;
+    }
     resolve(filteredTweets);
   })
 }

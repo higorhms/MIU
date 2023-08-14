@@ -1,10 +1,11 @@
 const express = require("express");
-const activitiesController = require("../controllers/tweets.controller");
+const tweetsController = require("../controllers/tweets.controller");
+const authenticationController = require("../controllers/authentication.controller");
 
 const tweetsRoutes = express.Router();
 
 tweetsRoutes.route("/tweets")
-  .get(activitiesController.findAll)
-  .post(activitiesController.insertOne)
+  .get(authenticationController.authorize, tweetsController.findAll)
+  .post(authenticationController.authenticate, authenticationController.authorize, tweetsController.insertOne)
 
 module.exports = tweetsRoutes;

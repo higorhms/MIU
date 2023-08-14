@@ -1,7 +1,6 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 30% 1fr;
 }
 
 .form-container {
@@ -37,7 +36,6 @@
   margin-top: 8px;
   font-weight: bold;
   font-size: 2.2rem;
-  color: #222;
 }
 
 .submit-button {
@@ -48,11 +46,15 @@
   border-radius: 10px;
   border: none;
   background: #1C9BEF;
-  color: #222;
   font-weight: bold;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #124E78;
 }
 
 input {
@@ -68,13 +70,13 @@ input {
 .create-account h1 {
   font-weight: normal;
   font-size: 1rem;
-  color: #222;
 }
 
 .create-account a {
   font-size: 1rem;
   text-decoration: none;
   color: #1C9BEF;
+  font-weight: bold;
 
   display: flex;
   align-items: center;
