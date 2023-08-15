@@ -8,7 +8,7 @@
   <div class="users-container">
     <h1>{{title}}</h1>
     <div class="list-item" *ngFor="let user of users">
-      <a href="/user/{{user._id}}" *ngIf="user._id !== id" class="avatar-container">
+      <a href="/user/{{user._id}}" *ngIf="user._id !== id || title != 'Who to follow'" class="avatar-container">
         <img class="avatar" src="https://ui-avatars.com/api/?name={{user.name}}" alt="avatar">
         <div>
           <h1>{{user.name}}</h1>
