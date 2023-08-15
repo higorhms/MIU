@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+}
+
+.user-information-container{
+  margin-top: 3%;
+}
+
+.name-container {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  font-weight: bold;
+  border-radius: 5px 5px 0px 0px;
+}
+
+h1 {
+  color: #E7E9EA;
+  font-size: 2.0rem;
+}
+
+h2 {
+  color: #71767B;
+  font-size: 1.6rem;
+  margin-left: 5px;
+}

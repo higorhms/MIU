@@ -57,10 +57,7 @@ export class HomeComponent implements OnInit {
 
   _create() {
     this._tweetsDataService.create(this.form.description).subscribe({
-      next: () => {
-        this._toastrService.success(environment.SUCCESS_MESSAGE);
-        this._getTweets(true)
-      },
+      next: () => this._getTweets(true),
       error: (error) => this._toastrService.error(error.error.message)
     })
   }

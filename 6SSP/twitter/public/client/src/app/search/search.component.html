@@ -1,20 +1,21 @@
 <div class="container">
   <div class="search-container">
     <i class="fas fa-search search-icon"></i>
-    <input type="text" placeholder="Search..." class="rounded-input" [(ngModel)]="form.username" (input)="onSearchChange()">
+    <input type="text" placeholder="Search..." class="rounded-input" [(ngModel)]="form.username"
+      (input)="onSearchChange()">
   </div>
 
   <div class="users-container">
-    <h1>Who to follow</h1>
+    <h1>{{title}}</h1>
     <div class="list-item" *ngFor="let user of users">
-      <a class="avatar-container" href="/">
+      <a href="/user/{{user._id}}" *ngIf="user._id !== id" class="avatar-container">
         <img class="avatar" src="https://ui-avatars.com/api/?name={{user.name}}" alt="avatar">
-        <div class="name-container">
+        <div>
           <h1>{{user.name}}</h1>
           <h2>@{{user.username}}</h2>
         </div>
       </a>
-      <button (click)="toggleFollow(user)">{{followAction(user)}}</button>
+      <button *ngIf="isSignedIn && user._id !== id" (click)="toggleFollow(user)">{{followAction(user)}}</button>
     </div>
   </div>
 </div>

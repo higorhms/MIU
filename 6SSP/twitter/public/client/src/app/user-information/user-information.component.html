@@ -1,0 +1,11 @@
+<div class="container">
+  <app-navigator></app-navigator>
+  <div class="user-information-container">
+    <div class="name-container">
+      <h1>{{user?.name}} </h1>
+      <h2>- @{{user?.username}}</h2>
+    </div>
+    <app-search [title]="'Followers'" *ngIf="user" [user]="user"></app-search>
+    <app-search [title]="'Following'" *ngIf="user" [user]="user"></app-search>
+  </div>
+</div>

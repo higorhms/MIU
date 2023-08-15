@@ -16,6 +16,7 @@ import { appRoutes } from './app.routes';
 import { AuthenticationInterceptor } from './authentication.interceptor';
 import { SearchComponent } from './search/search.component';
 import { MomentModule } from 'ngx-moment';
+import { UserInformationComponent } from './user-information/user-information.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MomentModule } from 'ngx-moment';
     SigninComponent,
     SignupComponent,
     SearchComponent,
+    UserInformationComponent,
   ],
   imports: [
     MomentModule,

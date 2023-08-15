@@ -6,16 +6,19 @@ const usersController = require("../controllers/users.controller");
 const usersRoutes = express.Router();
 
 usersRoutes.route("/")
-  .get(authenticationController.authenticate, authenticationController.authorize, usersController.findAll)
+  .get(authenticationController.verifyToken, usersController.findAll)
   .post(usersController.insertOne)
+
+usersRoutes.route("/:userId")
+  .get(authenticationController.verifyToken, usersController.findOne)
 
 usersRoutes.route("/signin")
   .post(usersController.signIn)
 
 usersRoutes.route("/follow")
-  .post(authenticationController.authenticate, authenticationController.authorize, usersController.follow)
+  .post(authenticationController.verifyHeader, authenticationController.verifyToken, usersController.follow)
 
 usersRoutes.route("/unfollow")
-  .post(authenticationController.authenticate, authenticationController.authorize, usersController.unfollow)
+  .post(authenticationController.verifyHeader, authenticationController.verifyToken, usersController.unfollow)
 
 module.exports = usersRoutes;

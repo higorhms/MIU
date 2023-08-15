@@ -5,7 +5,7 @@ const authenticationController = require("../controllers/authentication.controll
 const tweetsRoutes = express.Router();
 
 tweetsRoutes.route("/tweets")
-  .get(authenticationController.authorize, tweetsController.findAll)
-  .post(authenticationController.authenticate, authenticationController.authorize, tweetsController.insertOne)
+  .get(authenticationController.verifyToken, tweetsController.findAll)
+  .post(authenticationController.verifyHeader, authenticationController.verifyToken, tweetsController.insertOne)
 
 module.exports = tweetsRoutes;

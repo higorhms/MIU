@@ -14,5 +14,7 @@ export class NavigatorComponent {
 
   get isSignedIn() { return this._authenticationService.isSignedIn }
 
+  get id() { return this._authenticationService.id }
+
   signOut() { return this._authenticationService.signOut() }
 }

@@ -53,12 +53,16 @@ export class UsersDataService {
     })
   }
 
+  getOne(userId: string){
+    return this._httpClient.get<User>(this._baseUrl + userId);
+  }
+
   signUp(signUpForm: SignUpForm) {
     return this._httpClient.post(this._baseUrl, signUpForm.toJSON());
   }
 
-  getAll(username: string){
-    return this._httpClient.get<User[]>(this._baseUrl, { params: { username } });
+  getAll(username: string, userId: string){
+    return this._httpClient.get<User[]>(this._baseUrl, { params: { username, userId } });
   }
 
   follow(username: string){

@@ -42,6 +42,11 @@
   margin-top: 2.5%;
 }
 
+.list-item:hover h1 {
+  color: #1C9BEF;
+  cursor: pointer;
+}
+
 .avatar-container {
   display: flex;
   align-items: center;

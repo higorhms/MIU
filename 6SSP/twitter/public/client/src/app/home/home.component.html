@@ -12,7 +12,7 @@
 
     <div class="list">
       <a class="list-item" *ngFor="let tweet of tweets">
-        <a class="avatar-container" href="/">
+        <a class="avatar-container" href="/user/{{tweet.author._id}}">
           <img class="avatar" src="https://ui-avatars.com/api/?name={{tweet.author.name}}" alt="avatar">
           <div class="name-container">
             <h1>{{tweet.author.name}}</h1>
@@ -23,5 +23,5 @@
       </a>
     </div>
   </div>
-  <app-search *ngIf="isSignedIn"></app-search>
+  <app-search *ngIf="isSignedIn" [title]="'Who to follow'"></app-search>
 </div>

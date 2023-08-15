@@ -9,11 +9,13 @@ const constants = require("../constants");
 const User = mongoose.model(process.env.USER_MODEL);
 
 const findAll = function (req, res) {
-  const userId = req.userId;
+  // const userId = req.userId;
   const username = req.query.username;
-  const filter = { _id: { $ne: new mongoose.Types.ObjectId(userId) } };
-  if(username) filter.username = { $regex: new RegExp(username, 'i') };
-  User.find(filter).exec()
+  const filter = {};
+  // if (userId) filter._id = { $ne: new mongoose.Types.ObjectId(userId) };
+  if (username) filter.username = { $regex: new RegExp(username, 'i') };
+
+  User.find(filter).select('-password').exec()
     .then(users => successResponse(res, users))
     .catch((error) => errorResponse(res, error))
 }
@@ -34,7 +36,7 @@ const signIn = function (req, res) {
     .then((credentials) => User.findOne({ username: credentials.username }).exec())
     .then((user) => _checkIfUserExist(user))
     .then((user) => _checkPassword(user, req.body.password))
-    .then((user) => _generateToken(user._id)) 
+    .then((user) => _generateToken(user._id))
     .then((token) => successResponse(res, { token }))
     .catch(() => errorResponse(res, { status: constants.UNAUTHORIZED_STATUS, message: process.env.UNAUTHORIZED_MESSAGE }))
 }
@@ -46,7 +48,16 @@ const follow = function (req, res) {
   User.findOne({ username: username }).exec()
     .then((userToFollow) => _checkIfUserExist(userToFollow))
     .then((userToFollow) => _addFollower(userToFollow, userId))
-    .then(() => noContentResponse(res))
+    .then(() => successResponse(res))
+    .catch((error) => errorResponse(res, error))
+}
+
+const findOne = function (req, res) {
+  const userId = req.params.userId || req.userId;
+
+  User.findById(userId).exec()
+    .then((userToUnfollow) => _checkIfUserExist(userToUnfollow))
+    .then((user) => successResponse(res, user))
     .catch((error) => errorResponse(res, error))
 }
 
@@ -158,5 +169,6 @@ module.exports = {
   signIn,
   follow,
   unfollow,
-  findAll
+  findAll,
+  findOne
 }
