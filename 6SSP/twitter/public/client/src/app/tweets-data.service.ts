@@ -19,13 +19,6 @@ export class Tweet {
   set description(description) { this.#description = description };
   set date(date) { this.#date = date };
   set author(author) { this.#author = author };
-
-  toJSON() {
-    return {
-      _id: this._id,
-      description: this.description,
-    }
-  }
 }
 
 @Injectable({
@@ -43,18 +36,6 @@ export class TweetsDataService {
 
   create(description: string) {
     return this._httpClient.post<Tweet>(this._buildUrl(), { description });
-  }
-
-  delete(tweetId: string) {
-    return this._httpClient.delete(this._buildUrl() + tweetId);
-  }
-
-  getOne(tweetId: string) {
-    return this._httpClient.get<Tweet>(this._buildUrl() + tweetId);
-  }
-
-  update(tweetId: string, newProperties: Tweet) {
-    return this._httpClient.patch<Tweet>(this._buildUrl() + tweetId, newProperties.toJSON());
   }
 
   _buildUrl() {

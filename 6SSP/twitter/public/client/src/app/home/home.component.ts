@@ -9,12 +9,6 @@ class CreatePostForm {
   #description!: string;
   get description() { return this.#description }
   set description(description) { this.#description = description }
-
-  toJSON() {
-    return {
-      description: this.description,
-    }
-  }
 }
 
 @Component({
@@ -36,7 +30,6 @@ export class HomeComponent implements OnInit {
   get isSignedIn() { return this._authenticationService.isSignedIn }
 
   nextPage() {
-    if (this.tweets.length < environment.DEFAULT_AMOUNT_OF_RESULTS) return;
     this.page = this.page + environment.PAGE_SKIPPER;
   }
 
