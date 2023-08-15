@@ -26,7 +26,7 @@ const verifyHeader = function (req, res, next) {
   if (!headerExist) {
     return errorResponse(res, { status: constants.FORBIDDEN_STATUS, message: process.env.NO_TOKEN_PROVIDED_MESSAGE });
   }
-  
+
   next();
 }
 

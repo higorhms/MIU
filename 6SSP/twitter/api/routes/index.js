@@ -5,6 +5,6 @@ const tweetsRoutes = require("./tweets");
 const usersRoutes = require("./users");
 
 routes.use('/users', usersRoutes);
-routes.use(tweetsRoutes);
+routes.use('/tweets', tweetsRoutes);
 
 module.exports = routes;

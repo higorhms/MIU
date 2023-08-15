@@ -1,15 +1,6 @@
 const mongoose = require("mongoose");
 const constants = require("../../constants");
 
-const validateObjectId = function (objectId) {
-  return new Promise((resolve, reject) => {
-    if (!mongoose.isValidObjectId(objectId)) {
-      reject(createError(constants.BAD_REQUEST_STATUS, process.env.INVALID_OBJECT_ID_MESSAGE + objectId));
-    }
-    resolve(objectId);
-  })
-}
-
 const validatePaginationParams = function (offset, count) {
   return new Promise((resolve, reject) => {
     if (!offset) offset = constants.DEFAULT_OFFSET;
@@ -27,11 +18,11 @@ const validatePaginationParams = function (offset, count) {
   })
 }
 
-const successResponse = function (res, message, status = constants.SUCCESS_STATUS) { 
+const successResponse = function (res, message, status = constants.SUCCESS_STATUS) {
   return res.status(status).json(message);
 }
 
-const noContentResponse = function (res, status = constants.NO_CONTENT_STATUS) { 
+const noContentResponse = function (res, status = constants.NO_CONTENT_STATUS) {
   return res.status(status).send();
 }
 
@@ -46,7 +37,6 @@ const createError = function (status, message) {
 }
 
 module.exports = {
-  validateObjectId,
   successResponse,
   createError,
   errorResponse,

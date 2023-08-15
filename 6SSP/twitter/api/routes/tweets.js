@@ -4,7 +4,7 @@ const authenticationController = require("../controllers/authentication.controll
 
 const tweetsRoutes = express.Router();
 
-tweetsRoutes.route("/tweets")
+tweetsRoutes.route("/")
   .get(authenticationController.verifyToken, tweetsController.findAll)
   .post(authenticationController.verifyHeader, authenticationController.verifyToken, tweetsController.insertOne)
 

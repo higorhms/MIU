@@ -9,10 +9,8 @@ const constants = require("../constants");
 const User = mongoose.model(process.env.USER_MODEL);
 
 const findAll = function (req, res) {
-  // const userId = req.userId;
   const username = req.query.username;
   const filter = {};
-  // if (userId) filter._id = { $ne: new mongoose.Types.ObjectId(userId) };
   if (username) filter.username = { $regex: new RegExp(username, 'i') };
 
   User.find(filter).select('-password').exec()
@@ -56,7 +54,7 @@ const findOne = function (req, res) {
   const userId = req.params.userId || req.userId;
 
   User.findById(userId).exec()
-    .then((userToUnfollow) => _checkIfUserExist(userToUnfollow))
+    .then((user) => _checkIfUserExist(user))
     .then((user) => successResponse(res, user))
     .catch((error) => errorResponse(res, error))
 }
@@ -84,7 +82,7 @@ const _removeFollower = function (userToUnfollow, follower) {
 const _addFollower = function (userToFollow, follower) {
   return new Promise((resolve, reject) => {
     const alreadyFollowing = userToFollow.followers.find(storedFollower => storedFollower.toString() === follower);
-    if (alreadyFollowing) reject(createError(constants.BAD_REQUEST_STATUS, "Already following"));
+    if (alreadyFollowing) reject(createError(constants.BAD_REQUEST_STATUS, process.env.ALREADY_FOLLOWING_MESSAGE));
     userToFollow.followers.push(new mongoose.Types.ObjectId(follower));
     userToFollow.save()
       .then(() => resolve())
