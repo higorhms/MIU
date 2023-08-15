@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { environment } from '../../environments/environment';
 import { UsersDataService } from '../users-data.service';
 
 export class SignUpForm {
