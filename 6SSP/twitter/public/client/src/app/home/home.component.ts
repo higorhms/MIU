@@ -34,23 +34,28 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._getTweets();
+    this.getTweets();
   }
 
-  _getTweets(newTweet: boolean = false) {
+  getTweets(newTweet: boolean = false) {
     if (newTweet) this.page = environment.DEFAULT_FIRST_PAGE;
     this._tweetsDataService.getAll(this.page).subscribe({
       next: (tweets: Tweet[]) => {
         if (newTweet) this.tweets = tweets;
-        if (!newTweet) this.tweets = [...this.tweets, ...tweets];
-        this.nextPage();
+        if (!newTweet) {
+          this.tweets = [...this.tweets, ...tweets]
+          this.nextPage();
+        };
       }
     })
   }
 
   _create() {
     this._tweetsDataService.create(this.form.description).subscribe({
-      next: () => this._getTweets(true),
+      next: () => {
+        this.getTweets(true)
+        this.form.description = '';
+      },
       error: (error) => this._toastrService.error(error.error.message)
     })
   }
@@ -59,6 +64,6 @@ export class HomeComponent implements OnInit {
   onScroll() {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     const max = document.documentElement.scrollHeight;
-    if (pos >= max) this._getTweets();
+    if (pos >= max) this.getTweets();
   }
 }

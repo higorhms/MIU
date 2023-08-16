@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   get isSignedIn() { return this._authenticationService.isSignedIn }
   @Input() title: string = '';
   @Input() user: User = new User();
+  @Input() parentMethod: any;
 
   constructor(
     private _usersDataService: UsersDataService,
@@ -44,13 +45,19 @@ export class SearchComponent implements OnInit {
 
   follow(username: string) {
     this._usersDataService.follow(username).subscribe({
-      next: () => this._getUsers()
+      next: () => {
+        this._getUsers()
+        if (this.parentMethod) this.parentMethod(true);
+      }
     })
   }
 
   unfollow(username: string) {
     this._usersDataService.unfollow(username).subscribe({
-      next: () => this._getUsers()
+      next: () => {
+        this._getUsers()
+        if (this.parentMethod) this.parentMethod(true);
+      }
     })
   }
 

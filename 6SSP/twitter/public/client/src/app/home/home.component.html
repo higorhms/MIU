@@ -23,5 +23,5 @@
       </a>
     </div>
   </div>
-  <app-search *ngIf="isSignedIn" [title]="'Who to follow'"></app-search>
+  <app-search *ngIf="isSignedIn" [title]="'Who to follow'" [parentMethod]="getTweets.bind(this)"></app-search>
 </div>

@@ -15,7 +15,7 @@
           <h2>@{{user.username}}</h2>
         </div>
       </a>
-      <button *ngIf="isSignedIn && user._id !== id" (click)="toggleFollow(user)">{{followAction(user)}}</button>
+      <button *ngIf="isSignedIn && user._id !== id" (click)="toggleFollow(user)" >{{followAction(user)}}</button>
     </div>
   </div>
 </div>
