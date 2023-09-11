@@ -7,8 +7,14 @@
     </div>
 
     <form>
-      <input placeholder="username" name="username" [(ngModel)]="form.username" />
-      <input placeholder="password" name="password" type="password" [(ngModel)]="form.password" />
+      <input placeholder="username" name="username" [(ngModel)]="form.username" #usernameModel="ngModel"/>
+      <div *ngIf="usernameModel.touched && !form.username">
+        Username is required.
+      </div>
+      <input placeholder="password" name="password" type="password" [(ngModel)]="form.password" #passwordModel="ngModel"/>
+      <div *ngIf="passwordModel.touched && !form.password" >
+        Password is required.
+      </div>
       <button class="submit-button" type="submit" (click)="signIn()">Sign in</button>
     </form>
 
