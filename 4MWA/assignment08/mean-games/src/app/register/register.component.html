@@ -1,0 +1,33 @@
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <label>
+      Title: <input type="text" name="title" id="title" [(ngModel)]="form.title">
+    </label>
+    <br/>
+    <label>
+      Year: <input type="text" name="year" id="year" [(ngModel)]="form.year">
+    </label>
+    <br/>
+    <label>
+      Rate: <input type="text" name="rate" id="rate" [(ngModel)]="form.rate">
+    </label>
+    <br/>
+    <label>
+      Price: <input type="number" name="price" id="price" [(ngModel)]="form.price">
+    </label>
+    <br/>
+    <label>
+      Minimum amount of players: <input type="number" name="minPlayers" id="minPlayers" [(ngModel)]="form.minPlayers">
+    </label>
+    <br/>
+    <label>
+      Maximum amount of players: <input type="number" name="maxPlayers" id="maxPlayers" [(ngModel)]="form.maxPlayers">
+    </label>
+    <br/>
+    <label>
+      Minimum Age: <input type="number" name="minAge" id="minAge" [(ngModel)]="form.minAge">
+    </label>
+    <br/>
+    <button type="submit">Submit</button>
+  </form>
+</div>
