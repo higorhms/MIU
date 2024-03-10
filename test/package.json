@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "canvas": "2.11.2",
+    "gif-encoder-2": "1.0.5",
+    "gifencoder": "2.0.1",
+    "jimp": "0.22.10",
+    "sharp": "0.32.6"
+  }
+}
